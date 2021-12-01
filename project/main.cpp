@@ -16,7 +16,7 @@ void read_csvline() {
     std::ifstream fin;
 
     // Open an existing file
-    fin.open("/home/eseiler/posixfs/MATH-458-Project_Non_Linear_Systems/project/data.csv", std::ios::in);
+    fin.open("/home/eseiler/posixfs/MATH-458-ProjectNonLinearSystems/data.csv", std::ios::in);
     assert(fin.is_open());
 
     // Get the function number of which the data is required
