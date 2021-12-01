@@ -12,15 +12,15 @@ public:
     AbstractSolver();
     virtual ~AbstractSolver();
 
-    // Other public methods
+    // Setter
     void SetInterval(const double a, const double b) {lowerBound = a; upperBound = b; }
     void SetInitialValue(const double x0) {initialValue = x0; }
     void SetTol(const double tol) {tolerance = tol; }
-    void SetMaxIter(const int nmax) {maxIter = nmax; }
+    void SetMaxIter(const int nMax) {maxIter = nMax; }
     void SetF(double (*fun)(double x)) {f = fun; }
     void SetDf(double (*fun)(double x)) {df = fun; }
 
-    // Get methods
+    // Getter
     double GetLowerBound() const { return lowerBound; }
     double GetUpperBound() const { return upperBound; }
     double GetInitialValue() const { return initialValue; }
@@ -28,11 +28,11 @@ public:
     int GetMaxIter() const { return maxIter; }
 
     //Get functions value methods
-    double GetFvalue(double x) const { return f(x); }
-    double GetDfvalue(double x) const { return df(x); }
+    double GetFValue(double x) const { return f(x); }
+    double GetDfValue(double x) const { return df(x); }
 
     // Solver methods (Pure Virtual)
-    virtual void SolveEquation() = 0;
+    virtual void SolveEquation() const = 0;
 
 protected:
     double lowerBound;

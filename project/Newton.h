@@ -15,7 +15,7 @@ public:
     ~Newton() override;
 
     // Solve method
-    void SolveEquation() override;
+    void SolveEquation() const override;
 
 };
 
