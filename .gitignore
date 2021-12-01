@@ -15,6 +15,5 @@ _deps
 *~
 *CMakeFiles
 *CMakeCache.txt
-.project
 .cproject
 cmake-build-debug
