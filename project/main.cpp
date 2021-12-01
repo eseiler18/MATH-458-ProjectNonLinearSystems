@@ -21,7 +21,7 @@ void read_csvline() {
 
     // Get the function number of which the data is required
     int i, count = 0;
-    std::cout << "Enter the row number of the file you want to read";
+    std::cout << "Enter the row number of the file you want to read : ";
     std::cin >> i;
 
     // Read the Data from the file as String Vector
