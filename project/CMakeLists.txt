@@ -5,3 +5,7 @@ add_executable(main main.cpp AbstractSolver.cpp AbstractSolver.h
 
 
 
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/../data.csv data.csv COPYONLY)
+
+
+

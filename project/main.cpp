@@ -7,16 +7,16 @@
 #include "ClassicChord.h"
 
 double fun(double x){return x*x;}
-double dfun(double x){return 2*x;}
+double dFun(double x){return 2*x;}
 double ideFun(double x){return x-22;}
 double dIdeFun(double x){return 1;}
 
-void read_csvline() {
+void readCsvLine() {
     // File pointer
     std::ifstream fin;
 
     // Open an existing file
-    fin.open("/home/eseiler/posixfs/MATH-458-ProjectNonLinearSystems/data.csv", std::ios::in);
+    fin.open("data.csv", std::ios::in);
     assert(fin.is_open());
 
     // Get the function number of which the data is required
@@ -71,7 +71,7 @@ int main() {
     ch.SetTol(0.0001);
     ch.SolveEquation();
 
-    read_csvline();
+    readCsvLine();
 
 
 
