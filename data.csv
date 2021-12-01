@@ -1,4 +1,4 @@
 fun,dfun,lowerBound,upperBound,x0,tolerance,maxIterations
 x²,2*x,-10,10,1,0.0001,1000
 x,1,-10,10,1,0.0001,1000
-x³+22,3*x,-100,100,1,0.0001,1000
+x³+22,3*x²,-100,100,1,0.0001,1000
