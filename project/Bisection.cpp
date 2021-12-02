@@ -10,8 +10,8 @@ Bisection::Bisection() =default;
 Bisection::~Bisection() =default;
 
 void Bisection::SolveEquation() const {
-    double a=upperBound;
-    double b=lowerBound;
+    double b=upperBound;
+    double a=lowerBound;
     std::cout<<"Bisection Method :"<<std::endl;
 
     //Tcheck 1 : Bound viability
@@ -53,7 +53,7 @@ void Bisection::SolveEquation() const {
         it +=1;
     }
 
-    if (it > maxIter){
+    if (it >= maxIter){
         std::cout << "Didn't converge after " << maxIter << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "Difference of successive iterates = " << res;
         std::cout << "x = " << aux << " and f(x) = " << GetFValue(aux) << std::endl;
