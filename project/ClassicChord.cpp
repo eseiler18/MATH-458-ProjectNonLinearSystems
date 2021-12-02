@@ -26,7 +26,7 @@ void ClassicChord::SolveEquation() const {
         x = xNext;
     }
     std::cout << "Classic Chord Method :" << std::endl;
-    if (it > maxIter) {
+    if (it >= maxIter) {
         std::cout << "Didn't converge after " << maxIter << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "Difference of successive iterates = " << res;
         std::cout << "x = " << xNext << " and f(x) = " << GetFValue(xNext) << std::endl;

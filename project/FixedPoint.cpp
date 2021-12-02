@@ -14,7 +14,7 @@ void FixedPoint::SolveEquation() const {
     //Initialise
     int it = 0;
     double res = tolerance +1;
-    double x= initialValue;
+    double x = initialValue;
     double aux;
 
     while (res > tolerance && it < maxIter){
@@ -29,7 +29,7 @@ void FixedPoint::SolveEquation() const {
     }
 
     std::cout << "Fixed Point Method :" << std::endl;
-    if (it > maxIter){
+    if (it >= maxIter){
         std::cout << "Didn't converge after " << maxIter << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "Difference of successive iterates = " << res;
         std::cout << "x = " << x << " and f(x) = " << GetFValue(x) << std::endl;
