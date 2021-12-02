@@ -2,13 +2,19 @@
 // Created by lleguill on 01.12.21.
 //
 
-#ifndef PCSC_PROJECT_BISECTION_H
-#define PCSC_PROJECT_BISECTION_H
+#ifndef BISECTION_H
+#define BISECTION_H
 
+#include "AbstractSolver.h"
 
-class Bisection {
+class Bisection : public  AbstractSolver{
+public :
+    Bisection();
+    ~Bisection() override ;
+
+    //Solve
+    void SolveEquation() const override;
 
 };
 
-
-#endif //PCSC_PROJECT_BISECTION_H
+#endif //BISECTION_H
