@@ -9,4 +9,4 @@ AbstractSolver::AbstractSolver()
         : lowerBound(), upperBound(), initialValue(),
         tolerance(), maxIter(), f(0), df(0) {}
 
-AbstractSolver::~AbstractSolver() {}
+AbstractSolver::~AbstractSolver() = default;
