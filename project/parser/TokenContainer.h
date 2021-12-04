@@ -30,7 +30,7 @@ public:
         return result;
     }
 
-    const list<AbstractToken *> &getChildren() const {
+    const list<AbstractToken *> &getChildren() const override {
         return children;
     }
 
