@@ -14,6 +14,6 @@ enum TokenType{
     POW = 7, // ^
     NUMBER = 8, // 0-9
     VAR = 9, // x
-    CONTAINER = 10, // 0-9
+    CONTAINER = 10, // container of all other token (...)
 };
 #endif //PCSC_PROJECT_TOKENTYPE_H
