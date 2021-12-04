@@ -6,6 +6,7 @@
 #define PCSC_PROJECT_ABSTRACTTOKEN_H
 
 #include <iostream>
+#include <list>
 #include "TokenType.h"
 
 /**
@@ -35,6 +36,7 @@ public:
     }
 
     virtual std::string toString() const = 0;
+    virtual const std::list<AbstractToken *> &getChildren() const{}
 
 
 };
