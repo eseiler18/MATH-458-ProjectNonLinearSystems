@@ -4,11 +4,17 @@
 
 #include "ClassicChord.h"
 
+//Constructor
 ClassicChord::ClassicChord() = default;
+ClassicChord::ClassicChord(double (*fun)(double), double intialval) :
+    AbstractSolver(fun), initialValue(intialval){}
+ClassicChord::ClassicChord(double (*fun)(double), double intialval, double tol, int Maxit) :
+    AbstractSolver(fun,tol,Maxit), initialValue(intialval){}
 
-
+    //Destructor
 ClassicChord::~ClassicChord() = default;
 
+//Equation Solver
 void ClassicChord::SolveEquation() const {
     int it = 1;
     double xPrev = initialValue;
@@ -35,4 +41,3 @@ void ClassicChord::SolveEquation() const {
         std::cout << "x = " << xNext << " and f(x) = " << GetFValue(xNext) << std::endl;
     }
 }
-

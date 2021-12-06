@@ -11,12 +11,21 @@ class ClassicChord : public AbstractSolver{
 
     // Generator and Destructor
     ClassicChord();
+    ClassicChord(double (*fun)(double x),double intialval);
+    ClassicChord(double (*fun)(double x),double intialvalue,double tol,int Maxit);
     ~ClassicChord() override;
+
+    // Getter
+    double GetInitialValue() const { return initialValue; }
+
+    //Setter
+    void SetInitialValue(const double x0) {initialValue = x0; }
 
     //Solve method
     void SolveEquation() const override;
 
+private:
+    double initialValue;
 };
-
 
 #endif //PROJECT_CLASSICCHORD_H

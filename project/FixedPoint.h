@@ -12,10 +12,20 @@ public:
 
     //Generation & Destructor
     FixedPoint();
+    FixedPoint(double (*fun)(double x),double intialval);
+    FixedPoint(double (*fun)(double x),double intialvalue,double tol,int Maxit);
     ~FixedPoint() override;
+
+    // Getter
+    double GetInitialValue() const { return initialValue; }
+
+    //Setter
+    void SetInitialValue(const double x0) {initialValue = x0; }
 
     //Solve Method
     void SolveEquation() const override;
+private:
+    double initialValue;
 
 };
 

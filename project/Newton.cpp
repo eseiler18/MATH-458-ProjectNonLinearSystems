@@ -6,7 +6,16 @@
 
 Newton::Newton() = default;
 
+Newton::Newton(double (*fun)(double), double (*dfun)(double), double intialvalue):
+        AbstractSolver(fun), df(dfun), initialValue(intialvalue){}
+
+Newton::Newton(double (*fun)(double), double (*dfun)(double), double intialvalue, double tol, int Maxit)
+    : AbstractSolver(fun,tol,Maxit), df(dfun), initialValue(intialvalue){}
+
 Newton::~Newton() = default;
+
+
+
 
 void Newton::SolveEquation() const {
     int it = 1;
@@ -30,5 +39,4 @@ void Newton::SolveEquation() const {
         std::cout << "x = " << xNext << " and f(x) = " << GetFValue(xNext) << std::endl;
     }
 }
-
 
