@@ -6,7 +6,7 @@ add_executable(main main.cpp AbstractSolver.cpp AbstractSolver.h
 add_executable(main_louis main_louis.cpp AbstractSolver.cpp AbstractSolver.h
         Bisection.cpp Bisection.h FixedPoint.cpp FixedPoint.h)
 
-
+add_subdirectory(parser)
 
 configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/../data.csv data.csv COPYONLY)
 

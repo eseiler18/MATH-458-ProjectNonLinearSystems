@@ -56,13 +56,19 @@ void readCsvLine() {
 }
 
 int main() {
-    Newton n;
-    n.SetF(ideFun);
-    n.SetDf(dIdeFun);
-    n.SetInitialValue(-5);
-    n.SetMaxIter(100);
-    n.SetTol(0.0001);
+
+
+    Newton k(ideFun,dIdeFun,6);
+    k.SolveEquation();
+
+
+    Newton n(fun,dFun,20,0.00001,1000);
     n.SolveEquation();
+
+    ClassicChord c(fun,0);
+
+
+    /*
 
     ClassicChord ch;
     ch.SetF(ideFun);
@@ -71,7 +77,7 @@ int main() {
     ch.SetTol(0.0001);
     ch.SolveEquation();
 
-    readCsvLine();
+    readCsvLine(); */
 
 
 

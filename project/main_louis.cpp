@@ -13,19 +13,24 @@ double fun(double x){return x*x;}
 
 int main() {
 
-    Bisection b;
-    b.SetF(ideFun);
-    b.SetMaxIter(100);
-    b.SetTol(0.0001);
-    b.SetInterval(10, 30);
-    b.SolveEquation();
+
+    Bisection c(ideFun,0.0001,1000,10,30);
+    c.SolveEquation();
+
+
+    Bisection d(ideFun,0,50);
+    d.SolveEquation();
+
+    FixedPoint(ideFun,4);
+
+    /*
 
     FixedPoint fp;
     fp.SetF(ideFun);
     fp.SetInitialValue(-5);
     fp.SetMaxIter(1000);
     fp.SetTol(0.001);
-    fp.SolveEquation();
+    fp.SolveEquation(); */
 
 
     return 0;
