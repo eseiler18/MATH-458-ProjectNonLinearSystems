@@ -6,7 +6,7 @@
 #define PCSC_PROJECT_DATA_H
 
 #include <string>
-#include <iostream>
+#include <map>
 #include "../parser/Solver.h"
 
 struct Data{
@@ -19,6 +19,8 @@ struct Data{
     double initialValue;
     double tolerance;
     int maxIter;
+    std::map <std::string, bool> method = {{"Newton",true}, {"Bisection",true},
+                                           {"Chord",true},{"FixedPoint",true}};
 };
 
 #endif //PCSC_PROJECT_DATA_H
