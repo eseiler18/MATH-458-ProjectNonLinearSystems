@@ -16,6 +16,7 @@ public:
 private:
     static bool isNumber(const std::string& str);
     static bool isEmptyFile(basic_ifstream<char>& file);
+    static void fillChosenMethod(Data* data, const std::string& methods, int line);
 };
 
 
