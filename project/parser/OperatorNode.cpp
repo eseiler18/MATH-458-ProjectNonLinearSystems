@@ -3,6 +3,7 @@
 //
 
 #include <math.h>
+#include <iostream>
 #include "OperatorNode.h"
 
 double OperatorNode::solve(double x) {
@@ -16,6 +17,9 @@ double OperatorNode::solve(double x) {
         return operand1->solve(x) * operand2->solve(x);
     }
     if (tokenType == TokenType::DIV){
+        if (operand2->solve(x) == 0){
+            throw std::invalid_argument("Error divide by zero");
+        }
         return operand1->solve(x) / operand2->solve(x);
     }
     if (tokenType == TokenType::POW){
