@@ -8,11 +8,6 @@
 AbstractSolver::AbstractSolver()
         :tolerance(), maxIter(), f(0) {}
 
-AbstractSolver::AbstractSolver(AbstractNode* fun)  {
-    f =fun ;
-    tolerance=0.00001;
-    maxIter= 10000 ;
-}
 
 AbstractSolver::AbstractSolver(AbstractNode* fun, double tol, int Maxit) {
     f=fun ;

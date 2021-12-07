@@ -11,8 +11,8 @@ class ClassicChord : public AbstractSolver{
 
     // Generator and Destructor
     ClassicChord();
-    ClassicChord(AbstractNode* fun,double intialval);
     ClassicChord(AbstractNode* fun,double intialvalue,double tol,int Maxit);
+    ClassicChord(Data* data);
     ~ClassicChord() override;
 
     // Getter

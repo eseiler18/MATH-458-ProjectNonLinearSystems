@@ -12,8 +12,8 @@ public:
 
     //Generation & Destructor
     FixedPoint();
-    FixedPoint(AbstractNode* fun,double intialval);
     FixedPoint(AbstractNode* fun,double intialvalue,double tol,int Maxit);
+    FixedPoint(Data* data);
     ~FixedPoint() override;
 
     // Getter

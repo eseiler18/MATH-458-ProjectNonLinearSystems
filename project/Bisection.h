@@ -11,7 +11,7 @@ class Bisection : public  AbstractSolver{
 public :
     // Constructor
     Bisection();
-    Bisection(AbstractNode* fun,double a, double b);
+    Bisection(Data* data);
     Bisection(AbstractNode* fun,double tol,int Maxit,double lowerbound, double upperbund);
     ~Bisection() override ;
 

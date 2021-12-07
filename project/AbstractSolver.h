@@ -12,7 +12,6 @@ class AbstractSolver {
 public:
     // Constructor and destructor
     AbstractSolver();
-    AbstractSolver(AbstractNode* fun);
     AbstractSolver(AbstractNode* fun ,double tol,int Maxit);
 
     virtual ~AbstractSolver();

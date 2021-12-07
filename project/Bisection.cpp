@@ -7,9 +7,14 @@
 
 Bisection::Bisection() =default;
 
-Bisection::Bisection(AbstractNode* fun, double a, double b) :
-        AbstractSolver(fun), lowerBound(a),upperBound(b) {}
-
+Bisection::Bisection(Data *data) {
+    if (data->method["Bisection"]) {
+        *this = Bisection(data->fun, data->tolerance, data->maxIter,
+                          data->lowerBound, data->upperBound);
+    } else {
+        throw std::invalid_argument("Dont fit with Bisection");
+    }
+}
 
 Bisection::Bisection(AbstractNode* fun,double tol, int Maxit, double lowerbound, double upperbound) :
     AbstractSolver(fun,tol,Maxit), lowerBound(lowerbound),upperBound(upperbound) {}
@@ -73,4 +78,5 @@ void Bisection::SolveEquation() const {
 
 
 }
+
 
