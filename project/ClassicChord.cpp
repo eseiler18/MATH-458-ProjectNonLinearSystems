@@ -6,12 +6,19 @@
 
 //Constructor
 ClassicChord::ClassicChord() = default;
-ClassicChord::ClassicChord(double (*fun)(double), double intialval) :
-    AbstractSolver(fun), initialValue(intialval){}
-ClassicChord::ClassicChord(double (*fun)(double), double intialval, double tol, int Maxit) :
+ClassicChord::ClassicChord(AbstractNode* fun, double intialval, double tol, int Maxit) :
     AbstractSolver(fun,tol,Maxit), initialValue(intialval){}
 
-    //Destructor
+ClassicChord::ClassicChord(Data *data) {
+    if (data->method["Chord"]) {
+        *this =ClassicChord(data->fun,data->initialValue,
+                          data->tolerance,data->maxIter);
+    }else{
+        throw std::invalid_argument("Dont fit with Classic Chord Method");
+    }
+}
+
+//Destructor
 ClassicChord::~ClassicChord() = default;
 
 //Equation Solver
@@ -41,3 +48,4 @@ void ClassicChord::SolveEquation() const {
         std::cout << "x = " << xNext << " and f(x) = " << GetFValue(xNext) << std::endl;
     }
 }
+

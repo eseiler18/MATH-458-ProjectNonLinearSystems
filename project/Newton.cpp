@@ -6,15 +6,18 @@
 
 Newton::Newton() = default;
 
-Newton::Newton(double (*fun)(double), double (*dfun)(double), double intialvalue):
-        AbstractSolver(fun), df(dfun), initialValue(intialvalue){}
-
-Newton::Newton(double (*fun)(double), double (*dfun)(double), double intialvalue, double tol, int Maxit)
-    : AbstractSolver(fun,tol,Maxit), df(dfun), initialValue(intialvalue){}
+Newton::Newton(Data *data) {
+    if (data->method["Newton"]) {
+        *this =Newton(data->fun, data->dFun, data->initialValue,
+                      data->tolerance,data->maxIter);
+    }else{
+        throw std::invalid_argument("Dont fit with Netoon");
+    }
+}
+Newton::Newton(AbstractNode* fun, AbstractNode* dfun, double intialvalue, double tol, int maxIt)
+    : AbstractSolver(fun,tol,maxIt), df(dfun), initialValue(intialvalue){}
 
 Newton::~Newton() = default;
-
-
 
 
 void Newton::SolveEquation() const {
@@ -39,4 +42,6 @@ void Newton::SolveEquation() const {
         std::cout << "x = " << xNext << " and f(x) = " << GetFValue(xNext) << std::endl;
     }
 }
+
+
 

@@ -12,17 +12,17 @@ public:
 
     //Generation and destruction methods
     Newton();
-    Newton(double (*fun)(double x),double (*dfun)(double x),double intialvalue);
-    Newton(double (*fun)(double x),double (*dfun)(double x),double intialvalue,double tol,int Maxit);
+    Newton(Data* data);
+    Newton(AbstractNode* fun,AbstractNode* dfun,double intialvalue,double tol,int maxIt);
     ~Newton() override;
 
     // Getter
     double GetInitialValue() const { return initialValue; }
-    double GetDfValue(double x) const { return df(x); }
+    double GetDfValue(double x) const { return df->solve(x); }
 
     //Setter
     void SetInitialValue(const double x0) {initialValue = x0; }
-    void SetDf(double (*fun)(double x)) {df = fun; }
+    void SetDf(AbstractNode* dfun) {df = dfun; }
 
 
     // Solve method
@@ -30,7 +30,7 @@ public:
 
 private:
     double initialValue;
-    double (*df)(double x);
+    AbstractNode* df;
 
 };
 
