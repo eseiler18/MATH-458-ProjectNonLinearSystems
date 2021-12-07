@@ -12,8 +12,8 @@ public:
 
     //Generation and destruction methods
     Newton();
-    Newton(AbstractNode* fun,AbstractNode* dfun,double intialvalue);
-    Newton(AbstractNode* fun,AbstractNode* dfun,double intialvalue,double tol,int Maxit);
+    Newton(Data* data);
+    Newton(AbstractNode* fun,AbstractNode* dfun,double intialvalue,double tol,int maxIt);
     ~Newton() override;
 
     // Getter
