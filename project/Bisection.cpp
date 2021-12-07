@@ -7,11 +7,11 @@
 
 Bisection::Bisection() =default;
 
-Bisection::Bisection(double (*fun)(double), double a, double b) :
+Bisection::Bisection(AbstractNode* fun, double a, double b) :
         AbstractSolver(fun), lowerBound(a),upperBound(b) {}
 
 
-Bisection::Bisection(double (*fun)(double),double tol, int Maxit, double lowerbound, double upperbound) :
+Bisection::Bisection(AbstractNode* fun,double tol, int Maxit, double lowerbound, double upperbound) :
     AbstractSolver(fun,tol,Maxit), lowerBound(lowerbound),upperBound(upperbound) {}
 
 Bisection::~Bisection() =default;

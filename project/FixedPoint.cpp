@@ -7,10 +7,10 @@
 
 FixedPoint::FixedPoint() =default;
 
-FixedPoint::FixedPoint(double (*fun)(double), double intialval) :
+FixedPoint::FixedPoint(AbstractNode* fun, double intialval) :
     AbstractSolver(fun), initialValue(intialval){}
 
-FixedPoint::FixedPoint(double (*fun)(double), double intialval, double tol, int Maxit) :
+FixedPoint::FixedPoint(AbstractNode* fun, double intialval, double tol, int Maxit) :
         AbstractSolver(fun,tol,Maxit), initialValue(intialval) {}
 
 

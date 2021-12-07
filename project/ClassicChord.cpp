@@ -6,9 +6,9 @@
 
 //Constructor
 ClassicChord::ClassicChord() = default;
-ClassicChord::ClassicChord(double (*fun)(double), double intialval) :
+ClassicChord::ClassicChord(AbstractNode* fun, double intialval) :
     AbstractSolver(fun), initialValue(intialval){}
-ClassicChord::ClassicChord(double (*fun)(double), double intialval, double tol, int Maxit) :
+ClassicChord::ClassicChord(AbstractNode* fun, double intialval, double tol, int Maxit) :
     AbstractSolver(fun,tol,Maxit), initialValue(intialval){}
 
     //Destructor

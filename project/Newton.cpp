@@ -6,10 +6,10 @@
 
 Newton::Newton() = default;
 
-Newton::Newton(double (*fun)(double), double (*dfun)(double), double intialvalue):
+Newton::Newton(AbstractNode* fun, AbstractNode* dfun, double intialvalue):
         AbstractSolver(fun), df(dfun), initialValue(intialvalue){}
 
-Newton::Newton(double (*fun)(double), double (*dfun)(double), double intialvalue, double tol, int Maxit)
+Newton::Newton(AbstractNode* fun, AbstractNode* dfun, double intialvalue, double tol, int Maxit)
     : AbstractSolver(fun,tol,Maxit), df(dfun), initialValue(intialvalue){}
 
 Newton::~Newton() = default;
