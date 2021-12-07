@@ -6,6 +6,7 @@
 #define PROJECT_ABSTRACTSOLVER_H
 #include <iostream>
 #include "parser/AbstractNode.h"
+#include "readData/Data.h"
 
 class AbstractSolver {
 public:
@@ -37,7 +38,7 @@ public:
 
 protected:
     double tolerance =0.0001;
-    int maxIter =1000;
+    int maxIter =10000;
     AbstractNode* f ;
 };
 
