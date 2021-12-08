@@ -11,14 +11,14 @@
 
 struct Data{
     // Root node of function and derivative 's trees
-    AbstractNode* fun = nullptr;
-    AbstractNode* dFun = nullptr;
+    AbstractNode* fun;
+    AbstractNode* dFun;
     // Other variables to apply methods
-    double lowerBound = 0;
-    double upperBound = 0;
-    double initialValue = 0;
-    double tolerance = 0;
-    int maxIter = 0;
+    double lowerBound;
+    double upperBound;
+    double initialValue;
+    double tolerance;
+    int maxIter;
     std::map <std::string, bool> method = {{"Newton",true}, {"Bisection",true},
                                            {"Chord",true},{"FixedPoint",true}};
 };

@@ -26,8 +26,8 @@ public :
     void SolveEquation() const override;
 
 private:
-    double upperBound{};
-    double lowerBound{};
+    double upperBound;
+    double lowerBound;
 
 };
 
