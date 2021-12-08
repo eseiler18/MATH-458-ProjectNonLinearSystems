@@ -48,7 +48,7 @@ int main() {
     int cnt=0;
     for (Data* data: allData){
         cnt++;
-        std::cout<<"Function #"<<cnt<<std::endl;
+        std::cout<<"\nFunction #"<<cnt<<std::endl;
         if (data->method["Newton"]){
             Newton newt(data);
             newt.SolveEquation();
@@ -62,7 +62,7 @@ int main() {
             FixedPoint fxdp(data);
             fxdp.SolveEquation();
         }
-        std::cout<<std::endl<<std::endl;
+        std::cout<<std::endl;
         delete data;
     }
 
