@@ -58,7 +58,7 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
             data->fun = Solver::strToFun(row[1]);
             // derivative
             if (row[2].empty() && data->method["Newton"])  {
-                std::cout << "Warning: derivative is empty at line "  + to_string(countLine)
+                std::cout << "Warning line " + to_string(countLine) + ": derivative is empty"
                     + ". Can't use Newton method" << std::endl;
                 data->method["Newton"] = false;
             } else if (!row[2].empty()) {
@@ -66,7 +66,7 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
             }
             // interval lower bound
             if (row[3].empty() && data->method["Bisection"]) {
-                std::cout << "Warning: lowerBound is empty at line " + to_string(countLine) +
+                std::cout << "Warning line " + to_string(countLine) + ": lowerBound is empty"+
                     ". Can't use bisection method" << std::endl;
                 data->method["Bisection"] = false;
             } else if (!row[2].empty()) {
@@ -78,7 +78,7 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
             }
             // interval upper bound
             if (row[4].empty() && data->method["Bisection"]) {
-                std::cout << "Warning: upperBound is empty at line " + to_string(countLine)
+                std::cout << "Warning line " + to_string(countLine) + ": upperBound is empty"
                         + ". Can't use bisection method" << std::endl;
                 data->method["Bisection"] = false;
             } else if (!row[2].empty()) {
@@ -90,12 +90,32 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
             }
             // initial value
             if (row[5].empty() && (data->method["Newton"] || data->method["FixedPoint"] || data->method["Chord"])) {
-                std::cout << "Warning: initial value is empty at line: " + to_string(countLine)
-                    + ". Can't use newton, chord and fixed point methods" << std::endl;
-                data->method["Newton"] = false;
-                data->method["FixedPoint"] = false;
-                data->method["Chord"] = false;
-            } else {
+                std::string methodCantDo;
+                if (data->method["Newton"]){
+                    data->method["Newton"] = false;
+                    methodCantDo += "newton";
+                }
+                if (data->method["FixedPoint"]){
+                    data->method["FixedPoint"] = false;
+                    if (methodCantDo.empty()){
+                        methodCantDo += "fixed point";
+                    }
+                    else{
+                        methodCantDo += ", fixed point";
+                    }
+                }
+                if (data->method["Chord"]){
+                    data->method["Chord"] = false;
+                    if (methodCantDo.empty()){
+                        methodCantDo += "chord";
+                    }
+                    else{
+                        methodCantDo += ", chord";
+                    }
+                }
+                std::cout << "Warning line " + to_string(countLine) +": initial value is empty" +
+                ". Can't use " + methodCantDo +" methods" << std::endl;
+            } else if(data->method["Newton"] || data->method["FixedPoint"] || data->method["Chord"]){
                 if (!ReaderData::isNumber(row[5])) {
                     throw std::invalid_argument("Invalid cell in csv file at line " + to_string(countLine)
                         + ": " + row[5] + " should be a number.");
@@ -105,7 +125,7 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
             //tolerance
             if (row[6].empty()) {
                 data->tolerance = 0.0001;
-                std::cout << "Warning: tolerance is empty at line " + to_string(countLine)
+                std::cout << "Warning line " + to_string(countLine) + ": tolerance is empty"
                             + ". Set value by default at 0.0001"<<std::endl;
             } else {
                 if (!ReaderData::isNumber(row[6])) {
@@ -117,7 +137,7 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
             //maxIter
             if (row.size() != 8) {
                 data->maxIter = 10000;
-                std::cout << "Warning: number of max iterations is empty at line " + to_string(countLine)
+                std::cout << "Warning line " + to_string(countLine) + ": number of max iterations is empty"
                              + ". Set value by default at 10000"<<std::endl;
             } else {
                 if (!ReaderData::isNumber(row[7])) {
