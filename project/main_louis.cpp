@@ -14,27 +14,20 @@
 
 
 int main() {
+    /*
+    AbstractNode* fun = Solver::strToFun("(x*3 +7)/0");
+    fun->solve(8);
+
 
     AbstractNode* fun = Solver::strToFun("x*3 +7");
     AbstractNode* dfun = Solver::strToFun("3");
     Bisection c(fun,0.0001,1000,-10,30);
     //c.SolveEquation();
-
     Newton n(fun,dfun,-3,0.00001,1000);
     //n.SolveEquation();
-
-
     std::string frappe("x*3 +7");
     std::string dfrappe("3");
 
-    Data t ;
-    t.lowerBound= 4;
-    t.upperBound=10 ;
-    t.initialValue= 23;
-    t.tolerance =-1;
-    t.maxIter = 1000 ;
-    t.fun = Solver::strToFun(frappe);
-    t.dFun = Solver::strToFun(dfrappe);
 
     Data bisec;
     bisec.lowerBound= -10;
@@ -49,6 +42,31 @@ int main() {
 
     Newton BB(&bisec);
     BB.SolveEquation();
+    */
+
+    std::vector<Data*> allData = ReaderData::readAllData(("data.csv"));
+    int cnt=0;
+    for (Data* data: allData){
+        cnt++;
+        std::cout<<"Function #"<<cnt<<std::endl;
+        if (data->method["Newton"]){
+            Newton newt(data);
+            newt.SolveEquation();
+        }if (data->method["Bisection"]){
+            Bisection bisec(data);
+            bisec.SolveEquation();
+        }if (data->method["Chord"]){
+            ClassicChord chrd(data);
+            chrd.SolveEquation();
+        }if (data->method["FixedPoint"]){
+            FixedPoint fxdp(data);
+            fxdp.SolveEquation();
+        }
+        std::cout<<std::endl<<std::endl;
+        delete data;
+    }
+
+
 
 
     return 0;
