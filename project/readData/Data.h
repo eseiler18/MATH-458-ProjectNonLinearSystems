@@ -19,8 +19,8 @@ struct Data{
     double initialValue;
     double tolerance;
     int maxIter;
-    std::map <std::string, bool> method = {{"Newton",true}, {"Bisection",true},
-                                           {"Chord",true},{"FixedPoint",true}};
+    std::map <std::string, bool> method = {{"Newton",false}, {"Bisection",false},
+                                           {"Chord",false},{"FixedPoint",false}};
 };
 
 #endif //PCSC_PROJECT_DATA_H
