@@ -17,7 +17,6 @@ public:
     virtual ~AbstractSolver();
 
 
-
     // Setter
     void SetTol(const double tol) {tolerance = tol; }
     void SetMaxIter(const int nMax) {maxIter = nMax; }
@@ -36,8 +35,8 @@ public:
     virtual void SolveEquation() const = 0;
 
 protected:
-    double tolerance =0.0001;
-    int maxIter =10000;
+    double tolerance ;
+    int maxIter ;
     AbstractNode* f ;
 };
 
