@@ -27,10 +27,10 @@ void Bisection::SolveEquation() const {
     std::cout<<"Bisection Method :"<<std::endl;
 
     //Tcheck 1 : Bound viability
-    assert(b>a);
+    //assert(b>a);
 
     //Tcheck 2 : Solution possible ?
-    assert(GetFValue(a)* GetFValue(b)<0);
+    //assert(GetFValue(a)* GetFValue(b)<0);
 
     //Tcheck Direct Solution
     if (GetFValue(a)==0){
