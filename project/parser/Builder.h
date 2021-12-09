@@ -21,7 +21,7 @@ public:
 private:
     TokenContainer tokensOfEquation;
     static OperatorNode* buildOperator(const std::list <AbstractNode*>& operands, AbstractToken* _operator);
-    static AbstractNode* buildUnitary(const AbstractToken* unitaryNode);
+    static AbstractNode* buildUnitary(AbstractToken *unitaryNode);
     static AbstractNode* buildTokens(std::list <AbstractToken*> tokens);
     static AbstractNode* buildToken(AbstractToken* token);
 };

@@ -11,7 +11,7 @@ OperatorNode * Builder::buildOperator(const std::list<AbstractNode *>& operands,
     return new OperatorNode(_operator->getTokenType(), operands.front(), operands.back());
 }
 
-AbstractNode *Builder::buildUnitary(const AbstractToken *unitaryToken){
+AbstractNode *Builder::buildUnitary(AbstractToken *unitaryToken){
     if(unitaryToken->getTokenType() == TokenType::NUMBER){
         const std::string& numberStr = ((Token*)unitaryToken)->getValueStr();
         double number = std::stod(numberStr);
@@ -61,7 +61,7 @@ AbstractNode *Builder::buildToken(AbstractToken *token) {
         return buildTokens(token->getChildren());
     }
     else{
-        return buildUnitary(dynamic_cast<const Token *>(token));
+        return buildUnitary(token);
     }
 }
 

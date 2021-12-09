@@ -38,6 +38,6 @@ public:
     /// to string method to visualize and help debug
     virtual std::string toString() const = 0;
     /// pure virtual method to get children of TokenContainer
-    virtual const std::list<AbstractToken *> &getChildren() {}
+    virtual  std::list<AbstractToken *> &getChildren() {}
 };
 #endif //PCSC_PROJECT_ABSTRACTTOKEN_H
