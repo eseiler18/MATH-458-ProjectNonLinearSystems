@@ -49,6 +49,10 @@ int main() {
     for (Data* data: allData){
         cnt++;
         std::cout<<"\nFunction #"<<cnt<<std::endl;
+        if (data->method["Newton"]==false && data->method["Bisection"]==false &&
+            data->method["Chord"]==false && data->method["FixedPoint"]==false){
+            std::cout << "Can't do all methods read warning and verify input in the file" << std::endl;
+        }
         if (data->method["Newton"]){
             Newton newt(data);
             newt.SolveEquation();
