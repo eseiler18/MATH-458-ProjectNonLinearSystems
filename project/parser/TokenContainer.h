@@ -5,23 +5,21 @@
 #ifndef PCSC_PROJECT_TOKENCONTAINER_H
 #define PCSC_PROJECT_TOKENCONTAINER_H
 
-#include <list>
 #include "AbstractToken.h"
 #include "Token.h"
-using namespace std;
 
 class TokenContainer : public AbstractToken{
 public:
     TokenContainer(): AbstractToken(TokenType::CONTAINER){}
     ~TokenContainer() override{
-        for(AbstractToken* child: children ){
+        for(AbstractToken* child: children){
             delete child;
         }
         children.clear();
     }
 
-    string toString() const override{
-        string result("(");
+    std::string toString() const override{
+        std::string result("(");
         for(AbstractToken* child : children){
             result.append(child->toString());
             result.append(" ");
@@ -29,17 +27,14 @@ public:
         result.append(")");
         return result;
     }
-
-    const list<AbstractToken *> &getChildren() const override {
+    std::list<AbstractToken *> &getChildren()  override {
         return children;
     }
-
     void addToken(AbstractToken* token) {
         children.push_back(token);
     }
-
 private:
-    list <AbstractToken*> children;
+    std::list <AbstractToken*> children;
 };
 
 
