@@ -1,7 +1,7 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(main main.cpp AbstractSolver.cpp AbstractSolver.h
-        Newton.cpp Newton.h ClassicChord.cpp ClassicChord.h readData/main_readData.cpp)
+        Newton.cpp Newton.h ClassicChord.cpp ClassicChord.h)
 
 add_executable(main_louis main_louis.cpp AbstractSolver.cpp AbstractSolver.h Newton.cpp ClassicChord.cpp
         Bisection.cpp Bisection.h FixedPoint.cpp FixedPoint.h parser/AbstractNode.h parser/NumberNode.h
