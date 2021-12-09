@@ -88,7 +88,7 @@ int Parser::getPriority(AbstractToken *token) {
 }
 
 std::list<AbstractToken *>
-Parser::managePriorityChildrenOpenLevel(const list<AbstractToken *> &tokens, const int level) {
+Parser::managePriorityChildrenOpenLevel(const std::list<AbstractToken *> &tokens, const int level) {
     TokenContainer* currentPriorityContainer = nullptr;
     std::list<AbstractToken*> newTokens;
     for(AbstractToken* token : tokens){

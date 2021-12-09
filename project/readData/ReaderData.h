@@ -15,7 +15,7 @@ public:
     static std::vector<Data*> readAllData(const std::string& pathOfCsv);
 private:
     static bool isNumber(const std::string& str);
-    static bool isEmptyFile(basic_ifstream<char>& file);
+    static bool isEmptyFile(std::basic_ifstream<char>& file);
     static void fillChosenMethod(Data* data, const std::string& methods, int line);
 };
 
