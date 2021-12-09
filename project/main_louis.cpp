@@ -49,8 +49,8 @@ int main() {
     for (Data* data: allData){
         cnt++;
         std::cout<<"\nFunction #"<<cnt<<std::endl;
-        if (data->method["Newton"]==false && data->method["Bisection"]==false &&
-            data->method["Chord"]==false && data->method["FixedPoint"]==false){
+        if (!data->method["Newton"] && !data->method["Bisection"] &&
+            !data->method["Chord"] && !data->method["FixedPoint"]){
             std::cout << "Can't do all methods read warning and verify input in the file" << std::endl;
         }
         if (data->method["Newton"]){
