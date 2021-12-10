@@ -15,7 +15,6 @@
 class FixedPoint :public AbstractSolver{
 public:
 
-    //Generation & Destructor
     /// Empty constructor
     FixedPoint();
     /// Constructor with a data vector
@@ -25,13 +24,12 @@ public:
     /// Destructor
     ~FixedPoint() override;
 
-    ///Getter method  for the initial value.
+    /// Getter method  for the initial value.
     double GetInitialValue() const { return initialValue; }
 
-    ///Setter method  for the initial value.
+    /// Setter method  for the initial value.
     void SetInitialValue(const double x0) {initialValue = x0; }
 
-    //Solve Method
     /// Polymorph solver for fixed point  method
     void SolveEquation() const override;
 
