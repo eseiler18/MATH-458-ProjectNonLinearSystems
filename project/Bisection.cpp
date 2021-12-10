@@ -29,7 +29,7 @@ void Bisection::SolveEquation() const {
 
         //check 1 : Bound viability
         if (b < a) {
-            std::cout << "Higer bound is smaller than lower bound, bounds inverted for the calculation. " << std::endl;
+            std::cout << "Higher bound is smaller than lower bound, bounds inverted for the calculation. " << std::endl;
             double aux = a;
             a = b;
             b = aux;
@@ -41,7 +41,7 @@ void Bisection::SolveEquation() const {
             throw std::invalid_argument("f(a)*f(b) >0 , can't do the Bisection method");
         }
 
-        //Tcheck Direct Solution
+        //check Direct Solution
         if (GetFValue(a) == 0) {
             std::cout << "A Solution is the lowerBound : x= " << a << std::endl;
             return;
@@ -84,7 +84,7 @@ void Bisection::SolveEquation() const {
             std::string message("Converge to a wrong solution after " + std::to_string(it) +
                                 " iterations for a tolerance of " + std::to_string(tolerance) +
                                 ".\nDifference of successive iterates = "
-                                + std::to_string(res) + "x = " + std::to_string(aux) + " and f(x) = " +
+                                + std::to_string(res) + " x = " + std::to_string(aux) + " and f(x) = " +
                                 std::to_string(GetFValue(aux)));
             throw ExceptionIterate(message);
         } else {
