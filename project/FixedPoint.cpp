@@ -5,22 +5,28 @@
 #include "FixedPoint.h"
 #include <cmath>
 
+// Default empty constructor
 FixedPoint::FixedPoint() =default;
 
-FixedPoint::FixedPoint(AbstractNode* fun, double intialval, double tol, int Maxit) :
-        AbstractSolver(fun,tol,Maxit), initialValue(intialval) {}
-
+// The constructor with data call the constructor with all separated input.
+// It also verify the comptability with the fixed point method
 FixedPoint::FixedPoint(Data *data) {
     if (data->method["FixedPoint"]) {
         *this =FixedPoint(data->fun,data->initialValue,
-                      data->tolerance,data->maxIter);
+                          data->tolerance,data->maxIter);
     }else{
         throw std::invalid_argument("Dont fit with FixedPoint Method");
     }
 }
+// Classic constructor
+FixedPoint::FixedPoint(AbstractNode* fun, double intialval, double tol, int Maxit) :
+        AbstractSolver(fun,tol,Maxit), initialValue(intialval) {}
 
+// Default destructor
 FixedPoint::~FixedPoint() =default;
 
+
+// Solving method
 void FixedPoint::SolveEquation() const {
     try {
         std::cout << "Fixed Point Method with Aitken acceleration :" << std::endl;
@@ -31,35 +37,50 @@ void FixedPoint::SolveEquation() const {
         double x;
         double xNext;
         double Ax;
+
+        // Don't stop until we reach the desired tolerance or the max iteration
         while (res > tolerance && it < maxIter) {
-            // x(n+1) = f(x) + x(n)
+            // x(n) = f(x(n-1)) + x(n(n-1)
             x = GetFValue(xPrev) + xPrev;
+            // x(n+1) = f(x(n)) + x(n)
             xNext = GetFValue(x) + x;
+            // Aitken update
             Ax = xNext - pow(xNext - x, 2) / (xNext + xPrev - 2 * x);
+
             //residual is the difference between two successive iterate
             res = std::abs(Ax - xNext);
+
+            // Update iteration
             it += 1;
+            // Update value
             xPrev = Ax;
         }
+
+        // Trowing error for not converging after the given max iteration
         if (it >= maxIter) {
             std::string message("Didn't converge after " + std::to_string(it) + " iterations for a tolerance of "
                                 + std::to_string(tolerance) + ".\nDifference of successive iterates = " +
                                 std::to_string(res) + "x = "
                                 + std::to_string(Ax) + " and f(x) = " + std::to_string(GetFValue(Ax)));
             throw ExceptionIterate(message);
-        } else if (std::abs(GetFValue(Ax)) > tolerance * 10) {
+        }
+        // Throwing error for converging to a wrong solution
+        else if (std::abs(GetFValue(Ax)) > tolerance * 10) {
             std::string message("Converge to a wrong solution after " + std::to_string(it) +
                                 " iterations for a tolerance of " + std::to_string(tolerance) +
                                 ".\nDifference of successive iterates = "
                                 + std::to_string(res) + " x = " + std::to_string(Ax) + " and f(x) = " +
                                 std::to_string(GetFValue(Ax)));
             throw ExceptionIterate(message);
-        } else {
+        }
+        // else : printing the converged solution
+        else {
             std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
             std::cout << "x = " << Ax << " and f(x) = " << GetFValue(Ax) << std::endl;
         }
 
     }
+    // Catch for the throw error
     catch (std::invalid_argument &e) { std::cout << e.what() << std::endl; }
     catch (ExceptionIterate(&e)) { e.what(); }
 }
