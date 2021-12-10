@@ -22,34 +22,46 @@ FixedPoint::FixedPoint(Data *data) {
 FixedPoint::~FixedPoint() =default;
 
 void FixedPoint::SolveEquation() const {
+    try {
+        std::cout << "Fixed Point Method :" << std::endl;
+        //Initialise
+        int it = 0;
+        double res = tolerance + 1;
+        double x = initialValue;
+        double aux;
 
-    //Initialise
-    int it = 0;
-    double res = tolerance +1;
-    double x = initialValue;
-    double aux;
+        while (res > tolerance && it < maxIter) {
 
-    while (res > tolerance && it < maxIter){
+            // x(n+1) = f(x) + x(n)
+            aux = GetFValue(x) + x;
 
-        // x(n+1) = f(x) + x(n)
-        aux = GetFValue(x) + x;
+            //residual is the difference between two succesive iterate
+            res = std::abs(aux - x);
+            x = aux;
+            it += 1;
+        }
 
-        //residual is the difference between two succesive iterate
-        res = std::abs(aux -x);
-        x=aux;
-        it +=1;
+        if (it >= maxIter) {
+            std::string message("Didn't converge after " + std::to_string(it) + " iterations for a tolerance of "
+                                + std::to_string(tolerance) + ".\nDifference of successive iterates = " +
+                                std::to_string(res) + "x = "
+                                + std::to_string(x) + " and f(x) = " + std::to_string(GetFValue(x)));
+            throw ExceptionIterate(message);
+        } else if (std::abs(GetFValue(x)) > tolerance * 10) {
+            std::string message("Converge to a wrong solution after " + std::to_string(it) +
+                                " iterations for a tolerance of " + std::to_string(tolerance) +
+                                ".\nDifference of successive iterates = "
+                                + std::to_string(res) + "x = " + std::to_string(x) + " and f(x) = " +
+                                std::to_string(GetFValue(x)));
+            throw ExceptionIterate(message);
+        } else {
+            std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
+            std::cout << "x = " << x << " and f(x) = " << GetFValue(x) << std::endl;
+        }
+
     }
-
-    std::cout << "Fixed Point Method :" << std::endl;
-    if (it >= maxIter){
-        std::cout << "Didn't converge after " << maxIter << " iterations for a tolerance of " << tolerance << std::endl;
-        std::cout << "Difference of successive iterates = " << res;
-        std::cout << "x = " << x << " and f(x) = " << GetFValue(x) << std::endl;
-    }
-    else{
-        std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
-        std::cout << "x = " << x << " and f(x) = " << GetFValue(x) << std::endl;
-    }
+    catch(std::invalid_argument &e){std::cout<<e.what()<<std::endl;}
+    catch (ExceptionIterate(&e)){ e.what(); }
 
 
 }
