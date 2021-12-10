@@ -4,7 +4,6 @@
 
 #include "AbstractSolver.h"
 
-
 AbstractSolver::AbstractSolver()
         :tolerance(), maxIter(), f(0) {}
 

@@ -8,7 +8,7 @@ add_executable(main_louis main_louis.cpp AbstractSolver.cpp AbstractSolver.h New
         parser/VariableNode.h parser/OperatorNode.h parser/OperatorNode.cpp
         parser/TokenType.h parser/AbstractToken.h parser/Token.h parser/TokenContainer.h parser/TokenReader.cpp
         parser/TokenReader.h parser/Parser.cpp parser/Parser.h parser/Builder.cpp parser/Builder.h parser/Solver.h
-        readData/ReaderData.cpp readData/ReaderData.h readData/Data.h)
+        readData/ReaderData.cpp readData/ReaderData.h readData/Data.h ExceptionIterate.h)
 
 
 add_subdirectory(parser)
