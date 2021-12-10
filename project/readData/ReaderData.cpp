@@ -205,7 +205,6 @@ void ReaderData::fillChosenMethod(Data *data, const std::string& methods, int li
     std::string word;
     std::vector<std::string> methodsVector;
     while (getline( s, word, ';')) {
-        // add all the column data of a row to a vector
         methodsVector.push_back(word);
     }
     for(std::string method : methodsVector){
