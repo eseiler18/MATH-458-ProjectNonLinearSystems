@@ -40,7 +40,7 @@ void Newton::SolveEquation() const {
                                 std::to_string(res) + "x = "
                                 + std::to_string(xNext) + " and f(x) = " + std::to_string(GetFValue(xNext)));
             throw ExceptionIterate(message);
-        } else if (GetFValue(xNext) > tolerance * 10) {
+        } else if (std::abs(GetFValue(xNext)) > tolerance * 10) {
             std::string message("Converge to a wrong solution after " + std::to_string(it) +
                                 " iterations for a tolerance of " + std::to_string(tolerance) +
                                 ".\nDifference of successive iterates = "
