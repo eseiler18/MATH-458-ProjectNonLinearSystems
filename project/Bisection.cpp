@@ -8,7 +8,8 @@
 // Default empty constructor
 Bisection::Bisection() =default;
 
-// The constructor with data call call the constructor with all separated input
+// The constructor with data call the constructor with all separated input
+// It also verify the compatibility with the Bisection method
 Bisection::Bisection(Data *data) {
     if (data->method["Bisection"]) {
         *this = Bisection(data->fun, data->tolerance, data->maxIter,
@@ -25,6 +26,8 @@ Bisection::Bisection(AbstractNode* fun,double tol, int Maxit, double lowerbound,
 // Default destructor
 Bisection::~Bisection() =default;
 
+
+// Solving method
 void Bisection::SolveEquation() const {
     try {
         double b = upperBound;
@@ -62,8 +65,7 @@ void Bisection::SolveEquation() const {
         double res = (b - a) / 2;
         int it = 1;
 
-        // It take the medium of the interval each time until they reach the desired tolerance
-        // By
+        // It take the medium of the interval each time until they reach the desired tolerance or max iteration
         while (res > tolerance && it < maxIter) {
 
             // Check if we found a exact solution

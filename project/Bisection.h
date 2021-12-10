@@ -9,18 +9,18 @@
 
 /**
  * Daughter of AbstractSolver, that solve the Equation with Bisection Method.
- * The Bisection Method need to work with a lower and and a higher bound
- *
+ * The Bisection Method need to work with a lower and and a higher bound.
  */
 
 class Bisection : public  AbstractSolver{
 public :
-    // Constructor
+    /// Empty Constructor
     Bisection();
     /// Constructor with a data vector
     Bisection(Data* data);
     /// Constructor with variable spared
     Bisection(AbstractNode* fun,double tol,int Maxit,double lowerbound, double upperbund);
+    /// Destructor
     ~Bisection() override ;
 
     /// Method that set the interval
