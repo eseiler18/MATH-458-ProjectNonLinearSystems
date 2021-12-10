@@ -1,5 +1,5 @@
 "methods (n: Newton, c: Chords, f: Fixed Point, b: Bisection, nothing: All)",fun,dFun,lowerBound,upperBound,initialValue,tolerance,maxIter
-,X^2,2x,-5,5,1,0.001,1000
+,X^2,2x,-5,5,1,,
 n;c;f,1/x -x^2+2x,-1/x^2-2x+2,,,2,,
-b,x^3/(x +2)-10x - 2,,-100,100,,0.001,10000
+b,x^3/(x +2)-10x - 2,,-100,100,,,
 n,(x+3)/(x-3),-6/(x-3)^2,,,-1,,
