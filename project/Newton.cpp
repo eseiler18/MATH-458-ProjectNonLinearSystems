@@ -23,6 +23,7 @@ Newton::~Newton() = default;
 
 void Newton::SolveEquation() const {
     try {
+        std::cout << "Newton Method :" << std::endl;
         int it = 1;
         double res = tolerance + 1;
         double xPrev = initialValue;
@@ -33,7 +34,7 @@ void Newton::SolveEquation() const {
             it += 1;
             xPrev = xNext;
         }
-        std::cout << "Newton Method :" << std::endl;
+
         if (it >= maxIter) {
             std::string message("Didn't converge after " + std::to_string(it) + " iterations for a tolerance of "
                                 + std::to_string(tolerance) + ".\nDifference of successive iterates = " +
@@ -53,7 +54,7 @@ void Newton::SolveEquation() const {
         }
     }
     catch (ExceptionIterate(&e)){ e.what(); }
-    catch (std::invalid_argument(&e)) { e.what(); }
+    catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
 }
 
 
