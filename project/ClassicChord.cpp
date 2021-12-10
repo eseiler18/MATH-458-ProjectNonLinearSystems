@@ -24,6 +24,7 @@ ClassicChord::~ClassicChord() = default;
 //Equation Solver
 void ClassicChord::SolveEquation() const {
     try {
+        std::cout << "Classic Chord Method :" << std::endl;
         int it = 1;
         double xPrev = initialValue;
         double m = 0.1;
@@ -39,7 +40,7 @@ void ClassicChord::SolveEquation() const {
             xPrev = x;
             x = xNext;
         }
-        std::cout << "Classic Chord Method :" << std::endl;
+
         if (it >= maxIter) {
             std::string message("Didn't converge after " + std::to_string(it) + " iterations for a tolerance of "
                                 + std::to_string(tolerance) + ".\nDifference of successive iterates = " +
@@ -59,6 +60,6 @@ void ClassicChord::SolveEquation() const {
         }
     }
     catch (ExceptionIterate(&e)){ e.what(); }
-    catch (std::invalid_argument(&e)){ e.what(); }
+    catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
 }
 
