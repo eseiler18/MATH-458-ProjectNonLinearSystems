@@ -34,7 +34,6 @@ private:
     static std::list <AbstractToken*> managePriorityChildrenOpenLevel(const std::list <AbstractToken*>& tokens, int level);
     /// call all the verify and manage operator methods on tokens
     static std::list <AbstractToken*> normalizeAndVerifyTokens(const std::list <AbstractToken*>& tokens);
-
 };
 
 

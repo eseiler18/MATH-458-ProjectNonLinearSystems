@@ -9,13 +9,19 @@
 #include <string>
 #include <vector>
 
+/**
+ * ReaderData class which read a cvs file and build the data structure associated (one by row)
+ */
 class ReaderData {
 public:
-    //static Data readOneData(std::string pathOfCsv, int line);
+    /// main method which read all the csv file and return the data structures
     static std::vector<Data*> readAllData(const std::string& pathOfCsv);
 private:
+    /// verify if a string is number
     static bool isNumber(const std::string& str);
+    /// verify if file is empty
     static bool isEmptyFile(std::basic_ifstream<char>& file);
+    /// read the first cell of the row two know which methods are requested
     static void fillChosenMethod(Data* data, const std::string& methods, int line);
 };
 

@@ -12,9 +12,11 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
     // Open an existing and non-empty file
     std::ifstream csv;
     csv.open(pathOfCsv, std::ios::in);
+    // verify existence
     if (!csv.is_open()) {
         throw std::invalid_argument("Invalid path: " + pathOfCsv + ". File can't be open doesn't exit.");
     }
+    // verify if file is empty
     if (ReaderData::isEmptyFile(csv)) {
         throw std::invalid_argument("Invalid file: " + pathOfCsv + ". File exist but it's empty.");
     }
@@ -163,11 +165,16 @@ bool ReaderData::isNumber(std::string const& str) {
     int countE = 0;
     for (char i : str){
         if (isdigit(i) == false) {
+            // verify decimal number
             if (i == '.' && countPoint == 0) {
                 countPoint = 1;
-            } else if (i == '-' && countMinus == 0){
+            }
+            // verify negative number
+            else if (i == '-' && countMinus == 0){
                 countMinus = 1;
-            } else if ((i == 'e' || i == 'E') && countE == 0){
+            }
+            // verify writing like 1e-6
+            else if ((i == 'e' || i == 'E') && countE == 0){
                 countE = 1;
             }
             else{

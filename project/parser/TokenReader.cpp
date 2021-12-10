@@ -11,7 +11,6 @@ TokenReader::TokenReader(std::string expression) : expression(std::move(expressi
 
 AbstractToken *TokenReader::readNextToken() {
     position++;
-
     if (position >= expression.length()){
         // reach end of expression
         return nullptr;
@@ -70,6 +69,7 @@ AbstractToken *TokenReader::readNextToken() {
 
 Token *TokenReader::createNumberToken() {
     char currentChar = expression.at(position);
+    // check if character is a digit
     if(currentChar<'0' || currentChar >'9'){
         std::string message("Invalid character: ");
         message.push_back(currentChar);
@@ -80,9 +80,11 @@ Token *TokenReader::createNumberToken() {
     bool dotFound = false;
     while(position < expression.length()-1){
         currentChar = expression.at(position + 1);
+        // case when number is several digit
         if(currentChar>='0' && currentChar <='9'){
             numberStr.push_back(currentChar);
         }
+        // case when the number is decimal
         else if(currentChar == '.' || currentChar == ',') {
             if(dotFound) {
                 std::string message("Invalid character: ");
@@ -92,8 +94,10 @@ Token *TokenReader::createNumberToken() {
             numberStr.push_back('.');
             dotFound = true;
         }
+        // break is the number is finish
         else{break; }
         position++;
     }
+    // build the token number
     return new Token(TokenType::NUMBER, numberStr);
 }
