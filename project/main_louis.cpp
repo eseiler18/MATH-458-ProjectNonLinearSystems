@@ -43,7 +43,7 @@ int main() {
     Newton BB(&bisec);
     BB.SolveEquation();
     */
-
+    
     std::vector<Data*> allData = ReaderData::readAllData(("data.csv"));
     int cnt=0;
     for (Data* data: allData){
