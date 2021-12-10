@@ -24,6 +24,7 @@ AbstractToken *TokenReader::readNextToken() {
         position++;
         currentChar = expression.at(position);
     }
+    // create the new token associated with the new character
     TokenType type;
     Token* resultToken = nullptr;
     switch(currentChar){
@@ -57,6 +58,7 @@ AbstractToken *TokenReader::readNextToken() {
             break;
     }
     if(type == TokenType::NUMBER){
+        // create number token
         resultToken = createNumberToken();
     }
     else{

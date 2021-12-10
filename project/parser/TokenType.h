@@ -4,6 +4,9 @@
 
 #ifndef PCSC_PROJECT_TOKENTYPE_H
 #define PCSC_PROJECT_TOKENTYPE_H
+/**
+ * Enum of all the token type parenthesis, operator, number or variable
+ */
 enum TokenType{
     OPEN_PAR = 1, // (
     CLOSE_PAR = 2, // )
@@ -14,6 +17,6 @@ enum TokenType{
     POW = 7, // ^
     NUMBER = 8, // 0-9
     VAR = 9, // x
-    CONTAINER = 10, // container of all other token (...)
+    CONTAINER = 10, // container of other token (...)
 };
 #endif //PCSC_PROJECT_TOKENTYPE_H

@@ -10,8 +10,8 @@
 #include "TokenType.h"
 
 /**
- * Token common class representing a syntactic element of the operation
- * A token has a token type in parameter (see TokenType.h list all token type
+ * Abstract Token common class representing a syntactic element of the operation
+ * A token has a token type in parameter (see TokenType.h list all token type)
  */
 class AbstractToken{
 protected:
