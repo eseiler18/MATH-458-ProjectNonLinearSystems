@@ -8,6 +8,7 @@
 #include "parser/AbstractNode.h"
 #include "readData/Data.h"
 #include "ExceptionIterate.h"
+#include <math.h>
 
 class AbstractSolver {
 public:
