@@ -43,11 +43,12 @@ int main() {
     Newton BB(&bisec);
     BB.SolveEquation();
     */
-    
+    double aux;
     std::vector<Data*> allData = ReaderData::readAllData(("data.csv"));
     int cnt=0;
     for (Data* data: allData){
         cnt++;
+        std::cout<<"------------------------------";
         std::cout<<"\nFunction #"<<cnt<<std::endl;
         if (!data->method["Newton"] && !data->method["Bisection"] &&
             !data->method["Chord"] && !data->method["FixedPoint"]){
@@ -55,16 +56,20 @@ int main() {
         }
         if (data->method["Newton"]){
             Newton newt(data);
-            newt.SolveEquation();
+            aux = newt.SolveEquation();
+            std::cout<<"Return test for Google, x = "<<aux<<std::endl<<std::endl;
         }if (data->method["Bisection"]){
             Bisection bisec(data);
-            bisec.SolveEquation();
+            aux =bisec.SolveEquation();
+            std::cout<<"Return test for Google, x = "<<aux<<std::endl<<std::endl;
         }if (data->method["Chord"]){
             ClassicChord chrd(data);
-            chrd.SolveEquation();
+            aux =chrd.SolveEquation();
+            std::cout<<"Return test for Google, x = "<<aux<<std::endl<<std::endl;
         }if (data->method["FixedPoint"]){
             FixedPoint fxdp(data);
-            fxdp.SolveEquation();
+            aux = fxdp.SolveEquation();
+            std::cout<<"Return test for Google, x = "<<aux<<std::endl<<std::endl;
         }
         std::cout<<std::endl;
         delete data;
