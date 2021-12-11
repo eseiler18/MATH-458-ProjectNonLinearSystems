@@ -3,7 +3,6 @@
 //
 
 #include "Bisection.h"
-#include <cassert>
 
 // Default empty constructor
 Bisection::Bisection() =default;
@@ -28,7 +27,7 @@ Bisection::~Bisection() =default;
 
 
 // Solving method
-void Bisection::SolveEquation() const {
+double Bisection::SolveEquation() const {
     try {
         double b = upperBound;
         double a = lowerBound;
@@ -52,12 +51,12 @@ void Bisection::SolveEquation() const {
         //Check Direct Solution for lower bound
         if (GetFValue(a) == 0) {
             std::cout << "A Solution is the lowerBound : x= " << a << std::endl;
-            return;
+            return a;
         }
         //Check Direct Solution for upper bound
         if (GetFValue(b) == 0) {
             std::cout << "A Solution is the Upperbound : x= " << b << std::endl;
-            return;
+            return b;
         }
 
         //Initialize
@@ -72,7 +71,7 @@ void Bisection::SolveEquation() const {
             if (GetFValue(aux) == 0) {
                 std::cout << "Exact solution founded after  " << it << " iterations " << std::endl;
                 std::cout << "x = " << aux << " and f(x) = " << GetFValue(aux) << std::endl;
-                return;
+                return aux;
             }
 
             // Compare the medium of the interval with the bound to update the new interval
@@ -80,7 +79,7 @@ void Bisection::SolveEquation() const {
             else if (GetFValue(b) * GetFValue(aux) < 0) { a = aux; }
             else {
                 std::cout << "Bisection Algorithm not operating correctly" << std::endl;
-                return;
+                return NULL;
             }
 
             //Take the new medium of the interval
@@ -112,12 +111,15 @@ void Bisection::SolveEquation() const {
         else {
             std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
             std::cout << "x = " << aux << " and f(x) = " << GetFValue(aux) << std::endl;
+            return aux;
         }
 
     }
     // Catch for the throw error
     catch(std::invalid_argument &e){std::cout<<e.what()<<std::endl;}
     catch (ExceptionIterate(&e)){ e.what(); }
+
+    return NULL;
 }
 
 

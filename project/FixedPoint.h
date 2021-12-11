@@ -31,7 +31,7 @@ public:
     void SetInitialValue(const double x0) {initialValue = x0; }
 
     /// Polymorph solver for fixed point  method
-    void SolveEquation() const override;
+    double SolveEquation() const override;
 
 private:
     double initialValue;

@@ -26,7 +26,7 @@ ClassicChord::~ClassicChord() = default;
 
 
 // Solving method
-void ClassicChord::SolveEquation() const {
+double ClassicChord::SolveEquation() const {
     try {
         std::cout << "Classic Chord Method with Aikten acceleration:" << std::endl;
         //Initialise
@@ -86,10 +86,13 @@ void ClassicChord::SolveEquation() const {
         else {
             std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
             std::cout << "x = " << Ax << " and f(x) = " << GetFValue(Ax) << std::endl;
+            return Ax;
         }
     }
     // Catch for the throw error
     catch (ExceptionIterate(&e)){ e.what(); }
     catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
+
+    return NULL;
 }
 

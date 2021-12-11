@@ -26,7 +26,7 @@ Newton::~Newton() = default;
 
 
 // Solving method
-void Newton::SolveEquation() const {
+double Newton::SolveEquation() const {
     try {
         std::cout << "Newton Method with Aitken acceleration :" << std::endl;
         //Initialisation
@@ -81,11 +81,14 @@ void Newton::SolveEquation() const {
         else {
             std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
             std::cout << "x = " << Ax << " and f(x) = " << GetFValue(Ax) << std::endl;
+            return Ax;
         }
     }
     // Catch for the throw error
     catch (ExceptionIterate(&e)){ e.what(); }
     catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
+
+    return NULL;
 }
 
 

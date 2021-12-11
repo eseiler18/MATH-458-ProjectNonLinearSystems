@@ -27,7 +27,7 @@ FixedPoint::~FixedPoint() =default;
 
 
 // Solving method
-void FixedPoint::SolveEquation() const {
+double FixedPoint::SolveEquation() const {
     try {
         std::cout << "Fixed Point Method with Aitken acceleration :" << std::endl;
         //Initialise
@@ -77,12 +77,15 @@ void FixedPoint::SolveEquation() const {
         else {
             std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
             std::cout << "x = " << Ax << " and f(x) = " << GetFValue(Ax) << std::endl;
+            return Ax;
         }
 
     }
     // Catch for the throw error
     catch (std::invalid_argument &e) { std::cout << e.what() << std::endl; }
     catch (ExceptionIterate(&e)) { e.what(); }
+
+    return NULL;
 }
 
 
