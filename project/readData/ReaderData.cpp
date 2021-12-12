@@ -5,7 +5,11 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include <cstdlib>
+#include <dlfcn.h>      // dynamic library loading, dlopen() etc
 #include "ReaderData.h"
+#include "../parser/ExtrernalFunctionNode.h"
+
 
 std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
 
@@ -58,14 +62,30 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
                         throw std::invalid_argument("Invalid cell in csv file: data must have a function"
                                                     ", first column can't be empty at line " + std::to_string(countLine));
                     }
-                    data->fun = Solver::strToFun(row[1]);
+                    if (row.size()!=9){
+                        // case when the function is given with string expression (no external file)
+                        data->fun = Solver::strToFun(row[1]);
+                    }
+                    else{
+                        // case when the function is given with c++ code in an external file
+                        data->fun = ReaderData::readFunctionExternalFile(row[8], row[1]);
+                    }
+
                     // derivative
                     if (row[2].empty() && data->method["Newton"]) {
                         std::cout << "Warning line " + std::to_string(countLine) + ": derivative is empty"
                                      + ". Can't use Newton method" << std::endl;
                         data->method["Newton"] = false;
                     } else if (!row[2].empty() && data->method["Newton"]) {
-                        data->dFun = Solver::strToFun(row[2]);
+                        if (row.size()!=9){
+                            // case when the function is given with string expression (no external file)
+                            data->dFun = Solver::strToFun(row[2]);
+                        }
+                        else{
+                            // case when the function is given with c++ code in an external file
+                            data->dFun = ReaderData::readFunctionExternalFile(row[8], row[2]);
+                        }
+
                     }
                     // interval lower bound
                     if (row[3].empty() && data->method["Bisection"]) {
@@ -137,21 +157,21 @@ std::vector<Data*> ReaderData::readAllData(const std::string& pathOfCsv) {
                         data->tolerance = atof(row[6].c_str());
                     }
                     //maxIter
-                    if (row.size() != 8) {
+                    if (row.size() < 8 || row[7].empty()) {
                         data->maxIter = 10000;
                         std::cout << "Warning line " + std::to_string(countLine) + ": number of max iterations is empty"
                                      + ". Set value by default at " + std::to_string(data->maxIter) << std::endl;
                     } else {
                         if (!ReaderData::isNumber(row[7])) {
                             throw std::invalid_argument("Invalid cell in csv file at line " + std::to_string(countLine)
-                                                        + ": " + row[6] + " should be a number.");
+                                                        + ": " + row[7] + " should be a number.");
                         }
                         data->maxIter = atoi(row[7].c_str());
                     }
                     //add data to dataVector output
                     dataVector.push_back(data);
                 } catch (std::invalid_argument &e){
-                    std::cout << e.what() << std::endl;
+                    std::cerr << e.what() << std::endl;
             }
         }
     }
@@ -231,6 +251,45 @@ void ReaderData::fillChosenMethod(Data *data, const std::string& methods, int li
                 ". Methods must be f, b, n, or c delimited by ;. Respectively fixed point, "
                 "bisection, newton and chord methods");
         }
+    }
+}
+
+
+AbstractNode *ReaderData::readFunctionExternalFile(const std::string& nameFile, const std::string& nameFun) {
+    // path to external file cpp
+    std::string cppFile="../../" + nameFile;
+    //path to library file
+    const char *libFile="../../project/myLib/malib.so";
+    //path to logfile
+    std::string logfile="../../project/myLib/runtimecode.log";
+    // command to compile the cpp file
+    std::string cmd = "g++ -Wall -Wextra " + cppFile + " -o " + libFile + " -O2 -shared -fPIC &> " + logfile;
+    remove(libFile);
+    // compile
+    int a = system(cmd.c_str());
+    if (a!=0) {
+        std::ifstream input_file(logfile);
+        std::string message((std::istreambuf_iterator<char>(input_file)), std::istreambuf_iterator<char>());
+        throw std::invalid_argument(message);
+    }
+    void * lib = nullptr;
+    // loop to open the lib because compilation can't take a bit time
+    while (lib == nullptr){
+        lib =dlopen(libFile, RTLD_LAZY);
+    }
+    if(lib) {
+        // create the pointer on the function in the file
+        myP fn = (myP)(dlsym(lib, nameFun.c_str()));
+        if(fn) {
+            return new ExternalFunctionNode(fn);
+        }
+        else {
+            throw std::invalid_argument("The function " + nameFun + " isn't in the file " + nameFile);
+        }
+    }
+    else{
+        std::string libraryFile(libFile);
+        throw std::invalid_argument("The library " + libraryFile + " doesn't exist");
     }
 }
 
