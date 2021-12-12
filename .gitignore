@@ -17,4 +17,5 @@ _deps
 *CMakeCache.txt
 .cproject
 cmake-build-debug
-/data.csv
+/html/
+/project/eigen/
