@@ -1,5 +1,6 @@
 #include <cmath>
 #include <exception>
+#include <utility>
 #include <gtest/gtest.h>
 
 #include "../project/Newton.h"
@@ -10,6 +11,79 @@
 
 #include "../project/readData/ReaderData.h"
 #include "../project/ExceptionIterate.h"
+
+
+class Fixture_Solve : public testing::Test{
+protected:
+    Fixture_Solve();
+
+    void SetUp(std::string sfun, std::string sdfun, double initialVal, double tol, int Maxit,
+               double lowerbound, double upperbound,int met);
+    virtual void TearDown();
+
+    ~Fixture_Solve();
+
+public:
+    double getResult() const;
+
+private:
+    AbstractNode* f ;
+    AbstractNode* df ;
+    double tolerance ;
+    int maxIter ;
+    double upperBound;
+    double lowerBound;
+    double initialValue;
+    int method;
+    double result ;
+};
+
+
+Fixture_Solve::Fixture_Solve() {}
+
+void Fixture_Solve::SetUp(std::string sfun, std::string sdfun, double initialVal, double tol, int Maxit,
+                          double lowerbound, double upperbound,int met) {
+    f=Solver::strToFun(std::move(sfun));
+    df=Solver::strToFun(sdfun);
+    initialValue =initialVal;
+    tolerance=tol ;
+    maxIter=Maxit ;
+    upperBound = upperbound ;
+    lowerBound =lowerbound ;
+    method=met ;
+    if (method==1){
+        Newton aux(f,df,initialValue,tolerance,maxIter);
+        result=aux.GetFValue(aux.SolveEquation());
+    }else if (method==2){
+        ClassicChord aux(f,initialValue,tolerance,maxIter);
+        result=aux.GetFValue(aux.SolveEquation());
+    }else if (method==3){
+        FixedPoint aux(f,initialValue,tolerance,maxIter);
+        result=aux.GetFValue(aux.SolveEquation());
+    }else if (method==4){
+        Bisection aux(f,tolerance,maxIter,lowerBound,upperBound);
+        result=aux.GetFValue(aux.SolveEquation());
+    }
+}
+void Fixture_Solve::TearDown() {};
+Fixture_Solve::~Fixture_Solve() {}
+
+double Fixture_Solve::getResult() const {
+    return result;
+};
+
+
+
+TEST_F(Fixture_Solve,Test_1){
+    Fixture_Solve::SetUp("x","0",10,0.001,1000,-100,1000,4);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,0.1);
+}
+
+TEST_F(Fixture_Solve,Test_2){
+    Fixture_Solve::SetUp("x^3 +2*x -8","3*x^2 + 2",10,0.0001,1000,-100,
+                         1000,1);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,00.1);
+}
 
 
 
@@ -41,7 +115,7 @@ TEST(StrToFunTest1,divide_by_0){
 }
 
 
-
+/// -----------------------Test Newton -------------------------------------------------------------
 
 TEST(MyNewtonTest1, valid_input) {
     AbstractNode* f = Solver::strToFun("x^3 +2*x -8");
@@ -95,3 +169,15 @@ TEST(MyFPTest1, valid_input) {
     ASSERT_NEAR(0, fp.GetFValue(fp.SolveEquation()),0.001);
 }
 
+
+/*file(GLOB SOURCES  ${PROJECT_SOURCE_DIR}/*.cpp)
+foreach(f ${SOURCES})
+    get_filename_component(basename ${f} NAME_WE)
+    get_filename_component(dir ${f} DIRECTORY)
+    add_executable(${basename} ${f})
+endforeach() */
+
+/*Fixture_Solve::Fixture_Solve(std::string sfun, std::string sdfun, double initialVal, double tol, int Maxit,
+                             double lowerbound, double upperbound,int met) : f(Solver::strToFun(sfun)),
+                             df(Solver::strToFun(sdfun)),initialValue(initialVal), tolerance(tol),
+                             maxIter(Maxit), method(met), upperBound(upperbound),lowerBound(lowerbound){}; */
