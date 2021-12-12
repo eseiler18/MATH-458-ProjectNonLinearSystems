@@ -35,6 +35,9 @@ void FixedPoint::SolveEquation() const {
             // x(n+1) = f(x) + x(n)
             x = GetFValue(xPrev) + xPrev;
             xNext = GetFValue(x) + x;
+            if ((xNext==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(x) || std::isinf(xPrev)){
+                break;
+            }
             Ax = xNext - pow(xNext - x, 2) / (xNext + xPrev - 2 * x);
             //residual is the difference between two successive iterate
             res = std::abs(Ax - xNext);

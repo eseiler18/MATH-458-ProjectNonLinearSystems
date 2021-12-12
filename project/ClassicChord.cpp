@@ -34,12 +34,21 @@ void ClassicChord::SolveEquation() const {
         double res = std::abs(x - xPrev);
 
         while (res > tolerance && it < maxIter) {
+            if (GetFValue(x)==0 && GetFValue(xPrev)){
+                break;
+            }
             m = (x - xPrev) / (GetFValue(x) - GetFValue(xPrev));
             xNext = x - m * GetFValue(x);
             xPrev = x;
             x = xNext;
+            if (GetFValue(x)==0 && GetFValue(xPrev)){
+                break;
+            }
             m = (x - xPrev) / (GetFValue(x) - GetFValue(xPrev));
             xNext = x - m * GetFValue(x);
+            if ((xNext==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(x) || std::isinf(xPrev)){
+                break;
+            }
             Ax = xNext - pow(xNext - x, 2) / (xNext + xPrev - 2 * x);
             res = std::abs(Ax - xNext);
             it += 1;
