@@ -17,7 +17,6 @@
  * - The max iteration
  * - The tolerance
  */
-
 class AbstractSolver {
 public:
     // Constructor and destructor
