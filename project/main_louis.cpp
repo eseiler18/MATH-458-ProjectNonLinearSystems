@@ -13,6 +13,7 @@
 
 
 
+
 int main() {
     /*
     AbstractNode* fun = Solver::strToFun("(x*3 +7)/0");
@@ -43,6 +44,11 @@ int main() {
     Newton BB(&bisec);
     BB.SolveEquation();
     */
+    AbstractNode* f = Solver::strToFun("x^2 -1");
+    AbstractNode* df = Solver::strToFun("2*x");
+    Newton n(f,df,5,0.0001,10000);
+    n.SolveEquation();
+
     double aux;
     std::vector<Data*> allData = ReaderData::readAllData(("data.csv"));
     int cnt=0;
@@ -56,20 +62,29 @@ int main() {
         }
         if (data->method["Newton"]){
             Newton newt(data);
-            aux = newt.SolveEquation();
-            std::cout<<"Return test for Google, x = "<<aux<<std::endl<<std::endl;
+            try {
+                aux = newt.SolveEquation();
+            }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
+            catch (ExceptionIterate(&e)){ e.what(); }
         }if (data->method["Bisection"]){
             Bisection bisec(data);
-            aux =bisec.SolveEquation();
-            std::cout<<"Return test for Google, x = "<<aux<<std::endl<<std::endl;
-        }if (data->method["Chord"]){
+            try {
+                aux = bisec.SolveEquation();
+            }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
+            catch (ExceptionIterate(&e)){ e.what(); }
+
+        }if (data->method["Chord"]) {
             ClassicChord chrd(data);
-            aux =chrd.SolveEquation();
-            std::cout<<"Return test for Google, x = "<<aux<<std::endl<<std::endl;
+            try {
+            aux = chrd.SolveEquation();
+            }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
+            catch (ExceptionIterate(&e)){ e.what(); }
         }if (data->method["FixedPoint"]){
             FixedPoint fxdp(data);
-            aux = fxdp.SolveEquation();
-            std::cout<<"Return test for Google, x = "<<aux<<std::endl<<std::endl;
+            try {
+                aux = fxdp.SolveEquation();
+            }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
+            catch (ExceptionIterate(&e)){ e.what(); }
         }
         std::cout<<std::endl;
         delete data;
