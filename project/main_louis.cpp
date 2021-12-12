@@ -89,9 +89,5 @@ int main() {
         std::cout<<std::endl;
         delete data;
     }
-
-
-
-
     return 0;
 }
