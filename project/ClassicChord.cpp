@@ -39,6 +39,10 @@ double ClassicChord::SolveEquation() const {
 
     // Don't stop until we reach the desired tolerance or the max iteration
     while (res > tolerance && it < maxIter) {
+        // Check divide by 0
+        if (GetFValue(x) == 0 && GetFValue(xPrev)==0){
+            break;
+        }
         // m update for iteration n
         m = (x - xPrev) / (GetFValue(x) - GetFValue(xPrev));
         // chord update for x(n)
@@ -48,10 +52,17 @@ double ClassicChord::SolveEquation() const {
         xPrev = x;
         x = xNext;
 
+        // Check divide by 0
+        if (GetFValue(x) == 0 && GetFValue(xPrev)==0){
+            break;
+        }
         // m update for iteration n+1
         m = (x - xPrev) / (GetFValue(x) - GetFValue(xPrev));
         // chord update for x(n+1)
         xNext = x - m * GetFValue(x);
+        if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
+            break;
+        }
         // Aitken update
         Ax = xNext - pow(xNext - x, 2) / (xNext + xPrev - 2 * x);
 

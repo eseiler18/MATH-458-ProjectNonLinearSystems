@@ -43,6 +43,10 @@ double FixedPoint::SolveEquation() const {
         x = GetFValue(xPrev) + xPrev;
         // x(n+1) = f(x(n)) + x(n)
         xNext = GetFValue(x) + x;
+        // Check divide by 0 & if x value are infinite
+        if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
+            break;
+        }
         // Aitken update
         Ax = xNext - pow(xNext - x, 2) / (xNext + xPrev - 2 * x);
 
