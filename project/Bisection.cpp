@@ -79,7 +79,7 @@ double Bisection::SolveEquation() const {
             else if (GetFValue(b) * GetFValue(aux) < 0) { a = aux; }
             else {
                 std::cout << "Bisection Algorithm not operating correctly" << std::endl;
-                return NULL;
+                return 0;
             }
 
             //Take the new medium of the interval
@@ -118,8 +118,7 @@ double Bisection::SolveEquation() const {
     // Catch for the throw error
     catch(std::invalid_argument &e){std::cout<<e.what()<<std::endl;}
     catch (ExceptionIterate(&e)){ e.what(); }
-
-    return NULL;
+    return 0;
 }
 
 

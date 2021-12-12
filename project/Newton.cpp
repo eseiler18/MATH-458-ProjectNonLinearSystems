@@ -87,8 +87,7 @@ double Newton::SolveEquation() const {
     // Catch for the throw error
     catch (ExceptionIterate(&e)){ e.what(); }
     catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
-
-    return NULL;
+    return 0;
 }
 
 
