@@ -7,27 +7,34 @@
 
 #include "AbstractSolver.h"
 
+/**
+ * Daughter of AbstractSolver, that solve the Equation with Fixed point Method.
+ * Fixed point Method need to work with a initial value.
+ */
+
 class FixedPoint :public AbstractSolver{
 public:
 
-    //Generation & Destructor
+    /// Empty constructor
     FixedPoint();
-    FixedPoint(AbstractNode* fun,double intialvalue,double tol,int Maxit);
+    /// Constructor with a data vector
     FixedPoint(Data* data);
+    /// Constructor with variable spared
+    FixedPoint(AbstractNode* fun,double intialvalue,double tol,int Maxit);
+    /// Destructor
     ~FixedPoint() override;
 
-    // Getter
+    /// Getter method  for the initial value.
     double GetInitialValue() const { return initialValue; }
 
-    //Setter
+    /// Setter method  for the initial value.
     void SetInitialValue(const double x0) {initialValue = x0; }
 
-    //Solve Method
-    void SolveEquation() const override;
+    /// Polymorph solver for fixed point  method
+    double SolveEquation() const override;
+
 private:
     double initialValue;
-
 };
-
 
 #endif //FIXEDPOINT_H

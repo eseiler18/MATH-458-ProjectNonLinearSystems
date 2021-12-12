@@ -35,19 +35,17 @@ public:
     void SetF(AbstractNode* fun) {f = fun; }
 
 
-    // Getter
     /// Method to get the tolerance
     double GetTol() const { return tolerance; }
     /// Method to get the max iteration
     int GetMaxIter() const { return maxIter; }
 
-    //Get functions value methods
     /// Method that return the value of f(x) for a given x
     double GetFValue(double x) const { return f->solve(x); }
 
 
     /// Pure virtual method that solve f(x)
-    virtual void SolveEquation() const = 0;
+    virtual double SolveEquation() const = 0;
 
 protected:
     // function pointer
