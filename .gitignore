@@ -19,3 +19,4 @@ _deps
 cmake-build-debug
 /html/
 /project/eigen/
+/google_test/lib/
