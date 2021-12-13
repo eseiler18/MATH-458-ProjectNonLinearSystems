@@ -19,7 +19,7 @@ ClassicChord::ClassicChord(Data *data) {
 }
 // Classic constructor
 ClassicChord::ClassicChord(AbstractNode* fun, double intialval, double tol, int Maxit) :
-    AbstractSolver(fun,tol,Maxit), initialValue(intialval){}
+        AbstractSolver(fun,tol,Maxit), initialValue(intialval){}
 
 // Default destructor
 ClassicChord::~ClassicChord() = default;
@@ -49,7 +49,10 @@ double ClassicChord::SolveEquation() const {
         m = (x - xPrev) / (GetFValue(x) - GetFValue(xPrev));
         // chord update for x(n)
         xNext = x - m * GetFValue(x);
-
+        if (std::abs(xNext-x) < tolerance){
+            result = xNext;
+            break;
+        }
         // Update value for the n+1 iteration ( for Aitken )
         xPrev = x;
         x = xNext;
@@ -63,6 +66,10 @@ double ClassicChord::SolveEquation() const {
         m = (x - xPrev) / (GetFValue(x) - GetFValue(xPrev));
         // chord update for x(n+1)
         xNext = x - m * GetFValue(x);
+        if (std::abs(xNext-x) < tolerance){
+            result = xNext;
+            break;
+        }
         if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
             result = xNext;
             break;
@@ -88,7 +95,7 @@ double ClassicChord::SolveEquation() const {
                             + std::to_string(result) + " and f(x) = " + std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
-    // Throwing error for converging to a wrong solution
+        // Throwing error for converging to a wrong solution
     else if (std::abs(GetFValue(result)) > tolerance * 10) {
         std::string message("Converge to a wrong solution after " + std::to_string(it) +
                             " iterations for a tolerance of " + std::to_string(tolerance) +
@@ -97,7 +104,7 @@ double ClassicChord::SolveEquation() const {
                             std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
-    // else : printing the converged solution
+        // else : printing the converged solution
     else {
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;

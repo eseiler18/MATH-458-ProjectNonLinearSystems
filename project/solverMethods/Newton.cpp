@@ -19,7 +19,7 @@ Newton::Newton(Data *data) {
 }
 // Classic constructor
 Newton::Newton(AbstractNode* fun, AbstractNode* dfun, double intialvalue, double tol, int maxIt)
-    : AbstractSolver(fun,tol,maxIt), df(dfun), initialValue(intialvalue){}
+        : AbstractSolver(fun,tol,maxIt), df(dfun), initialValue(intialvalue){}
 
 // Default destructor
 Newton::~Newton() = default;
@@ -45,12 +45,20 @@ double Newton::SolveEquation() const {
             break;
         }
         x = xPrev - GetFValue(xPrev) / GetDfValue(xPrev);
+        if (std::abs(xPrev-x) < tolerance){
+            result = x;
+            break;
+        }
         //Newton update for x(n+1)
         if (GetDfValue(x)==0){
             result = x;
             break;
         }
         xNext = x - GetFValue(x) / GetDfValue(x);
+        if (std::abs(xNext-x) < tolerance){
+            result = xNext;
+            break;
+        }
         //Aitken Update
         if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
             result = xNext;
@@ -76,7 +84,7 @@ double Newton::SolveEquation() const {
                             + std::to_string(result) + " and f(x) = " + std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
-    // Throwing error for converging to a wrong solution
+        // Throwing error for converging to a wrong solution
     else if (std::abs(GetFValue(result)) > tolerance * 10) {
         std::string message("Converge to a wrong solution after " + std::to_string(it) +
                             " iterations for a tolerance of " + std::to_string(tolerance) +
@@ -85,7 +93,7 @@ double Newton::SolveEquation() const {
                             std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
-    // else : printing the converged solution
+        // else : printing the converged solution
     else {
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;
