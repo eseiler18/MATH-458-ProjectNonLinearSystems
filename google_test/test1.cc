@@ -14,7 +14,7 @@
 #include "../project/readData/ReaderData.h"
 #include "../project/solverMethods/ExceptionIterate.h"
 
-//Test
+//Test Non Linear Styteme
 class Fixture_Solve : public testing::Test{
 protected:
     Fixture_Solve();
