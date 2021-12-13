@@ -45,7 +45,7 @@ Fixture_Solve::Fixture_Solve() {}
 void Fixture_Solve::SetUp(std::string sfun, std::string sdfun, double initialVal, double tol, int Maxit,
                           double lowerbound, double upperbound,std::string met) {
     f=Solver::strToFun(std::move(sfun));
-    df=Solver::strToFun(sdfun);
+    df=Solver::strToFun(std::move(sdfun));
     initialValue =initialVal;
     tolerance=tol ;
     maxIter=Maxit ;
@@ -97,7 +97,6 @@ TEST_F(Fixture_Solve,Test_3){
 
 
 
-ve(int nbParameters, const
 // MACRO function "TEST" from Google Test
 // defines a test and a context
 ///---------------- Constructor string to function --------------------------------------

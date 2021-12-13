@@ -16,6 +16,7 @@
 
 int main() {
     double aux;
+    std::cout<<"Main Louis Sytem"<<std::endl;
     std::vector<Data*> allData = ReaderData::readAllData(("data.csv"));
     int cnt=0;
     for (Data* data: allData){
