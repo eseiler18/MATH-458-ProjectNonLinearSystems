@@ -5,14 +5,14 @@
 #include <utility>
 #include <gtest/gtest.h>
 
-#include "../project/Newton.h"
-#include "../project/Bisection.h"
-#include "../project/ClassicChord.h"
-#include "../project/FixedPoint.h"
-#include "../project/parser/Solver.h"
+#include "../project/solverMethods/Newton.h"
+#include "../project/solverMethods/Bisection.h"
+#include "../project/solverMethods/ClassicChord.h"
+#include "../project/solverMethods/FixedPoint.h"
+#include "../project/readData/parser/Solver.h"
 
 #include "../project/readData/ReaderData.h"
-#include "../project/ExceptionIterate.h"
+#include "../project/solverMethods/ExceptionIterate.h"
 
 
 class Fixture_Solve : public testing::Test{
@@ -52,6 +52,7 @@ void Fixture_Solve::SetUp(std::string sfun, std::string sdfun, double initialVal
     upperBound = upperbound ;
     lowerBound =lowerbound ;
     method=met ;
+
     if ("Newton"==met){
         Newton aux(f,df,initialValue,tolerance,maxIter);
         result=aux.GetFValue(aux.SolveEquation());

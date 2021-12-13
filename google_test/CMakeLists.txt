@@ -18,7 +18,8 @@ add_executable(Google_Tests_run test1.cc ../project/solverMethods/AbstractSolver
         ../project/readData/parser/TokenReader.cpp ../project/readData/parser/TokenReader.h
         ../project/readData/parser/Parser.cpp ../project/readData/parser/Parser.h
         ../project/readData/parser/Builder.cpp ../project/readData/parser/Builder.h ../project/readData/parser/Solver.h
-        ../project/readData/ReaderData.cpp ../project/readData/ReaderData.h ../project/readData/Data.h)
+        ../project/readData/ReaderData.cpp ../project/readData/ReaderData.h ../project/readData/Data.h
+        ../project/readData/InterpreterInputFunction.cpp)
 
 target_link_libraries(Google_Tests_run ${CMAKE_DL_LIBS})
 target_link_libraries(Google_Tests_run gtest gtest_main)

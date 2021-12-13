@@ -8,7 +8,6 @@
 #include <cstdlib>
 #include <dlfcn.h>      // dynamic library loading, dlopen() etc
 #include "ReaderData.h"
-//#include "../parser/ExtrernalFunctionNode.h"
 #include "InterpreterInputFunction.h"
 
 

@@ -5,8 +5,8 @@
 #ifndef PROJECT_ABSTRACTSOLVER_H
 #define PROJECT_ABSTRACTSOLVER_H
 #include <iostream>
-#include "parser/AbstractNode.h"
-#include "readData/Data.h"
+#include "../readData/parser/AbstractNode.h"
+#include "../readData/Data.h"
 #include "ExceptionIterate.h"
 #include <math.h>
 
