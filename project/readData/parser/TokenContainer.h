@@ -22,10 +22,6 @@ public:
         }
         children.clear();
     }
-    /// getter of children
-    std::list<AbstractToken *> &getChildren()  override {
-        return children;
-    }
     /// add a token to the container
     void addToken(AbstractToken* token) {
         children.push_back(token);
@@ -40,8 +36,6 @@ public:
         result.append(")");
         return result;
     }
-private:
-    std::list <AbstractToken*> children;
 };
 
 

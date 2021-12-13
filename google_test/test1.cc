@@ -97,7 +97,7 @@ TEST_F(Fixture_Solve,Test_3){
 
 
 
-
+ve(int nbParameters, const
 // MACRO function "TEST" from Google Test
 // defines a test and a context
 ///---------------- Constructor string to function --------------------------------------

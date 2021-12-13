@@ -25,15 +25,18 @@ public:
 private:
     TokenReader tokenReader;
     /// manage implicits operations (4x=4*x, -x=0-x)
-    static  std::list <AbstractToken*> manageImplicitOperator(std::list <AbstractToken*> tokens);
+    static  std::list <AbstractToken*> manageImplicitOperator(const std::list <AbstractToken*>& tokens);
     /// verify that tokens are usable (no two operator in a row, variable follow by number..)
     static void checkTokenValidity(const std::list <AbstractToken*>& tokens);
     /// get priority of an operator token ( ^=2, */=1, -+=0)
-    static int getPriority(AbstractToken* token);
+    static int getPriority(const AbstractToken* token);
     /// manage operational priorities of a given level
     static std::list <AbstractToken*> managePriorityChildrenOpenLevel(const std::list <AbstractToken*>& tokens, int level);
     /// call all the verify and manage operator methods on tokens
     static std::list <AbstractToken*> normalizeAndVerifyTokens(const std::list <AbstractToken*>& tokens);
+    // check if there is one TokenFunction follow by a Container. In this case associate them
+    static std::list<AbstractToken *> manageTokenFunction(const std::list<AbstractToken *>& tokens);
+ 
 };
 
 

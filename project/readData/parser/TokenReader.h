@@ -24,6 +24,7 @@ private:
     std::string expression;
     /// create a token type number after reading a digit, verify case with several digit and decimal number
     Token* createNumberToken();
+    /// create a token type function : must start with a-z or A-z
+    Token* createFunctionToken();
 };
-
 #endif //PCSC_PROJECT_TOKENREADER_H

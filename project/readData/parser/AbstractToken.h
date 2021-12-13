@@ -8,6 +8,7 @@
 #include <string>
 #include <list>
 #include "TokenType.h"
+#include "ParserException.h"
 
 /**
  * Abstract Token common class representing a syntactic element of the operation
@@ -17,6 +18,7 @@ class AbstractToken{
 protected:
     AbstractToken(TokenType t):tokenType(t){}
     TokenType tokenType;
+    std::list <AbstractToken*> children;
 
 public:
     virtual ~AbstractToken()= default;
@@ -35,9 +37,13 @@ public:
         tokenType == TokenType::DIV || tokenType==TokenType::POW) {return true;}
         else{ return false;}
     }
+    /// method to know if token is a function (sin, tan, external function,...)
+    bool isFunction() const{
+        return tokenType==TokenType::FUNCTION;
+    }
     /// to string method to visualize and help debug
     virtual std::string toString() const = 0;
-    /// pure virtual method to get children of TokenContainer
-    virtual  std::list<AbstractToken *> &getChildren() {}
+    ///  get children if there is any
+    virtual  const std::list<AbstractToken *> &getChildren() {return children;};
 };
 #endif //PCSC_PROJECT_ABSTRACTTOKEN_H

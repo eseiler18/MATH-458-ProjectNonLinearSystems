@@ -30,7 +30,9 @@ public:
     static std::string interpreterVision(std::string expression){
         Parser parser(expression);
         TokenContainer *tokenExpression = parser.readTokens();
-        return tokenExpression->toString();
+        std::string value=tokenExpression->toString();
+        delete tokenExpression;
+        return value;
     }
 private:
 };

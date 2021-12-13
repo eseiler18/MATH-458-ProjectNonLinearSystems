@@ -36,6 +36,7 @@ public:
     std::string toString() const override {
         return valueStr;
     }
+
 private:
     std::string valueStr;
     bool spaceBefore;

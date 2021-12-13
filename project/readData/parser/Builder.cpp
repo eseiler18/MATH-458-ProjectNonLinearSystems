@@ -3,11 +3,13 @@
 //
 
 #include "Builder.h"
+#include "FunctionNode.h"
+#include "TokenFunction.h"
 
 OperatorNode * Builder::buildOperator(const std::list<AbstractNode *>& operands, AbstractToken *_operator) {
     // verify that there are two operands
     if(operands.size() !=2 ){
-        throw std::invalid_argument("Illegal operands combination with " + _operator->toString());
+        throw ParserException("Illegal operands combination with " + _operator->toString());
     }
     // build operator node of the token type
     return new OperatorNode(_operator->getTokenType(), operands.front(), operands.back());
@@ -22,15 +24,26 @@ AbstractNode *Builder::buildUnitary(AbstractToken *unitaryToken){
     }
     // build variable node if token type is variable
     if(unitaryToken->getTokenType() == TokenType::VAR){
+        std::string variableName = ((Token*)unitaryToken)->getValueStr();
+        if (variableName.length()>1) {
+            // get index
+            return new VariableNode(std::stoi(variableName.substr(1)));
+
+        }
         return new VariableNode();
     }
     // build the subtree of the content of the token container
     if(unitaryToken->getTokenType() == TokenType::CONTAINER) {
         return buildTokens(unitaryToken->getChildren());
     }
+    if(unitaryToken->getTokenType() == TokenType::FUNCTION) {
+        /// build function  and manage his token container
+        TokenFunction* tokenfunction=dynamic_cast<TokenFunction*> (unitaryToken);
+        return new FunctionNode(tokenfunction->getValueStr(), buildToken(tokenfunction->getNestedContainer()));
+    }
     // invalid case
     else{
-        throw std::invalid_argument("Invalid token type for buildUnitary");
+        throw ParserException("Builder.buildUnitary - Invalid token type "+ tokenTypeToString(unitaryToken->getTokenType()));
     }
 }
 
