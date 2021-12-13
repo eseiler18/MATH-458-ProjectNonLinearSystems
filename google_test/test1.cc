@@ -1,4 +1,6 @@
 #include <cmath>
+#include<iostream>
+#include<string>
 #include <exception>
 #include <utility>
 #include <gtest/gtest.h>
@@ -18,9 +20,9 @@ protected:
     Fixture_Solve();
 
     void SetUp(std::string sfun, std::string sdfun, double initialVal, double tol, int Maxit,
-               double lowerbound, double upperbound,int met);
-    virtual void TearDown();
+               double lowerbound, double upperbound,std::string met);
 
+    virtual void TearDown();
     ~Fixture_Solve();
 
 public:
@@ -34,15 +36,14 @@ private:
     double upperBound;
     double lowerBound;
     double initialValue;
-    int method;
+    std::string method;
     double result ;
 };
-
 
 Fixture_Solve::Fixture_Solve() {}
 
 void Fixture_Solve::SetUp(std::string sfun, std::string sdfun, double initialVal, double tol, int Maxit,
-                          double lowerbound, double upperbound,int met) {
+                          double lowerbound, double upperbound,std::string met) {
     f=Solver::strToFun(std::move(sfun));
     df=Solver::strToFun(sdfun);
     initialValue =initialVal;
@@ -51,16 +52,16 @@ void Fixture_Solve::SetUp(std::string sfun, std::string sdfun, double initialVal
     upperBound = upperbound ;
     lowerBound =lowerbound ;
     method=met ;
-    if (method==1){
+    if ("Newton"==met){
         Newton aux(f,df,initialValue,tolerance,maxIter);
         result=aux.GetFValue(aux.SolveEquation());
-    }else if (method==2){
+    }else if ("FixedPoint" == met){
         ClassicChord aux(f,initialValue,tolerance,maxIter);
         result=aux.GetFValue(aux.SolveEquation());
-    }else if (method==3){
-        FixedPoint aux(f,initialValue,tolerance,maxIter);
+    }else if ("Chord" == met ){
+        ClassicChord aux(f,initialValue,tolerance,maxIter);
         result=aux.GetFValue(aux.SolveEquation());
-    }else if (method==4){
+    }else if ("Bisection" == met){
         Bisection aux(f,tolerance,maxIter,lowerBound,upperBound);
         result=aux.GetFValue(aux.SolveEquation());
     }
@@ -75,15 +76,23 @@ double Fixture_Solve::getResult() const {
 
 
 TEST_F(Fixture_Solve,Test_1){
-    Fixture_Solve::SetUp("x","0",10,0.001,1000,-100,1000,4);
+    Fixture_Solve::SetUp("x","0",10,0.001,1000,-100,1000,
+                         "Chord");
     ASSERT_NEAR(Fixture_Solve::getResult(),0,0.1);
 }
 
 TEST_F(Fixture_Solve,Test_2){
     Fixture_Solve::SetUp("x^3 +2*x -8","3*x^2 + 2",10,0.0001,1000,-100,
-                         1000,1);
+                         1000,"Chord");
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,0.1);
+}
+
+TEST_F(Fixture_Solve,Test_3){
+    Fixture_Solve::SetUp("2*x/(x^2+1)","0",7,0.0001,1000,-100,6000,
+                         "Bisection");
     ASSERT_NEAR(Fixture_Solve::getResult(),0,00.1);
 }
+
 
 
 
