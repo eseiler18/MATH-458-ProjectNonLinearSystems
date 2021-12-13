@@ -41,8 +41,16 @@ double FixedPoint::SolveEquation() const {
     while (res > tolerance && it < maxIter) {
         // x(n) = f(x(n-1)) + x(n(n-1)
         x = GetFValue(xPrev) + xPrev;
+        if (std::abs(xPrev-x) < tolerance){
+            result = x;
+            break;
+        }
         // x(n+1) = f(x(n)) + x(n)
         xNext = GetFValue(x) + x;
+        if (std::abs(xNext-x) < tolerance){
+            result = xNext;
+            break;
+        }
         // Check divide by 0 & if x value are infinite
         if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
             result = xNext;

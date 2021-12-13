@@ -45,12 +45,20 @@ double Newton::SolveEquation() const {
             break;
         }
         x = xPrev - GetFValue(xPrev) / GetDfValue(xPrev);
+        if (std::abs(xPrev-x) < tolerance){
+            result = x;
+            break;
+        }
         //Newton update for x(n+1)
         if (GetDfValue(x)==0){
             result = x;
             break;
         }
         xNext = x - GetFValue(x) / GetDfValue(x);
+        if (std::abs(xNext-x) < tolerance){
+            result = xNext;
+            break;
+        }
         //Aitken Update
         if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
             result = xNext;

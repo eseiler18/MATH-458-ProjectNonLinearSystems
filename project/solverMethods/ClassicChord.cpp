@@ -49,7 +49,10 @@ double ClassicChord::SolveEquation() const {
         m = (x - xPrev) / (GetFValue(x) - GetFValue(xPrev));
         // chord update for x(n)
         xNext = x - m * GetFValue(x);
-
+        if (std::abs(xNext-x) < tolerance){
+            result = xNext;
+            break;
+        }
         // Update value for the n+1 iteration ( for Aitken )
         xPrev = x;
         x = xNext;
@@ -63,6 +66,10 @@ double ClassicChord::SolveEquation() const {
         m = (x - xPrev) / (GetFValue(x) - GetFValue(xPrev));
         // chord update for x(n+1)
         xNext = x - m * GetFValue(x);
+        if (std::abs(xNext-x) < tolerance){
+            result = xNext;
+            break;
+        }
         if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
             result = xNext;
             break;
