@@ -28,7 +28,7 @@ FixedPoint::~FixedPoint() =default;
 
 // Solving method
 double FixedPoint::SolveEquation() const {
-    std::cout << "Fixed Point Method with Aitken acceleration :" << std::endl;
+    std::cout << "\nFixed Point Method with Aitken acceleration :" << std::endl;
     //Initialise
     int it = 0;
     double res = tolerance + 1;
@@ -36,7 +36,7 @@ double FixedPoint::SolveEquation() const {
     double x;
     double xNext;
     double Ax;
-
+    double result;
     // Don't stop until we reach the desired tolerance or the max iteration
     while (res > tolerance && it < maxIter) {
         // x(n) = f(x(n-1)) + x(n(n-1)
@@ -45,6 +45,7 @@ double FixedPoint::SolveEquation() const {
         xNext = GetFValue(x) + x;
         // Check divide by 0 & if x value are infinite
         if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
+            result = xNext;
             break;
         }
         // Aitken update
@@ -57,6 +58,7 @@ double FixedPoint::SolveEquation() const {
         it += 1;
         // Update value
         xPrev = Ax;
+        result = Ax;
     }
 
     // Trowing error for not converging after the given max iteration
@@ -64,23 +66,23 @@ double FixedPoint::SolveEquation() const {
         std::string message("Didn't converge after " + std::to_string(it) + " iterations for a tolerance of "
                             + std::to_string(tolerance) + ".\nDifference of successive iterates = " +
                             std::to_string(res) + "x = "
-                            + std::to_string(Ax) + " and f(x) = " + std::to_string(GetFValue(Ax)));
+                            + std::to_string(result) + " and f(x) = " + std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
     // Throwing error for converging to a wrong solution
-    else if (std::abs(GetFValue(Ax)) > tolerance * 10) {
+    else if (std::abs(GetFValue(result)) > tolerance * 10) {
         std::string message("Converge to a wrong solution after " + std::to_string(it) +
                             " iterations for a tolerance of " + std::to_string(tolerance) +
                             ".\nDifference of successive iterates = "
-                            + std::to_string(res) + " x = " + std::to_string(Ax) + " and f(x) = " +
-                            std::to_string(GetFValue(Ax)));
+                            + std::to_string(res) + " x = " + std::to_string(result) + " and f(x) = " +
+                            std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
     // else : printing the converged solution
     else {
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
-        std::cout << "x = " << Ax << " and f(x) = " << GetFValue(Ax) << std::endl;
-        return Ax;
+        std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;
+        return result;
     }
 }
 

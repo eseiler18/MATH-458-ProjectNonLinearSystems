@@ -30,7 +30,7 @@ Bisection::~Bisection() =default;
 double Bisection::SolveEquation() const {
     double b = upperBound;
     double a = lowerBound;
-    std::cout << "Bisection Method :" << std::endl;
+    std::cout << "\nBisection Method :" << std::endl;
 
     // Check 1 : Bound viability:  a must be smaller  than b. If it isn't, the method automatically change
     // the two variable, and print a warning for the user.
@@ -44,7 +44,7 @@ double Bisection::SolveEquation() const {
     // Check 2 : Solution possible : For Bisection method, f(a) and f(b) must have different sign
     // In the other case, the method trow a error invalid argument.
     if (GetFValue(a) * GetFValue(b) > 0) {
-        throw std::invalid_argument("f(a)*f(b) >0 , can't do the Bisection method\n");
+        throw std::invalid_argument("f(a)*f(b) >0 , can't do the Bisection method");
     }
 
     //Check Direct Solution for lower bound

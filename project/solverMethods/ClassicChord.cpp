@@ -27,7 +27,7 @@ ClassicChord::~ClassicChord() = default;
 
 // Solving method
 double ClassicChord::SolveEquation() const {
-    std::cout << "Classic Chord Method with Aikten acceleration:" << std::endl;
+    std::cout << "\nClassic Chord Method with Aikten acceleration:" << std::endl;
     //Initialise
     int it = 1;
     double xPrev = initialValue;
@@ -36,11 +36,13 @@ double ClassicChord::SolveEquation() const {
     double xNext;
     double Ax;
     double res = std::abs(x - xPrev);
+    double result;
 
     // Don't stop until we reach the desired tolerance or the max iteration
     while (res > tolerance && it < maxIter) {
         // Check divide by 0
         if (GetFValue(x) == 0 && GetFValue(xPrev)==0){
+            result = x;
             break;
         }
         // m update for iteration n
@@ -54,6 +56,7 @@ double ClassicChord::SolveEquation() const {
 
         // Check divide by 0
         if (GetFValue(x) == 0 && GetFValue(xPrev)==0){
+            result = x;
             break;
         }
         // m update for iteration n+1
@@ -61,6 +64,7 @@ double ClassicChord::SolveEquation() const {
         // chord update for x(n+1)
         xNext = x - m * GetFValue(x);
         if ((xNext ==0 && x==0 && xPrev==0) || std::isinf(xNext) || std::isinf(xPrev) || std::isinf(x)) {
+            result = xNext;
             break;
         }
         // Aitken update
@@ -73,6 +77,7 @@ double ClassicChord::SolveEquation() const {
         it += 1;
         xPrev = xNext;
         x = Ax;
+        result = Ax;
     }
 
     // Trowing error for not converging after the given max iteration
@@ -80,23 +85,23 @@ double ClassicChord::SolveEquation() const {
         std::string message("Didn't converge after " + std::to_string(it) + " iterations for a tolerance of "
                             + std::to_string(tolerance) + ".\nDifference of successive iterates = " +
                             std::to_string(res) + "x = "
-                            + std::to_string(Ax) + " and f(x) = " + std::to_string(GetFValue(Ax)));
+                            + std::to_string(result) + " and f(x) = " + std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
     // Throwing error for converging to a wrong solution
-    else if (std::abs(GetFValue(Ax)) > tolerance * 10) {
+    else if (std::abs(GetFValue(result)) > tolerance * 10) {
         std::string message("Converge to a wrong solution after " + std::to_string(it) +
                             " iterations for a tolerance of " + std::to_string(tolerance) +
                             ".\nDifference of successive iterates = "
-                            + std::to_string(res) + " x = " + std::to_string(Ax) + " and f(x) = " +
-                            std::to_string(GetFValue(Ax)));
+                            + std::to_string(res) + " x = " + std::to_string(result) + " and f(x) = " +
+                            std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
     // else : printing the converged solution
     else {
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
-        std::cout << "x = " << Ax << " and f(x) = " << GetFValue(Ax) << std::endl;
-        return Ax;
+        std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;
+        return result;
     }
 
 }
