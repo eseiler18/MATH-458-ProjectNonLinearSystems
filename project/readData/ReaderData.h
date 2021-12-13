@@ -23,7 +23,6 @@ private:
     static bool isEmptyFile(std::basic_ifstream<char>& file);
     /// read the first cell of the row two know which methods are requested
     static void fillChosenMethod(Data* data, const std::string& methods, int line);
-    static AbstractNode* readFunctionExternalFile(const std::string& nameFile, const std::string& nameFun);
 };
 
 

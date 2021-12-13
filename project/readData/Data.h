@@ -7,7 +7,7 @@
 
 #include <string>
 #include <map>
-#include "../parser/Solver.h"
+#include "../readData/parser/Solver.h"
 
 /**
  * Structure which contain parameters associated numerical methods.
