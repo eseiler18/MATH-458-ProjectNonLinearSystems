@@ -16,7 +16,7 @@
 class FunctionNode : public AbstractNode{
 private:
     std::string funtionName;
-     AbstractNode* nestedExpression;
+    AbstractNode* nestedExpression;
 public:
     FunctionNode(const std::string& funtionName, AbstractNode* nestedExpression):funtionName(funtionName), nestedExpression(nestedExpression){}
 
@@ -35,7 +35,19 @@ public:
             return atan(nestedExpression->solve(nbParameters, parameters));
         }
         if (funtionName=="sqrt") {
+            if(nestedExpression->solve(nbParameters,parameters) < 0){
+                throw std::invalid_argument("error sqrt of negative number");
+            }
             return sqrt(nestedExpression->solve(nbParameters, parameters));
+        }
+        if (funtionName=="exp"){
+            return exp(nestedExpression->solve(nbParameters,parameters));
+        }
+        if (funtionName=="log"){
+            if(nestedExpression->solve(nbParameters,parameters) < 0){
+                throw std::invalid_argument("error log of negative number");
+            }
+            return log(nestedExpression->solve(nbParameters,parameters));
         }
         throw ParserException("Function is not yet implemented:" + funtionName);
     }
