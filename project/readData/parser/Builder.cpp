@@ -37,7 +37,7 @@ AbstractNode *Builder::buildUnitary(AbstractToken *unitaryToken){
         return buildTokens(unitaryToken->getChildren());
     }
     if(unitaryToken->getTokenType() == TokenType::FUNCTION) {
-        /// build function  and manage his token container
+        // build function  and manage his token container
         TokenFunction* tokenfunction=dynamic_cast<TokenFunction*> (unitaryToken);
         return new FunctionNode(tokenfunction->getValueStr(), buildToken(tokenfunction->getNestedContainer()));
     }
