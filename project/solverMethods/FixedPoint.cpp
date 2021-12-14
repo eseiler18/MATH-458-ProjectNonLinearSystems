@@ -28,7 +28,6 @@ FixedPoint::~FixedPoint() =default;
 
 // Solving method
 double FixedPoint::SolveEquation() const {
-    std::cout << "\nFixed Point Method with Aitken acceleration :" << std::endl;
     //Initialise
     int it = 0;
     double res = tolerance + 1;
@@ -88,6 +87,7 @@ double FixedPoint::SolveEquation() const {
     }
         // else : printing the converged solution
     else {
+
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;
         return result;

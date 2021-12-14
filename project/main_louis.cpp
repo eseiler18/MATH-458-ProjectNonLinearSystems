@@ -27,12 +27,14 @@ int main() {
             std::cout << "Can't do all methods read warning and verify input in the file" << std::endl;
         }
         if (data->method["Newton"]){
+            std::cout << "\nNewton Method with Aitken acceleration :" << std::endl;
             Newton newt(data);
             try {
                 aux = newt.SolveEquation();
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
             catch (ExceptionIterate(&e)){ e.what(); }
         }if (data->method["Bisection"]){
+            std::cout << "\nBisection Method :" << std::endl;
             Bisection bisec(data);
             try {
                 aux = bisec.SolveEquation();
@@ -40,12 +42,14 @@ int main() {
             catch (ExceptionIterate(&e)){ e.what(); }
 
         }if (data->method["Chord"]) {
+            std::cout << "\nClassic Chord Method with Aikten acceleration:" << std::endl;
             ClassicChord chrd(data);
             try {
             aux = chrd.SolveEquation();
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
             catch (ExceptionIterate(&e)){ e.what(); }
         }if (data->method["FixedPoint"]){
+            std::cout << "\nFixed Point Method with Aitken acceleration :" << std::endl;
             FixedPoint fxdp(data);
             try {
                 aux = fxdp.SolveEquation();

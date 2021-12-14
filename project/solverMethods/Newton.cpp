@@ -27,7 +27,6 @@ Newton::~Newton() = default;
 
 // Solving method
 double Newton::SolveEquation() const {
-    std::cout << "\nNewton Method with Aitken acceleration :" << std::endl;
     //Initialisation
     int it = 1;
     double res = tolerance + 1;

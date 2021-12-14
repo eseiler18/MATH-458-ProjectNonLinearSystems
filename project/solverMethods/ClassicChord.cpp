@@ -27,7 +27,6 @@ ClassicChord::~ClassicChord() = default;
 
 // Solving method
 double ClassicChord::SolveEquation() const {
-    std::cout << "\nClassic Chord Method with Aikten acceleration:" << std::endl;
     //Initialise
     int it = 1;
     double xPrev = initialValue;

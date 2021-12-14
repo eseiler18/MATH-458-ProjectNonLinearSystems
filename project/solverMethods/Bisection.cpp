@@ -30,7 +30,7 @@ Bisection::~Bisection() =default;
 double Bisection::SolveEquation() const {
     double b = upperBound;
     double a = lowerBound;
-    std::cout << "\nBisection Method :" << std::endl;
+
 
     // Check 1 : Bound viability:  a must be smaller  than b. If it isn't, the method automatically change
     // the two variable, and print a warning for the user.
