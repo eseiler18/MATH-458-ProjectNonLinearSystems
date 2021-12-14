@@ -10,8 +10,22 @@
 #include "readData/ReaderData.h"
 
 
-int main() {
-    ReaderData reader("data.csv");
+int main(int argc , char* argv[]) {
+    if(argc>2){
+        std::cout << "Error the main can only take one argument (one csv file) beut there is: " << argc <<
+        "arguments" << std::endl;
+        return 0;
+    }
+    std::string pathCSV;
+    if(argc==2){
+        std::cout << "Lecture of the csv file at path: " << argv[1] << std::endl;
+        pathCSV = argv[1];
+    }
+    if(argc==1){
+        std::cout << "Lecture of the default csv file in MATH-458-ProjectNonLinearSystems folder : data.csv"<<std::endl;
+        pathCSV = "data.csv";
+    }
+    ReaderData reader(pathCSV);
     std::vector<Data*> allData = reader.readAllData();
     retVals aux;
     int cnt=0;
