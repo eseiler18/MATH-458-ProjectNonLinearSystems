@@ -11,11 +11,6 @@
  */
 class Fixture_Solve : public testing::Test{
 protected:
-    // Default constructor () (not usefull for the moment)
-
-    // Default destructor () (not usefull for the moment)
-
-
     /// Setup :choose the method and return the result
     void SetUp(std::string sfun, std::string sdfun, double initialVal, double tol, int Maxit,
                double lowerbound, double upperbound,const std::string& met);

@@ -20,7 +20,7 @@ add_executable(Google_Tests_run test1.cc ../project/solverMethods/AbstractSolver
         ../project/readData/parser/Builder.cpp ../project/readData/parser/Builder.h ../project/readData/parser/Solver.h
         ../project/readData/ReaderData.cpp ../project/readData/ReaderData.h ../project/readData/Data.h
         ../project/readData/InterpreterInputFunction.cpp
-        FixtureTest.h)
+        FixtureTest.h FixtureInterpreter.h)
 
 target_link_libraries(Google_Tests_run ${CMAKE_DL_LIBS})
 target_link_libraries(Google_Tests_run gtest gtest_main)
