@@ -26,7 +26,7 @@ Newton::~Newton() = default;
 
 
 // Solving method
-double Newton::SolveEquation() const {
+struct retVals Newton::SolveEquation() const {
     //Initialisation
     int it = 1;
     double res = tolerance + 1;
@@ -96,7 +96,9 @@ double Newton::SolveEquation() const {
     else {
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;
-        return result;
+
+
+        return retVals {result,it};
     }
 }
 

@@ -15,7 +15,7 @@
 
 
 int main() {
-    double aux;
+    struct retVals aux;
     std::vector<Data*> allData = ReaderData::readAllData(("data.csv"));
     int cnt=0;
     for (Data* data: allData){

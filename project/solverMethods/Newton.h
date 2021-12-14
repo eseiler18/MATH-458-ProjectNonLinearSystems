@@ -37,7 +37,7 @@ public:
 
 
     /// Polymorph solver for newton method
-    double SolveEquation() const override;
+    struct retVals SolveEquation() const override;
 
 private:
     double initialValue;

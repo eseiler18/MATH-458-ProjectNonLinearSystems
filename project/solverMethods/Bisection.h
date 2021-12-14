@@ -33,7 +33,7 @@ public :
 
     //Solve
     /// Polymorph solver for bisection method
-    double SolveEquation() const override;
+    struct retVals SolveEquation() const override;
 
 private:
     double upperBound;

@@ -27,7 +27,7 @@ FixedPoint::~FixedPoint() =default;
 
 
 // Solving method
-double FixedPoint::SolveEquation() const {
+struct retVals FixedPoint::SolveEquation() const {
     //Initialise
     int it = 0;
     double res = tolerance + 1;
@@ -90,7 +90,7 @@ double FixedPoint::SolveEquation() const {
 
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;
-        return result;
+        return retVals {result,it};
     }
 }
 

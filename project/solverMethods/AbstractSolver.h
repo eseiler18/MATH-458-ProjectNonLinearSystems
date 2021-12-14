@@ -10,6 +10,17 @@
 #include "ExceptionIterate.h"
 #include <math.h>
 
+
+/**
+ * Return structure for our method, usefull for printing result or Google test
+ * -result : the 0 find by ou method
+ * -iterations : the number of iterations to reach the results
+ */
+struct retVals {
+    double result;
+    int it;
+};
+
 /**
  * AbstractSolver Class is the mother class of all the numerical method. It contains the variables
  * common to all method :
@@ -19,7 +30,7 @@
  */
 class AbstractSolver {
 public:
-    // Constructor and destructor
+    /// Constructor and destructor
     AbstractSolver();
     /// Constructor with the three variable common to all method
     AbstractSolver(AbstractNode* fun ,double tol,int Maxit);
@@ -43,8 +54,8 @@ public:
     double GetFValue(double x) const { return f->solve(x); }
 
 
-    /// Pure virtual method that solve f(x)
-    virtual double SolveEquation() const = 0;
+     /// Pure virtual method that solve f(x)
+    virtual struct retVals SolveEquation() const = 0;
 
 protected:
     // function pointer

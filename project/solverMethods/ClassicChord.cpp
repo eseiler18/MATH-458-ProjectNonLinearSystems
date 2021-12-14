@@ -26,7 +26,7 @@ ClassicChord::~ClassicChord() = default;
 
 
 // Solving method
-double ClassicChord::SolveEquation() const {
+struct retVals ClassicChord::SolveEquation() const {
     //Initialise
     int it = 1;
     double xPrev = initialValue;
@@ -107,7 +107,7 @@ double ClassicChord::SolveEquation() const {
     else {
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;
-        return result;
+        return retVals {result,it};
     }
 
 }

@@ -30,7 +30,7 @@ public:
     void SetInitialValue(const double x0) {initialValue = x0; }
 
     /// Polymorph solver for classic chord method
-    double SolveEquation() const override;
+    struct retVals SolveEquation() const override;
 
 private:
     double initialValue;

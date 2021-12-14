@@ -27,7 +27,7 @@ Bisection::~Bisection() =default;
 
 
 // Solving method
-double Bisection::SolveEquation() const {
+struct retVals Bisection::SolveEquation() const {
     double b = upperBound;
     double a = lowerBound;
 
@@ -50,12 +50,12 @@ double Bisection::SolveEquation() const {
     //Check Direct Solution for lower bound
     if (GetFValue(a) == 0) {
         std::cout << "A Solution is the lowerBound : x= " << a << std::endl;
-        return a;
+        retVals {a,0};
     }
     //Check Direct Solution for upper bound
     if (GetFValue(b) == 0) {
         std::cout << "A Solution is the Upperbound : x= " << b << std::endl;
-        return b;
+        retVals {b,0};;
     }
 
     //Initialize
@@ -70,7 +70,7 @@ double Bisection::SolveEquation() const {
         if (GetFValue(aux) == 0) {
             std::cout << "Exact solution founded after  " << it << " iterations " << std::endl;
             std::cout << "x = " << aux << " and f(x) = " << GetFValue(aux) << std::endl;
-            return aux;
+            return retVals {aux,it};;
         }
 
         // Compare the medium of the interval with the bound to update the new interval
@@ -109,7 +109,7 @@ double Bisection::SolveEquation() const {
     else {
         std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
         std::cout << "x = " << aux << " and f(x) = " << GetFValue(aux) << std::endl;
-        return aux;
+        return retVals {aux,it};
     }
 
 }
