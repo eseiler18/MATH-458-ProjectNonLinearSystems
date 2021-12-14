@@ -26,13 +26,14 @@ ReaderData::ReaderData(const std::string& pathOfCsv):pathOfCsv(pathOfCsv) {
 }
 
 
-void ReaderData::readIntervalBiSection(std::vector<std::string>& row, Data* data) {
+void ReaderData::readIntervalBiSection(std::vector<std::string>& row, Data* data) const {
     if (!data->method["Bisection"]) {
-        // only available for BI_SECTION
+        // only available for BISECTION
         return;
     }
-    // interval lower bound
+    // interval
     if (row[3].empty() || row[4].empty()) {
+        // verify emptiness
         std::cout << "Warning line " + std::to_string(currentLine) + ": lowerBound and upperBound must be filled" +
                      ". Can't use bisection method" << std::endl;
         data->method["Bisection"] = false;
@@ -41,6 +42,7 @@ void ReaderData::readIntervalBiSection(std::vector<std::string>& row, Data* data
         data->upperBound = atof(row[4].c_str());
     }
     else{
+        // exception if the cell is not a number
         throw std::invalid_argument("Invalid cell in csv file at line " + std::to_string(currentLine)
                                         + ": " + row[3] +" and "+ row[4] +" must be numbers.");
     }
@@ -48,12 +50,14 @@ void ReaderData::readIntervalBiSection(std::vector<std::string>& row, Data* data
 }
 
 void ReaderData::readInitialValue(std::vector<std::string>& row, Data* data) const {
+    // only available for newton, fixed point and chord methods
     if (data->method["Newton"] || data->method["FixedPoint"] || data->method["Chord"]) {
+        // verify emptiness
         if (row[5].empty()) {
             std::string methodCantDo;
             if (data->method["Newton"]) {
                 data->method["Newton"] = false;
-                methodCantDo = "Newtow";
+                methodCantDo = "Newton";
             }
             if (data->method["FixedPoint"]) {
                 data->method["FixedPoint"] = false;
@@ -78,12 +82,13 @@ void ReaderData::readInitialValue(std::vector<std::string>& row, Data* data) con
                 data->initialValue = atof(row[5].c_str());
         }
         else{
+            // exception if the cell is not a number
             throw std::invalid_argument("Invalid cell in csv file at line " + std::to_string(currentLine)
                                             + ": " + row[5] + " should be a number.");
         }
-
     }
 }
+
 
 Data* ReaderData::createDataRow(std::vector<std::string>& row) {
     try {
@@ -160,7 +165,7 @@ Data* ReaderData::createDataRow(std::vector<std::string>& row) {
                                             + ": " + row[7] + " should be a number.");
         }
         return data;
-    }
+    }//if catch an exception return a data with all methods false because there is an error in the csv file at that line
     catch (std::invalid_argument &e){
         std::cout << e.what() << std::endl;
         Data *data = new Data;
@@ -246,7 +251,7 @@ bool ReaderData::isEmptyFile(std::basic_ifstream<char>& file) {
 }
 
 
-void ReaderData::fillChosenMethod(Data *data, const std::string& methods) {
+void ReaderData::fillChosenMethod(Data *data, const std::string& methods) const {
     std::stringstream s(methods);
     std::string word;
     std::vector<std::string> methodsVector;

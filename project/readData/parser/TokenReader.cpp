@@ -55,7 +55,7 @@ AbstractToken *TokenReader::readNextToken() {
             break;
         case 'x':
         case 'X':{
-                // now we can have several variable x1, x2, x3.... check if there is some digit
+                // can have several variable x0, x1, x2, x3.... check if there is some digit
                 std::string variableName;
                 variableName.push_back(currentChar);
                 while (position+1 < expression.length() && std::isdigit(expression[position+1])){
@@ -66,8 +66,7 @@ AbstractToken *TokenReader::readNextToken() {
             }
             break;
         default:
-            // create number token
-            // change here where manage functioname
+            // create number token if digit else function token
             if (std::isdigit(currentChar)) {
                 resultToken = createNumberToken();
             } else {
@@ -131,7 +130,7 @@ Token *TokenReader::createFunctionToken() {
     bool dotFound = false;
     while(position < expression.length()-1){
         currentChar = expression.at(position + 1);
-        // case when number is several digit
+        // check is several alphanumeric character
         if(std::isalnum(currentChar)){
             functionName.push_back(currentChar);
         } else if (currentChar !=' ' and currentChar != '(') {
@@ -139,12 +138,12 @@ Token *TokenReader::createFunctionToken() {
             std::string message();
             throw ParserException("Invalid token reach: " + functionName);
         } else {
-            // break is the number is finish
+            // break when the function name is finish
             break;
         }
         position++;
     }
-    // build the token number
+    // build the token function
     if(functionName=="sin"||functionName=="cos"||functionName=="tan" || functionName=="exp"|| functionName=="log" ||
             functionName=="sqrt" || functionName =="atan") {
         return new TokenFunction(functionName);

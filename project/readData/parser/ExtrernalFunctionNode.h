@@ -13,12 +13,12 @@ using myP = double(*)(double);
 class ExternalFunctionNode : public AbstractNode{
 public:
     ExternalFunctionNode(myP f):fun(f){}
-    /// solve method return simply the value of the function for x
+    /// solve method return simply the value of the function for x multi variable not yet implemented
     double solve(int nbParameters, const double parameters[]) override {
         if (nbParameters== 1) {
             return fun(parameters[0]);
         }
-        throw new ParserException ("ExternalFunctionNode. several parameters managed not yet implemented");
+        throw ParserException ("ExternalFunctionNode. several parameters managed not yet implemented");
     }
 
 private:

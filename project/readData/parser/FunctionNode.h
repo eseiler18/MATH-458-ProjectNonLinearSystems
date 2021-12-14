@@ -11,7 +11,9 @@
 #include <math.h>
 
 /**
- * External function node use to build an node with function pointer parameter (use when equation is given in code)
+ * Function node use to build an node that correspond to a token function
+ * the function name is in the functionName parameter
+ * the content of the function is the parameter nestedExpression
  */
 class FunctionNode : public AbstractNode{
 private:
@@ -20,7 +22,7 @@ private:
 public:
     FunctionNode(const std::string& funtionName, AbstractNode* nestedExpression):funtionName(funtionName), nestedExpression(nestedExpression){}
 
-    /// solve method return simply the value of the function for x
+    /// solve method return simply the value of the function for x in term of the function name
     double solve(int nbParameters, const double parameters[]) override { 
         if (funtionName=="sin") {
             return sin(nestedExpression->solve(nbParameters, parameters));

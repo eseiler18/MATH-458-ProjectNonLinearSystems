@@ -8,7 +8,7 @@
 #include "TokenContainer.h"
 #include "Token.h"
 /**
- * Token Function class representing a "function" associatd to a container. The function will be applied for container childer
+ * Token Function class representing a "function" associatd to a container. The function will be applied for container children
  * A token function must contain one nested container 
  */
 class TokenFunction : public Token{
