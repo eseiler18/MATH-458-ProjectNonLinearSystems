@@ -16,6 +16,7 @@
 #include "../project/solverMethods/ExceptionIterate.h"
 
 #include "FixtureTest.h"
+#include "FixtureInterpreter.h"
 
 
 ///---------------- Constructor string to function --------------------------------------
@@ -27,7 +28,7 @@ TEST(ConstructorStrToFuncTest1,invalid_input){
     ASSERT_THROW(Solver::strToFun("(x+3"),ParserException);
     ASSERT_THROW(Solver::strToFun("2* x)"),ParserException);
     ASSERT_THROW(Solver::strToFun("x +"),ParserException);
-    ASSERT_THROW(Solver::strToFun("/x"),ParserException);
+    ASSERT_THROW(Solver::strToFun("/x"),ParserException)<< "diagnostic message";
     ASSERT_THROW(Solver::strToFun("1 + cinq"),ParserException);
 }
 
@@ -38,6 +39,25 @@ TEST(StrToFunTest1,Valid_input){
     ASSERT_NEAR(f->solve(2),7,0.0001);
     ASSERT_NEAR(f->solve(-4),-65,0.0001);
     ASSERT_NEAR(f->solve(0.05),-3159.999875,0.0001);
+}
+
+TEST_F(Fixture_Interpreter,priorityTest){
+    std::cout << "Testing Priority operator ... " << std::endl;
+    Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",4);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value,3*4+5*4*4*4-5,0.0001)<< "Problem for : 3*x  + 5 *x *x* 4 - 5";
+
+    Fixture_Interpreter::SetUp("(x + 3)*x * 4 + 5",3);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value,(3+3)*3*4+5,0.0001)<< "Problem for : (x + 3)*x * 4 + 5";
+
+    Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",0);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value,0,0.0001)<< "Problem for : 3*x  + 5 *x *x 4 - 5";
+
+    Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",4);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value,3*4+5*4*4*4-5,0.0001)<< "Problem for : 3*x  + 5 *x *x* 4 - 5";
+
+    Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",4);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value,3*4+5*4*4*4-5,0.0001)<< "Problem for : 3*x  + 5 *x *x* 4 - 5";
+
 }
 
 TEST(StrToFunTest1,divide_by_0){
