@@ -89,14 +89,6 @@ TEST_F(Fixture_Solve,Test_Fixed_point){
     ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1);
 }
 
-TEST(MyNewtonTest1, no_solution) {
-    AbstractNode* f = Solver::strToFun("x^2 +2");
-    AbstractNode *df = Solver::strToFun("2*x");
-    struct Data dat = {.fun= f, .dFun = df, .initialValue=10, .tolerance=0.0001,
-            .maxIter=1000, .method ={{"Newton", true}}};
-    Newton b(&dat);
-    ASSERT_THROW(b.SolveEquation(), ExceptionIterate);
-}
 
 TEST_F(Fixture_Solve,Test_Newton_Exception){
     std::cout<<"Testing Newton exception ... "<<std::endl;
