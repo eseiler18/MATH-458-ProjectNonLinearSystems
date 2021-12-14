@@ -13,7 +13,7 @@
 #include "../project/readData/ReaderData.h"
 #include "../project/solverMethods/ExceptionIterate.h"
 
-#include "FixtureTest.h"
+#include "FixtureMethod.h"
 #include "FixtureInterpreter.h"
 
 
@@ -36,9 +36,9 @@ TEST_F(Fixture_Interpreter,priorityTest){
     Fixture_Interpreter::SetUp(" x / x^3*3 +18- 5*x",4);
     ASSERT_NEAR(Fixture_Interpreter::calculated_value,4.0/(4*4*4)*3+18-5*4,0.0001)<< "Problem for :  x / x^3*3 +18- 5*x";
 }
-///---------------- Error Parser Exception--------------------------
+///---------------- Expected Error Parser Exception--------------------------
 TEST_F(Fixture_Interpreter,error_parser_expected){
-    std::cout << "Testing error parseur exception ... " << std::endl;
+    std::cout << "Testing expected error parseur exception ... " << std::endl;
 
     Fixture_Interpreter::SetUp("3*x  + 5 *x *x 4 - 5",4, true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 3*x  + 5 *x *x 4 - 5  -> error expected";
@@ -70,7 +70,6 @@ TEST_F(Fixture_Interpreter,testoperator) {
 
     Fixture_Interpreter::SetUp("(x + 3)*x * 4.4 + 5", 3);
     ASSERT_NEAR(Fixture_Interpreter::calculated_value, (3+3)*3*4.4+5, 0.0001)<< "Problem for : (x + 3)*x * 4.4 + 5";
-
 }
 
 ///---------------- External function Test ------------------------
@@ -92,6 +91,33 @@ TEST_F(Fixture_Interpreter,testexternalfunction) {
 }
 
 
+///---------------- Multi Variable TEST------------------------
+TEST_F(Fixture_Interpreter,multiVariables) {
+    std::cout << "Testing multiVariable Parser  .. " << std::endl;
+
+    double variables[2]{2.0,5.0};
+    Fixture_Interpreter::SetUp("sin(12x0) + cos(12x1)",variables,2);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, sin(12*2) + cos(12*5), 0.0001)
+    << "<-- Problem for : sin(12x0) + cos(12x1))";
+
+    double variables2[4]{2.0,5.0,8.0,1.5};
+    Fixture_Interpreter::SetUp("x2 * x1 + x3^2 /x0 +x2",variables2,4);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, 8 *5 + 1.5*1.5/2 +8, 0.0001)
+    << "<-- Problem for : x2 * x1 + x3^2 /x0 +x2";
+}
+
+TEST_F(Fixture_Interpreter,multiVariables_Exception) {
+    std::cout << "Testing Expected multiVariable Exception .. " << std::endl;
+    double variable[2];
+
+    Fixture_Interpreter::SetUp("x1+ x3",variable,2,true);
+    ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x1 + x3 -> error expected";
+
+    Fixture_Interpreter::SetUp("x+ y",variable,2,true);
+    ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x+ y -> error expected";
+}
+
+
 /// ----------------Divide by 0 exception -------------------------
 TEST(StrToFunTest1,divide_by_0){
     std::cout << "Testing divide by 0 exception... " << std::endl;
@@ -99,16 +125,17 @@ TEST(StrToFunTest1,divide_by_0){
     ASSERT_THROW(f->solve(0),std::invalid_argument)<< "Problem when dividing by 0 : invalid argument excpected ..";
 }
 
+
 /// ----------------Classic Chord TEST --------------------------------
 TEST_F(Fixture_Solve,Test_Chord){
     std::cout<<"Testing Chord resolution  ... "<<std::endl;
     Fixture_Solve::SetUp("x","0",10,0.0001,1000,-100,1000,
                          "Chord");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,00.1)<< "<--Classic Chord resolution Problem";
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,0000.1)<< "<--Classic Chord resolution Problem";
 
     Fixture_Solve::SetUp("x^3 +2*x -8","3*x^2 + 2",10,0.0001,1000,-100,
                          1000,"Chord");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1)<< "<--Classic Chord resolution Problem";
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,0000.1)<< "<--Classic Chord resolution Problem";
 }
 TEST_F(Fixture_Solve,Test_Chord_Exception) {
     std::cout << "Testing Chord exception ... " << std::endl;
