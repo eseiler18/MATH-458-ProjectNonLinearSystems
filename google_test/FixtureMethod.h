@@ -2,8 +2,8 @@
 // Created by lleguill on 14.12.21.
 //
 
-#ifndef PCSC_PROJECT_FIXTURETEST_H
-#define PCSC_PROJECT_FIXTURETEST_H
+#ifndef PCSC_PROJECT_FIXTUREMETHOD_H
+#define PCSC_PROJECT_FIXTUREMETHOD_H
 
 /**
  * Fixture class to do the Test.
@@ -25,8 +25,6 @@ public:
     const retVals &getRetMethod() const;
 
 private:
-    AbstractNode* f ;
-    AbstractNode* df ;
     // Retuned by the method
     struct retVals ret_method;
     //What we want for the Google Test
@@ -37,8 +35,8 @@ private:
 
 void Fixture_Solve::SetUp(std::string sfun, std::string sdfun, double initialVal, double tol, int maxit,
                           double lowerbound, double upperbound,const std::string& met) {
-    f=Solver::strToFun(std::move(sfun));
-    df=Solver::strToFun(std::move(sdfun));
+    AbstractNode* f =Solver::strToFun(std::move(sfun));
+    AbstractNode* df =Solver::strToFun(std::move(sdfun));
 
     if ("Newton"==met){
         Newton aux(f,df,initialVal,tol,maxit);
@@ -69,4 +67,4 @@ const retVals &Fixture_Solve::getRetMethod() const {
 };
 
 
-#endif //PCSC_PROJECT_FIXTURETEST_H
+#endif //PCSC_PROJECT_FIXTUREMETHOD_H
