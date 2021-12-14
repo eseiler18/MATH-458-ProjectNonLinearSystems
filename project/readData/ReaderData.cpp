@@ -10,6 +10,7 @@
 #include "ReaderData.h"
 //#include "../parser/ExtrernalFunctionNode.h"
 #include "InterpreterInputFunction.h"
+#include "parser/ParserException.h"
 
 ReaderData::ReaderData(const std::string& pathOfCsv):pathOfCsv(pathOfCsv) {
     // Open an existing and non-empty file
@@ -161,6 +162,11 @@ Data* ReaderData::createDataRow(std::vector<std::string>& row) {
         return data;
     }
     catch (std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+        Data *data = new Data;
+        return data;
+    }
+    catch (ParserException &e){
         std::cout << e.what() << std::endl;
         Data *data = new Data;
         return data;

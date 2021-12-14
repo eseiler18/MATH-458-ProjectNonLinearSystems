@@ -17,7 +17,7 @@ public:
     OperatorNode(TokenType t, AbstractNode* op1, AbstractNode* op2): tokenType(t), operand1(op1), operand2(op2){}
     ~OperatorNode() override{delete operand1; delete operand2;}
     /// return the value of operand1 'operator type' operand2
-    double solve(double x) override;
+    double solve(int nbParameters, const double parameters[]) override;
 private:
     TokenType tokenType;
     AbstractNode *operand1;

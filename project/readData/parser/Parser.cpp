@@ -6,6 +6,7 @@
 #include "Parser.h"
 #include "Token.h"
 #include "TokenContainer.h"
+#include "TokenFunction.h"
 
 Parser::Parser(std::string expression): tokenReader(expression) {}
 
@@ -19,7 +20,7 @@ TokenContainer *Parser::readTokens(TokenContainer *container) {
         if (currentToken->getTokenType() == TokenType::CLOSE_PAR){
             if (container == nullptr){
                 // try to close container but container doesn't exist (container by default to nullptr)
-                throw std::invalid_argument("Illegal close parenthesis ')' reach without any open parenthesis");
+                throw ParserException("Illegal close parenthesis ')' reach without any open parenthesis");
             }
             break;
         }
@@ -50,7 +51,7 @@ TokenContainer *Parser::readTokens(TokenContainer *container) {
         }
         else if(currentToken == nullptr || currentToken->getTokenType() != TokenType::CLOSE_PAR){
             // case when container is open with ( but not close
-            throw std::invalid_argument( "Illegal open parenthesis without no close parenthesis ')'");
+            throw ParserException( "Illegal open parenthesis without no close parenthesis ')'");
         }
         for(AbstractToken *t : tokens){
             // add tokens in the container
@@ -61,7 +62,7 @@ TokenContainer *Parser::readTokens(TokenContainer *container) {
 }
 
 
-std::list<AbstractToken *> Parser::manageImplicitOperator(std::list<AbstractToken *> tokens) {
+std::list<AbstractToken *> Parser::manageImplicitOperator(const std::list<AbstractToken *>& tokens) {
     if(tokens.empty()){ return tokens; }
     AbstractToken* lastToken = nullptr;
     std::list <AbstractToken*> resultTokens;
@@ -105,32 +106,32 @@ void Parser::checkTokenValidity(const std::list <AbstractToken *>& tokens) {
         if(previousToken == nullptr){
             if(token->isOperator()){
                 std::string message("Operator: " + token->toString() + " without first operand.");
-                throw std::invalid_argument(message);
+                throw ParserException(message);
             }
         }
         // invalid case when operator is followed by another like +-, *-...
         else if(token->isOperator() && previousToken->isOperator()){
             std::string message("Operator: " + previousToken->toString() +
             " can not be followed by operator: " + token->toString());
-            throw std::invalid_argument(message);
+            throw ParserException(message);
         }
         // invalid case when unary token is followed by another like xx, x2 (2x manage in implicit operator method)
         else if (token->isUnary() && previousToken->isUnary()){
             std::string message(previousToken->toString() + " can't be followed by " +
             token->toString() + " without operator.");
-            throw std::invalid_argument(message);
+            throw ParserException(message);
         }
         previousToken = token;
     }
     // invalid case when operator finish the expression
     if(previousToken->isOperator()){
-        std::string message("Operator " + previousToken->toString() + " can't end the expression.");
-        throw std::invalid_argument(message);
+        std::string message("Operator or function " + previousToken->toString() + " can't end the expression.");
+        throw ParserException(message);
     }
 }
 
 
-int Parser::getPriority(AbstractToken *token) {
+int Parser::getPriority(const AbstractToken *token) {
     if (token->getTokenType() == TokenType::ADD || token->getTokenType() == TokenType::SUB) { return 0; }
     if (token->getTokenType() == TokenType::MUL || token->getTokenType() == TokenType::DIV) { return 1; }
     if (token->getTokenType() == TokenType::POW){ return 2; }
@@ -166,10 +167,11 @@ Parser::managePriorityChildrenOpenLevel(const std::list<AbstractToken *> &tokens
 }
 
 
-std::list <AbstractToken*> Parser::normalizeAndVerifyTokens(const std::list <AbstractToken*>& tokens){
+std::list <AbstractToken*> Parser::normalizeAndVerifyTokens(const  std::list <AbstractToken*>& tokens){
     std::list <AbstractToken*> newTokens;
+    newTokens=manageTokenFunction(tokens);
     // manage implicit operator
-    newTokens = manageImplicitOperator(tokens);
+    newTokens = manageImplicitOperator(newTokens);
     // verify validity
     checkTokenValidity(newTokens);
     //manage priority for POW
@@ -179,4 +181,37 @@ std::list <AbstractToken*> Parser::normalizeAndVerifyTokens(const std::list <Abs
     return newTokens;
 }
 
+std::list<AbstractToken *> Parser::manageTokenFunction(const std::list<AbstractToken *>& tokens) {
+    if(tokens.empty() || tokens.size()<2){ return tokens; }
+    std::list <AbstractToken*> resultTokens;
+    TokenFunction* previousFunction = nullptr;
+    bool mustAddToken=true;
+    for (AbstractToken* token:  tokens){
+        // add all token unless container preceding by function
+        mustAddToken=true;
+        if (previousFunction != nullptr)  {
+             if (token->getTokenType()==TokenType::CONTAINER) {
+                 // normal case...
+                 previousFunction->setNestedContainer(dynamic_cast<TokenContainer*>(token));
+                 // do not add container (because we attach it to function)
+                mustAddToken=false;
+             } else {
+                std::string msg("Function '");
+                msg.append(previousFunction->getValueStr()).append("' must be flolow by ()");
+                throw new ParserException(msg);
+             }
+        }
+
+        if (token->isFunction()) {
+            previousFunction=dynamic_cast<TokenFunction*>(token);
+        } else {
+            previousFunction=nullptr;
+        }
+        if (mustAddToken) {
+            resultTokens.push_back(token);
+        }
+
+    }
+    return resultTokens;
+}
 

@@ -14,7 +14,7 @@ class NumberNode : public AbstractNode{
 public:
     NumberNode(double v):value(v){}
     /// Simply for a number return the value of the number
-    double solve(double x) override{
+    double solve(int nbParameters, const double parameters[]) {
         return value;
     }
 private:
