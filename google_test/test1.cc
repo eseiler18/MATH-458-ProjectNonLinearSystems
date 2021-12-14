@@ -4,6 +4,7 @@
 #include <exception>
 #include <utility>
 #include <gtest/gtest.h>
+#include "../project/readData/parser/ParserException.h"
 
 #include "../project/solverMethods/Newton.h"
 #include "../project/solverMethods/Bisection.h"
@@ -20,15 +21,16 @@
 ///---------------- Constructor string to function --------------------------------------
 TEST(ConstructorStrToFuncTest1,invalid_input){
     std::cout << "Testing reader ... " << std::endl;
-    ASSERT_THROW(Solver::strToFun("x+ cinq"),std::invalid_argument);
-    ASSERT_THROW(Solver::strToFun("x +*2"),std::invalid_argument);
-    ASSERT_THROW(Solver::strToFun("x 44"),std::invalid_argument);
-    ASSERT_THROW(Solver::strToFun("(x+3"),std::invalid_argument);
-    ASSERT_THROW(Solver::strToFun("2* x)"),std::invalid_argument);
-    ASSERT_THROW(Solver::strToFun("x +"),std::invalid_argument);
-    ASSERT_THROW(Solver::strToFun("/x"),std::invalid_argument);
-    ASSERT_THROW(Solver::strToFun("Prog is fun"),std::invalid_argument);
+    ASSERT_THROW(Solver::strToFun("x/"),ParserException);
+    ASSERT_THROW(Solver::strToFun("x +*2"),ParserException);
+    ASSERT_THROW(Solver::strToFun("x 44"),ParserException);
+    ASSERT_THROW(Solver::strToFun("(x+3"),ParserException);
+    ASSERT_THROW(Solver::strToFun("2* x)"),ParserException);
+    ASSERT_THROW(Solver::strToFun("x +"),ParserException);
+    ASSERT_THROW(Solver::strToFun("/x"),ParserException);
+    ASSERT_THROW(Solver::strToFun("1 + cinq"),ParserException);
 }
+
 ///---------------- Interpreter string to function of method Solve-----------------------
 TEST(StrToFunTest1,Valid_input){
     std::cout << "Testing Solver return method... " << std::endl;
@@ -37,6 +39,7 @@ TEST(StrToFunTest1,Valid_input){
     ASSERT_NEAR(f->solve(-4),-65,0.0001);
     ASSERT_NEAR(f->solve(0.05),-3159.999875,0.0001);
 }
+
 TEST(StrToFunTest1,divide_by_0){
     std::cout << "Testing divide by 0 exception... " << std::endl;
     AbstractNode* f = Solver::strToFun("1/x");
