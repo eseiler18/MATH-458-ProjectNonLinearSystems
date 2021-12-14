@@ -23,7 +23,7 @@ int main(int argc , char* argv[]) {
         J(1, 0) = f2dx;
         J(1, 1) = f2dy;
         double x0[2] = {10, 5};
-        NewtonSystem sys(nbVariable, F, J, 0.00001, 10000, x0);
+        NewtonSystem sys(nbVariable, F, J, 0.00000001, 10000, x0);
         double *xRes = sys.solveSystem();
         std::string resultStr;
         std::string FResultStr;
