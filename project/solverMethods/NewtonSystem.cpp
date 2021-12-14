@@ -32,8 +32,8 @@ double *NewtonSystem::solveSystem() {
     int it=1;
     double res = tolerance+1;
     double* x = initialValue;
-    double* xNext =initialValue;
-    double* result=initialValue;
+    double* xNext;
+    double* result;
     while(res > tolerance && it < maxIter){
         Eigen::VectorXd FValue = getFValue(x);
         Eigen::MatrixXd JValue = getJValue(x);
