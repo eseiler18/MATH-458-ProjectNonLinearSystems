@@ -17,5 +17,6 @@ _deps
 *CMakeCache.txt
 .cproject
 cmake-build-debug
+/project/eigen/
 /html/
 /google_test/lib/
