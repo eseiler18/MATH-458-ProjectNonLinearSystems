@@ -6,17 +6,14 @@
 #define PCSC_PROJECT_EXCEPTIONITERATE_H
 
 #include <string>
+#include <stdexcept>
 
-class ExceptionIterate{
+
+class ExceptionIterate : public std::logic_error{
 public:
-    ExceptionIterate(std::string &s):message(s){}
-    void what() const{
-        std::cout << message << std::endl;
-    }
-
-private:
-    std::string message;
-
+    ExceptionIterate(const std::string &s):logic_error(s){}
 };
+
+
 
 #endif //PCSC_PROJECT_EXCEPTIONITERATE_H

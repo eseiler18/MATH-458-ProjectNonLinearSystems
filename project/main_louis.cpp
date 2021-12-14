@@ -31,7 +31,7 @@ int main() {
                 std::cout << "Converge after " << aux.it << " iterations for a tolerance of " << newt.GetTol() << std::endl;
                 std::cout << "x = " << aux.result << " and f(x) = " << newt.GetFValue(aux.result) << std::endl;
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
-            catch (ExceptionIterate(&e)){ e.what(); }
+            catch (ExceptionIterate(&e)){ std::cout << e.what() << std::endl;}
         }if (data->method["Bisection"]){
             std::cout << "\nBisection Method :" << std::endl;
             Bisection bisec(data);
@@ -40,7 +40,7 @@ int main() {
                 std::cout << "Converge after " << aux.it << " iterations for a tolerance of " << bisec.GetTol() << std::endl;
                 std::cout << "x = " << aux.result << " and f(x) = " << bisec.GetFValue(aux.result) << std::endl;
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
-            catch (ExceptionIterate(&e)){ e.what(); }
+            catch (ExceptionIterate(&e)){ std::cout << e.what() << std::endl; }
 
         }if (data->method["Chord"]) {
             std::cout << "\nClassic Chord Method with Aikten acceleration:" << std::endl;
@@ -50,7 +50,7 @@ int main() {
                 std::cout << "Converge after " << aux.it << " iterations for a tolerance of " << chrd.GetTol() << std::endl;
                 std::cout << "x = " << aux.result << " and f(x) = " << chrd.GetFValue(aux.result) << std::endl;
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
-            catch (ExceptionIterate(&e)){ e.what(); }
+            catch (ExceptionIterate(&e)){ std::cout << e.what() << std::endl; }
         }if (data->method["FixedPoint"]){
             std::cout << "\nFixed Point Method with Aitken acceleration :" << std::endl;
             FixedPoint fxdp(data);
@@ -59,7 +59,7 @@ int main() {
                 std::cout << "Converge after " << aux.it << " iterations for a tolerance of " << fxdp.GetTol() << std::endl;
                 std::cout << "x = " << aux.result << " and f(x) = " << fxdp.GetFValue(aux.result) << std::endl;
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
-            catch (ExceptionIterate(&e)){ e.what(); }
+            catch (ExceptionIterate(&e)){ std::cout << e.what() << std::endl; }
         }
         std::cout<<std::endl;
         delete data;
