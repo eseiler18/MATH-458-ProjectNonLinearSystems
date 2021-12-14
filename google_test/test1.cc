@@ -1,6 +1,5 @@
 #include <cmath>
 #include<iostream>
-#include<string>
 #include <exception>
 #include <utility>
 #include <gtest/gtest.h>
@@ -11,7 +10,6 @@
 #include "../project/solverMethods/ClassicChord.h"
 #include "../project/solverMethods/FixedPoint.h"
 #include "../project/readData/parser/Solver.h"
-
 #include "../project/readData/ReaderData.h"
 #include "../project/solverMethods/ExceptionIterate.h"
 
@@ -19,137 +17,194 @@
 #include "FixtureInterpreter.h"
 
 
-///---------------- Constructor string to function --------------------------------------
-TEST(ConstructorStrToFuncTest1,invalid_input){
-    std::cout << "Testing reader ... " << std::endl;
-    ASSERT_THROW(Solver::strToFun("x/"),ParserException);
-    ASSERT_THROW(Solver::strToFun("x +*2"),ParserException);
-    ASSERT_THROW(Solver::strToFun("x 44"),ParserException);
-    ASSERT_THROW(Solver::strToFun("(x+3"),ParserException);
-    ASSERT_THROW(Solver::strToFun("2* x)"),ParserException);
-    ASSERT_THROW(Solver::strToFun("x +"),ParserException);
-    ASSERT_THROW(Solver::strToFun("/x"),ParserException)<< "diagnostic message";
-    ASSERT_THROW(Solver::strToFun("1 + cinq"),ParserException);
-}
 
-///---------------- Interpreter string to function of method Solve-----------------------
-TEST(StrToFunTest1,Valid_input){
-    std::cout << "Testing Solver return method... " << std::endl;
-    AbstractNode* f = Solver::strToFun("x^3 +(2*x -8)/x^2");
-    ASSERT_NEAR(f->solve(2),7,0.0001);
-    ASSERT_NEAR(f->solve(-4),-65,0.0001);
-    ASSERT_NEAR(f->solve(0.05),-3159.999875,0.0001);
-}
 
+
+///---------------- Priority operator test--------------------------
 TEST_F(Fixture_Interpreter,priorityTest){
-    std::cout << "Testing Priority operator ... " << std::endl;
+    std::cout << "\nTesting Priority operator ... " << std::endl;
+
     Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",4);
     ASSERT_NEAR(Fixture_Interpreter::calculated_value,3*4+5*4*4*4-5,0.0001)<< "Problem for : 3*x  + 5 *x *x* 4 - 5";
 
     Fixture_Interpreter::SetUp("(x + 3)*x * 4 + 5",3);
     ASSERT_NEAR(Fixture_Interpreter::calculated_value,(3+3)*3*4+5,0.0001)<< "Problem for : (x + 3)*x * 4 + 5";
 
-    Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",0);
-    ASSERT_NEAR(Fixture_Interpreter::calculated_value,0,0.0001)<< "Problem for : 3*x  + 5 *x *x 4 - 5";
+    Fixture_Interpreter::SetUp("18+ x / 3*x^3 - 5*x",4);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value,18+4.0/3*4*4*4-5*4,0.0001)<< "Problem for : 18+ x / 3*x^3 - 5*x";
 
-    Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",4);
-    ASSERT_NEAR(Fixture_Interpreter::calculated_value,3*4+5*4*4*4-5,0.0001)<< "Problem for : 3*x  + 5 *x *x* 4 - 5";
+    Fixture_Interpreter::SetUp(" x / x^3*3 +18- 5*x",4);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value,4.0/(4*4*4)*3+18-5*4,0.0001)<< "Problem for :  x / x^3*3 +18- 5*x";
+}
+///---------------- Error Parser Exception--------------------------
+TEST_F(Fixture_Interpreter,error_parser_expected){
+    std::cout << "Testing error parseur exception ... " << std::endl;
 
-    Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",4);
-    ASSERT_NEAR(Fixture_Interpreter::calculated_value,3*4+5*4*4*4-5,0.0001)<< "Problem for : 3*x  + 5 *x *x* 4 - 5";
+    Fixture_Interpreter::SetUp("3*x  + 5 *x *x 4 - 5",4, true);
+    ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 3*x  + 5 *x *x 4 - 5  -> error expected";
+
+    Fixture_Interpreter::SetUp(" 3// 5",4, true);
+    ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 3// 5  -> error expected";
+
+    Fixture_Interpreter::SetUp(" x 3",4, true);
+    ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 2 3  -> error expected";
+
+    Fixture_Interpreter::SetUp("(5*2) + 5)",4, true);
+    ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 3*x  + 5 *x *x 4 /- 5  -> error expected";
+
+    Fixture_Interpreter::SetUp("x + cinq",4, true);
+    ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x + cinq  -> error expected";
+
+    Fixture_Interpreter::SetUp("/ x",4, true);
+    ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for / x  -> error expected";
+}
+///---------------- operator test-------------------------
+TEST_F(Fixture_Interpreter,testoperator) {
+    std::cout << "Testing operator ... " << std::endl;
+
+    Fixture_Interpreter::SetUp("x*x", 5);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, 25, 0.0001)<< "Problem for : x*x";
+
+    Fixture_Interpreter::SetUp("x^x", 5);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, 5*5*5*5*5, 0.0001)<< "Problem for : x^x";
+
+    Fixture_Interpreter::SetUp("(x + 3)*x * 4.4 + 5", 3);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, (3+3)*3*4.4+5, 0.0001)<< "Problem for : (x + 3)*x * 4.4 + 5";
 
 }
 
+///---------------- External function Test ------------------------
+TEST_F(Fixture_Interpreter,testexternalfunction) {
+    std::cout << "Testing external function ... " << std::endl;
+
+    Fixture_Interpreter::SetUp("sin(12*x)", 5);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, sin(12*5), 0.0001) << "Problem for : sin(12*x)";
+
+    Fixture_Interpreter::SetUp("exp(x * cos(x^2))", 2.3);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, exp(2.3 * cos(2.3*2.3)), 0.0001)
+                                    << "Problem for : exp(x * cos(x^2))";
+    /*
+    Fixture_Interpreter::SetUp("sqrt(3*x/4)", 5);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, sqrt(3*5/4), 0.0001) << "Problem for : sqrt(3*x/4)";
+     */
+    Fixture_Interpreter::SetUp("sqrt(3*x + x)", 5);
+    ASSERT_NEAR(Fixture_Interpreter::calculated_value, sqrt(3*5 +5), 0.0001) << "Problem for : sqrt(3*x/4)";
+}
+
+
+/// ----------------Divide by 0 exception -------------------------
 TEST(StrToFunTest1,divide_by_0){
     std::cout << "Testing divide by 0 exception... " << std::endl;
     AbstractNode* f = Solver::strToFun("1/x");
-    ASSERT_THROW(f->solve(0),std::invalid_argument);
+    ASSERT_THROW(f->solve(0),std::invalid_argument)<< "Problem when dividing by 0 : invalid argument excpected ..";
 }
 
+/// ----------------Classic Chord TEST --------------------------------
 TEST_F(Fixture_Solve,Test_Chord){
     std::cout<<"Testing Chord resolution  ... "<<std::endl;
     Fixture_Solve::SetUp("x","0",10,0.0001,1000,-100,1000,
                          "Chord");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,00.1);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,00.1)<< "<--Classic Chord resolution Problem";
 
     Fixture_Solve::SetUp("x^3 +2*x -8","3*x^2 + 2",10,0.0001,1000,-100,
                          1000,"Chord");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1)<< "<--Classic Chord resolution Problem";
+}
+TEST_F(Fixture_Solve,Test_Chord_Exception) {
+    std::cout << "Testing Chord exception ... " << std::endl;
+
+    try { // Test exception when the method doen't reach a good solution
+        Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.0001, 1000, 0,
+                             0, "Chord");
+        FAIL()<<"should throw an exception ";
+    } catch (ExceptionIterate(&e)) {} // Test Passed
+    catch (...){ //If Catch Any other exception --> Test failed
+        FAIL() <<"<--Wrong exception throw" ;
+    }
 }
 
-
+/// ------------Bisection TEST --------------------------------
 TEST_F(Fixture_Solve,Test_Bisection){
     std::cout<<"Testing Bisection Resolution ... "<<std::endl;
     Fixture_Solve::SetUp("2*x/(x^2+1)","0",7,0.0001,1000,-100,6000,
                          "Bisection");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,00.1);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,00.1)<< "<--Bisection resolution Problem";
 
     Fixture_Solve::SetUp("x^7-x^2-7", "0", 7, 0.0001, 1000, -100,
                          6000,"Bisection");
-    ASSERT_NEAR(Fixture_Solve::getResult(), 0, 00.1);
+    ASSERT_NEAR(Fixture_Solve::getResult(), 0, 00.1)<< "<--Bisection resolution Problem";
+}
+TEST_F(Fixture_Solve,Test_Bisection_Exception) {
+    std::cout << "Testing Bisection exception ... " << std::endl;
 
+    try { // Test error when f(a) * f(b) >0
+        Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.01, 1000, -100,
+                             1000, "Bisection");
+        FAIL()<<"should throw an exception ";
+    }catch (std::invalid_argument(&e)) {} // Test Passed
+    catch (...){ //If Catch Any other exception --> Test failed
+        FAIL() <<"<--Wrong exception throw" ;
+    }
+    try { // Test exception when the method doen't reach a good solution
+        Fixture_Solve::SetUp("x^3", "0", 0, 0.0001, 10, -10000,
+                             1, "Bisection");
+        FAIL()<<"should throw an exception ";
+    }catch (ExceptionIterate(&e)) {} // Test Passed
+    catch (...){ //If Catch Any other exception --> Test failed
+        FAIL() <<"<--Wrong exception throw" ;
+    }
 }
 
+/// ----------------NEWTON TEST ----------------------------------
 TEST_F(Fixture_Solve,Test_Newton){
     std::cout<<"Testing  Newton resolution  ... "<<std::endl;
     Fixture_Solve::SetUp("3*x^2 + 2*x","6*x +2",10,0.0001,1000,-100,
                          1000,"Newton");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1)<< "<--Newton resolution Problem..";
 
     Fixture_Solve::SetUp("6*x","6",10,0.0001,1000,-100,
                          1000,"Newton");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1)<< "<--Newton resolution Problem..";
+}
+TEST_F(Fixture_Solve,Test_Newton_Exception){
+    std::cout<<"Testing Newton exception ... "<<std::endl;
+
+    try { // Test exception when the method doen't reach a good solution
+        Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.0001, 1000, 0,
+                             0, "Newton");
+        FAIL()<<"should throw an exception ";
+    }catch (ExceptionIterate(&e)) {} // Test Passed
+    catch (...){ //If Catch Any other exception --> Test failed
+        FAIL() <<"<--Wrong exception throw" ;
+    }
 }
 
+
+/// ----------------Fixed Point  TEST --------------------------------
 TEST_F(Fixture_Solve,Test_Fixed_point){
     std::cout<<"Testing fixed point resolution  ... "<<std::endl;
     Fixture_Solve::SetUp("3*x^2 + 2*x","6*x +2",10,0.0001,1000,-100,
                          1000,"FixedPoint");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1)<< "<--Fixed Point resolution Problem";
 
     Fixture_Solve::SetUp("6*x","6",10,0.0001,1000,-100,
                          1000,"FixedPoint");
-    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1);
+    ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1)<< "<--Fixed Point resolution Problem";
 }
 
 
-TEST_F(Fixture_Solve,Test_Newton_Exception){
-    std::cout<<"Testing Newton exception ... "<<std::endl;
-    try {
-        Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.0001, 1000, 0,
-                             0, "Newton");
-        std::cout<<"Error test Newton Exception... "<<std::endl;
-        ASSERT_EQ(1,0);
-    }catch (ExceptionIterate(&e)){ ASSERT_EQ(1,1) ;}
-}
 TEST_F(Fixture_Solve,Test_FP_Exception) {
     std::cout << "Testing Fixed_point  exception ... " << std::endl;
-    try {
+
+    try { // Test exception when the method doen't reach a good solution
         Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.0001, 1000, 0,
                              0, "FixedPoint");
-        std::cout << "Error test Fixed point Exception... " << std::endl;
-        ASSERT_EQ(1, 0);
-    } catch (ExceptionIterate(&e)) { ASSERT_EQ(1, 1); }
-}
-
-TEST_F(Fixture_Solve,Test_Bisection_Exception) {
-    std::cout << "Testing Bisection exception ... " << std::endl;
-    try {
-        Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.01, 1000, -100,
-                             1000, "Bisection");
-        std::cout << "Error test Bisection Exception... " << std::endl;
-        ASSERT_EQ(1, 0);
-    } catch (std::invalid_argument(&e)) { ASSERT_EQ(1, 1); }
-}
-
-TEST_F(Fixture_Solve,Test_Chord_Exception) {
-    std::cout << "Testing Chord exception ... " << std::endl;
-    try {
-        Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.0001, 1000, 0,
-                             0, "Chord");
-        std::cout << "Error test Chord Exception... " << std::endl;
-        ASSERT_EQ(1, 0);
-    } catch (ExceptionIterate(&e)) { ASSERT_EQ(1, 1); }
+        FAIL()<<"<--should throw an exception ";
+    }
+    catch (ExceptionIterate(&e)) {} // Test Passed
+    catch (...){ //If Catch Any other exception --> Test failed
+        FAIL() <<"<--Wrong exception throw" ;
+    }
 }
 
 
@@ -157,63 +212,4 @@ TEST_F(Fixture_Solve,Test_Chord_Exception) {
 
 
 
-/// -----------------------Test Newton -------------------------------------------------------------
-/*
-TEST(MyNewtonTest1, valid_input) {
-    AbstractNode* f = Solver::strToFun("x^3 +2*x -8");
-    AbstractNode* df = Solver::strToFun("3*x^2 + 2");
-     struct Data dat= {.fun= f,.dFun = df,.initialValue=10,.tolerance=0.0001,
-                .maxIter=1000,.method ={{"Newton",true}} };
-     Newton n(&dat);
-    ASSERT_NEAR(0, n.GetFValue(n.SolveEquation()),0.001);
-}
 
-
-///---------------- Bisection Test -------------------------------
-// Valid Test
-TEST(MyBisectionTest1, valid_input) {
-    AbstractNode* f = Solver::strToFun("x^3 +2*x -8");
-    struct Data dat= {.fun= f,.lowerBound =-1000,.upperBound=1000,
-            .tolerance=0.0001, .maxIter=1000,.method ={{"Bisection",true}} };
-    Bisection b(&dat);
-    ASSERT_NEAR(0, b.GetFValue(b.SolveEquation()),0.001);
-}
-TEST(MyBisectionTest2, invalid_input) {
-    AbstractNode* f = Solver::strToFun("x^2 +2");
-    struct Data dat= {.fun= f,.lowerBound =-1,.upperBound=1,
-            .tolerance=0.0001, .maxIter=1000,.method ={{"Bisection",true}} };
-    Bisection b(&dat);
-    ASSERT_THROW(b.SolveEquation(),std::invalid_argument);
-}
-
-///---------------- Classic Chord Test -------------------------------
-TEST(MyChordTest1, valid_input) {
-    AbstractNode* f = Solver::strToFun("x^3 +2*x -8");
-    struct Data dat= {.fun= f,.initialValue=1,
-            .tolerance=0.0001, .maxIter=1000,.method ={{"Chord",true}} };
-    ClassicChord c(&dat);
-    ASSERT_NEAR(0, c.GetFValue(c.SolveEquation()),0.001);
-}
-
-///---------------- Fixed Point Test -------------------------------
-TEST(MyFPTest1, valid_input) {
-    AbstractNode* f = Solver::strToFun("x^3 +2*x -8");
-    struct Data dat= {.fun= f,.initialValue=1,
-            .tolerance=0.0001, .maxIter=1000,.method ={{"FixedPoint",true}} };
-    FixedPoint fp(&dat);
-    ASSERT_NEAR(0, fp.GetFValue(fp.SolveEquation()),0.001);
-}
-*/
-
-
-/*file(GLOB SOURCES  ${PROJECT_SOURCE_DIR}/*.cpp)
-foreach(f ${SOURCES})
-    get_filename_component(basename ${f} NAME_WE)
-    get_filename_component(dir ${f} DIRECTORY)
-    add_executable(${basename} ${f})
-endforeach() */
-
-/*Fixture_Solve::Fixture_Solve(std::string sfun, std::string sdfun, double initialVal, double tol, int Maxit,
-                             double lowerbound, double upperbound,int met) : f(Solver::strToFun(sfun)),
-                             df(Solver::strToFun(sdfun)),initialValue(initialVal), tolerance(tol),
-                             maxIter(Maxit), method(met), upperBound(upperbound),lowerBound(lowerbound){}; */
