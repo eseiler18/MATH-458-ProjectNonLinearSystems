@@ -25,9 +25,20 @@ struct Data{
     double initialValue = 0;
     double tolerance = 0;
     int maxIter = 0;
-    // map to know which are the methods requested
+    // map to know which are the requested methods requested
     std::map <std::string, bool> method = {{"Newton",false}, {"Bisection",false},
                                            {"Chord",false},{"FixedPoint",false}};
+    /// delete function node
+    ~Data() {
+        if (fun != nullptr) {
+            delete fun;
+        }
+        if (dFun != nullptr) {
+            delete dFun;
+        }
+        fun=nullptr;
+        dFun=nullptr;
+    }
 };
 
 #endif //PCSC_PROJECT_DATA_H

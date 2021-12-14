@@ -10,13 +10,10 @@
 #include "readData/ReaderData.h"
 
 
-
-
-
-
 int main() {
-    struct retVals aux;
-    std::vector<Data*> allData = ReaderData::readAllData(("data.csv"));
+    ReaderData reader("data.csv");
+    std::vector<Data*> allData = reader.readAllData();
+    retVals aux;
     int cnt=0;
     for (Data* data: allData){
         cnt++;
@@ -24,7 +21,7 @@ int main() {
         std::cout<<"\nFunction #"<<cnt<<std::endl;
         if (!data->method["Newton"] && !data->method["Bisection"] &&
             !data->method["Chord"] && !data->method["FixedPoint"]){
-            std::cout << "Can't do all methods read warning and verify input in the file" << std::endl;
+            std::cout << "Can't do methods read warning and verify input in the file" << std::endl;
         }
         if (data->method["Newton"]){
             std::cout << "\nNewton Method with Aitken acceleration :" << std::endl;
