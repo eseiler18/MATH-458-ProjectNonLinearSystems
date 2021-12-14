@@ -49,13 +49,11 @@ struct retVals Bisection::SolveEquation() const {
 
     //Check Direct Solution for lower bound
     if (GetFValue(a) == 0) {
-        std::cout << "A Solution is the lowerBound : x= " << a << std::endl;
-        retVals {a,0};
+        return retVals {a,0};
     }
     //Check Direct Solution for upper bound
     if (GetFValue(b) == 0) {
-        std::cout << "A Solution is the Upperbound : x= " << b << std::endl;
-        retVals {b,0};;
+        return retVals {b,0};
     }
 
     //Initialize
@@ -68,9 +66,7 @@ struct retVals Bisection::SolveEquation() const {
 
         // Check if we found a exact solution
         if (GetFValue(aux) == 0) {
-            std::cout << "Exact solution founded after  " << it << " iterations " << std::endl;
-            std::cout << "x = " << aux << " and f(x) = " << GetFValue(aux) << std::endl;
-            return retVals {aux,it};;
+            return retVals {aux,it};
         }
 
         // Compare the medium of the interval with the bound to update the new interval
@@ -105,10 +101,8 @@ struct retVals Bisection::SolveEquation() const {
                             std::to_string(GetFValue(aux)));
         throw ExceptionIterate(message);
     }
-    // else : printing the converged solution
+    // else : return the converged solution
     else {
-        std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
-        std::cout << "x = " << aux << " and f(x) = " << GetFValue(aux) << std::endl;
         return retVals {aux,it};
     }
 

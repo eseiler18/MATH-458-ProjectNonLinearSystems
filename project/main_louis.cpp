@@ -31,6 +31,8 @@ int main() {
             Newton newt(data);
             try {
                 aux = newt.SolveEquation();
+                std::cout << "Converge after " << aux.it << " iterations for a tolerance of " << newt.GetTol() << std::endl;
+                std::cout << "x = " << aux.result << " and f(x) = " << newt.GetFValue(aux.result) << std::endl;
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
             catch (ExceptionIterate(&e)){ e.what(); }
         }if (data->method["Bisection"]){
@@ -38,6 +40,8 @@ int main() {
             Bisection bisec(data);
             try {
                 aux = bisec.SolveEquation();
+                std::cout << "Converge after " << aux.it << " iterations for a tolerance of " << bisec.GetTol() << std::endl;
+                std::cout << "x = " << aux.result << " and f(x) = " << bisec.GetFValue(aux.result) << std::endl;
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
             catch (ExceptionIterate(&e)){ e.what(); }
 
@@ -45,7 +49,9 @@ int main() {
             std::cout << "\nClassic Chord Method with Aikten acceleration:" << std::endl;
             ClassicChord chrd(data);
             try {
-            aux = chrd.SolveEquation();
+                aux = chrd.SolveEquation();
+                std::cout << "Converge after " << aux.it << " iterations for a tolerance of " << chrd.GetTol() << std::endl;
+                std::cout << "x = " << aux.result << " and f(x) = " << chrd.GetFValue(aux.result) << std::endl;
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
             catch (ExceptionIterate(&e)){ e.what(); }
         }if (data->method["FixedPoint"]){
@@ -53,6 +59,8 @@ int main() {
             FixedPoint fxdp(data);
             try {
                 aux = fxdp.SolveEquation();
+                std::cout << "Converge after " << aux.it << " iterations for a tolerance of " << fxdp.GetTol() << std::endl;
+                std::cout << "x = " << aux.result << " and f(x) = " << fxdp.GetFValue(aux.result) << std::endl;
             }catch (std::invalid_argument(&e)) { std::cout << e.what() << std::endl; }
             catch (ExceptionIterate(&e)){ e.what(); }
         }

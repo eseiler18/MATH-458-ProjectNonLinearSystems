@@ -103,10 +103,8 @@ struct retVals ClassicChord::SolveEquation() const {
                             std::to_string(GetFValue(result)));
         throw ExceptionIterate(message);
     }
-        // else : printing the converged solution
+    // else : return the converged solution
     else {
-        std::cout << "Converge after " << it << " iterations for a tolerance of " << tolerance << std::endl;
-        std::cout << "x = " << result << " and f(x) = " << GetFValue(result) << std::endl;
         return retVals {result,it};
     }
 
