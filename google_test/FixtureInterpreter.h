@@ -12,13 +12,20 @@
  */
 class Fixture_Interpreter : public testing::Test{
 protected :
-    void SetUp(std::string sfun,double value);
+    void SetUp(std::string sfun,double value,bool expectedError=false);
 public:
     double calculated_value;
+    int error_valid =0;
 };
 
-void Fixture_Interpreter::SetUp(std::string sfun, double value) {
-    AbstractNode *f = Solver::strToFun(std::move(sfun));
-    calculated_value =f->solve(value);
+void Fixture_Interpreter::SetUp(std::string sfun, double value,bool expectedError) {
+    try {
+        AbstractNode *f = Solver::strToFun(std::move(sfun));
+        calculated_value = f->solve(value);
+    }catch(ParserException(&e)){
+        if (expectedError){
+            error_valid=1;
+        }
+    }
 }
 #endif //PCSC_PROJECT_FIXTUREINTERPRETER_H
