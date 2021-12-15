@@ -43,7 +43,7 @@ You can run this line of code to place them in their respectif place.
 	cmake ..
 	make
 	
- The Build is complee ! You can in a first time Run the Test to tcheck if everything is ok !
+ The Build is complet ! You can in a first time Run the Test to tcheck if everything is ok !
  	
 	cd google_test
 	./Google_Tests_run
@@ -73,11 +73,13 @@ Look the Answer on the terminal :<br/>
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
 empty -> All the method <br/>
-n -> newton 	b -> Bisection	c -> Classic Chord	f -> Fixed Point mthod <br/>
+n for newton; b for Bisection; c for Classic Chord; f for Fixed Point method <br/>
 Note that the letter must be separated by a semicolon ";"
 ### 2nd column : Choose the function 
- #### First option :
- 	fff
+ #### First option (simple function)  :
+ Write the function in the column. Use x as variable. You can use ^ for power. You can use external function
+ 	exp(..) log(..) sqrt(..) cos(..) sin(..) tan(..) atan(..)
+
 
 # Implementation (EMILIEN)
 ## Reader
