@@ -81,7 +81,7 @@ Note that the letter must be separated by a semicolon ";"
  	
 	exp(..) log(..) sqrt(..) cos(..) sin(..) tan(..) atan(..)
 
- #### Use another cpp file  :
+ #### 2nd option : Use another cpp file  :
  Put the name of the function as it appears in the cpp file. You should also fill the 9th column by adding the Name of the cpp file.<br/>
  The function file have to be in the same folder than the CSV File. Be carreful that the different function have to be inclueded in a extern "C" {}
  
@@ -106,8 +106,8 @@ The max number of step you will allow before stop the method. If you let this em
 see 2th column for another cpp file
 
 ## Your turn to test 
-You can now use this csv file to put our own function. If you want to use your own csv, put it in the folder /build/project and launch the main_louis with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test.
-Note that the lauch the main_louis will always read all the lignes and resolve for all the function in the CSV.
+You can now use this csv file to put your own function. If you want to use your own csv, put it in the folder /build/project and launch the main_louis with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test as the main_louis will use this file by default if it has any argument.
+Note that lauch the main_louis will always read all the lignes and resolve for all the function in the CSV.
 
 # Implementation (EMILIEN)
 ## Reader
