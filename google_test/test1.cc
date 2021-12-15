@@ -83,10 +83,7 @@ TEST_F(Fixture_Interpreter,testexternalfunction) {
     Fixture_Interpreter::SetUp("exp(x * cos(x^2))", 2.3);
     ASSERT_NEAR(Fixture_Interpreter::calculated_value, exp(2.3 * cos(2.3*2.3)), 0.0001)
                                     << "Problem for : exp(x * cos(x^2))";
-    /*
-    Fixture_Interpreter::SetUp("sqrt(3*x/4)", 5);
-    ASSERT_NEAR(Fixture_Interpreter::calculated_value, sqrt(3*5/4), 0.0001) << "Problem for : sqrt(3*x/4)";
-     */
+
     Fixture_Interpreter::SetUp("sqrt(3*x + x)", 5);
     ASSERT_NEAR(Fixture_Interpreter::calculated_value, sqrt(3*5 +5), 0.0001) << "Problem for : sqrt(3*x/4)";
 }
@@ -122,24 +119,20 @@ TEST_F(Fixture_Interpreter,multiVariables_Exception) {
 TEST(ReadingOutputFile,fun_Test){
     std::cout << "Testing Read function from extern file .." << std::endl;
 
-    AbstractNode *f= InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","funa");
+    AbstractNode *f= InterpreterInputFunction::functionExternalCFile("../../google_test/functionTest.cpp","funa");
     ASSERT_NEAR(f->solve(4), exp(4)-12, 0.0001)<<"<-- Problem Reading the extern file : exp(x) - 12 ";
 
-    AbstractNode *g= InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","funb");
+    AbstractNode *g= InterpreterInputFunction::functionExternalCFile("../../google_test/functionTest.cpp","funb");
     ASSERT_NEAR(g->solve(4),5*4 +log(sqrt(4*4*4)), 0.0001)<<"<-- Problem Reading the extern file: 5*x + log(sqrt(x*x*x))";
 
-    AbstractNode *h= InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","func");
+    AbstractNode *h= InterpreterInputFunction::functionExternalCFile("../../google_test/functionTest.cpp","func");
     ASSERT_NEAR(h->solve(4), cos(4) + 4*2 ,0.0001)<<"<-- Problem Reading the extern file : cos(x) + x*2; ";
 }
 
 TEST(ReadingOutputFile2,Exeption_Test) {
     std::cout << "Testing Read function from extern file Exception error" << std::endl;
     // Wrong Name of function Test
-    ASSERT_THROW(InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","wrong")
-                 ,std::invalid_argument);
-
-    // Wrong path --->> EMILIEN FAIT QUELQUE CHOSE CA RETOURNE RIEN POUR L'INSTANT
-    ASSERT_THROW(InterpreterInputFunction::functionExternalCFile("google_test/wrong_path.cpp","funa")
+    ASSERT_THROW(InterpreterInputFunction::functionExternalCFile("../../google_test/functionTest.cpp","wrong")
                  ,std::invalid_argument);
 }
 
