@@ -25,6 +25,23 @@ the fixed point method. [Here](https://en.wikipedia.org/wiki/Aitken%27s_delta-sq
 these methods.
 
 # How to use ... (LOUIS)
+  Go to the root of the Project in your terminal .
+	In order to compile it you should first install *googletest* and *eigen*.
+  You can run this line of code to place them in their respectif place.
+	
+	```
+	git submodule update --init 
+	```
+  Then, building is done as usual, in the terminal:
+	
+	```
+	mkdir build
+	cd build
+	cmake ..
+	make
+	```
+  
+	
 # Implementation (EMILIEN)
 ## Reader
 ## Solver
