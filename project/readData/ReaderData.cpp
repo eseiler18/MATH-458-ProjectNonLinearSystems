@@ -123,7 +123,7 @@ Data* ReaderData::createDataRow(std::vector<std::string>& row) {
         }
         else{
             // case when the function is given with c++ code in an external file
-            data->fun = InterpreterInputFunction::functionExternalCFile(row[8], row[1]);
+            data->fun = InterpreterInputFunction::functionExternalCFile(folderCsv+row[8], row[1]);
         }
         // derivative
         if (data->method["Newton"]) {
@@ -138,7 +138,7 @@ Data* ReaderData::createDataRow(std::vector<std::string>& row) {
                 }
                 else{
                     // case when the function is given with c++ code in an external file
-                    data->dFun = InterpreterInputFunction::functionExternalCFile(row[8], row[2]);
+                    data->dFun = InterpreterInputFunction::functionExternalCFile(folderCsv+row[8], row[2]);
                 }
             }
         }
