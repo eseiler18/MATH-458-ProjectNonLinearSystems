@@ -15,6 +15,7 @@
 
 #include "FixtureMethod.h"
 #include "FixtureInterpreter.h"
+#include "../project/readData/InterpreterInputFunction.h"
 
 
 
@@ -117,12 +118,34 @@ TEST_F(Fixture_Interpreter,multiVariables_Exception) {
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x+ y -> error expected";
 }
 
+TEST(ReadingOutputFile,fun_Test){
+    std::cout << "Testing Read function from extern file .." << std::endl;
+
+    AbstractNode *f= InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","funa");
+    ASSERT_NEAR(f->solve(4), exp(4)-12, 0.0001)<<"<-- Problem Reading the extern file : exp(x) - 12 ";
+
+    AbstractNode *g= InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","funb");
+    ASSERT_NEAR(g->solve(4),5*4 +log(sqrt(4*4*4)), 0.0001)<<"<-- Problem Reading the extern file: 5*x + log(sqrt(x*x*x))";
+
+    AbstractNode *h= InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","func");
+    ASSERT_NEAR(h->solve(4), cos(4) + 4*2 ,0.0001)<<"<-- Problem Reading the extern file : cos(x) + x*2; ";
+}
+
+TEST(ReadingOutputFile2,Exeption_Test) {
+    std::cout << "Testing Read function from extern file Exception error" << std::endl;
+    // Wrong Name of function Test
+    ASSERT_THROW(InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","wrong")
+                 ,std::invalid_argument);
+
+    ASSERT_THROW(InterpreterInputFunction::functionExternalCFile("google_test/wrong_path.cpp","funa")
+                 ,std::invalid_argument);
+}
 
 /// ----------------Divide by 0 exception -------------------------
 TEST(StrToFunTest1,divide_by_0){
     std::cout << "Testing divide by 0 exception... " << std::endl;
     AbstractNode* f = Solver::strToFun("1/x");
-    ASSERT_THROW(f->solve(0),std::invalid_argument)<< "Problem when dividing by 0 : invalid argument excpected ..";
+    ASSERT_THROW(f->solve(0),std::invalid_argument)<< "Problem when dividing by 0 : invalid argument expected ..";
 }
 
 
