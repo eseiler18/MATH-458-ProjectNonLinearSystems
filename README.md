@@ -111,7 +111,15 @@ You can now use this csv file to put your own function. If you want to use your 
 Note that lauch the main_louis will always read all the lignes and resolve for all the function in the CSV.
 
 ## A note on the other main and Linear system
-...
+You have maybe already see the other excecutable code, It represent our extension of our project : Solving system with newton Method. <br/>
+This branch is actually in working and we have only implement the method with a quick exemple directly in the cpp file. 
+We have the way to represent the function and jacobien matrice but we only lack a interface (like the csv file) to run fifferent exemple without remake the project.
+You can therefore run 
+	./main
+and it will resolve the systeme 
+f1 = x0^2+x0*x1-10
+f2 = x1+3*x0*x1^2-57
+
 
 # Implementation (EMILIEN)
 ## Reader
