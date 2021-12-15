@@ -25,6 +25,7 @@ the fixed point method. [Here](https://en.wikipedia.org/wiki/Aitken%27s_delta-sq
 these methods.
 
 # How to use ... (LOUIS)
+## Make & run 
 To make this project, you need to have the linux tool "cmake".
 Go to the root of the git after cloning :
   	```
@@ -108,6 +109,9 @@ see 2th column for another cpp file
 ## Your turn to test 
 You can now use this csv file to put your own function. If you want to use your own csv, put it in the folder /build/project and launch the main_louis with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test as the main_louis will use this file by default if it has any argument.
 Note that lauch the main_louis will always read all the lignes and resolve for all the function in the CSV.
+
+## A note on the other main and Linear system
+...
 
 # Implementation (EMILIEN)
 ## Reader
