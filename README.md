@@ -27,7 +27,10 @@ these methods.
 # How to use ... (LOUIS)
 To make this project, you need to have the linux tool "cmake".
 Go to the root of the git after cloning :
-	cd MATH-458-ProjectNonLinearSystems
+  	```
+	cd  MATH-458-ProjectNonLinearSystems
+	```
+	
 In order to compile it you should first install *googletest* and *eigen*.
 You can run this line of code to place them in their respectif place.
 	
