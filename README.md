@@ -25,7 +25,7 @@ the fixed point method. [Here](https://en.wikipedia.org/wiki/Aitken%27s_delta-sq
 these methods.
 
 # How to use ... (LOUIS)
-	To make this project, you need to have the linux tool "cmake
+To make this project, you need to have the linux tool "cmake
   Go to the root of the Project in your terminal .
 	In order to compile it you should first install *googletest* and *eigen*.
   You can run this line of code to place them in their respectif place.
@@ -70,7 +70,7 @@ Look the Answer on the terminal :
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
 empty -> All the method
-n -> newton		
+n -> newton
 b -> Bisection
 c -> Classic Chord
 f -> Fixed Point mthod
