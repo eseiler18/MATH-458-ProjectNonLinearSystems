@@ -32,7 +32,7 @@ double *NewtonSystem::solveSystem() {
     int it=1;
     double res = tolerance+1;
     double* x = initialValue;
-    double* xNext;
+    double xNext;
     double* result;
     while(res > tolerance && it < maxIter){
         Eigen::VectorXd FValue = getFValue(x);
@@ -46,11 +46,11 @@ double *NewtonSystem::solveSystem() {
         res=0;
         for(int i=0; i<nbVariable; i++) {
             // compute next x
-            xNext[i] = x[i] + delta(i);
+            xNext = x[i] + delta(i);
             // compute the norm of the difference between two iteration
-            res += pow(x[i] - xNext[i], 2);
+            res += pow(x[i] - xNext, 2);
             //  update x
-            x[i] = xNext[i];
+            x[i] = xNext;
         }
         res = sqrt(res);
         result=x;
