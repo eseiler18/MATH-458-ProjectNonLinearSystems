@@ -47,15 +47,18 @@ these methods.
 	```
  Normally, you should pass the 17 Test. They tcheck all the functionnality of your project. We will detay more about them below.
  We can know test the default main, to compute some function. We just need to go to the project repository :
+ 
   	```
 	cd ..
 	cd projet
 	```
 To better understand this project, take a look on "data.csv" file. If you have "gopen" on linux you can use :
+
   	```
 	gopen data.csv
 	```
-If you are a looser on windows like Emilien, you can go to your file and open data.csv in "<rootProjetct>/build/project" folder. You will see the different exemple of function our project can handle, and the parameters you can input. Now lauch the main with no argument : it will take the "data.csv" file in input by default
+If you are a looser on windows like Emilien, you can go to your file and open data.csv in "MATH-458-ProjectNonLinearSystems/build/project" folder. You will see the different exemple of function our project can handle, and the parameters you can input. Now lauch the main with no argument : it will take the "data.csv" file in input by default :
+	
 	```
 	./main_louis
 	```
