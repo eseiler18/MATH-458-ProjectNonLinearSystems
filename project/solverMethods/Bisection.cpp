@@ -93,7 +93,7 @@ struct retVals Bisection::SolveEquation() const {
         throw ExceptionIterate(message);
     }
     // Throwing error for converging to a wrong solution
-    else if (std::abs(GetFValue(aux)) > tolerance * 10) {
+    else if (std::abs(GetFValue(aux)) > tolerance * 100) {
         std::string message("Converge to a wrong solution after " + std::to_string(it) +
                             " iterations for a tolerance of " + std::to_string(tolerance) +
                             ".\nDifference of successive iterates = "
