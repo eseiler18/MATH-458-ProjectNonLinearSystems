@@ -25,6 +25,7 @@ the fixed point method. [Here](https://en.wikipedia.org/wiki/Aitken%27s_delta-sq
 these methods.
 
 # How to use ... (LOUIS)
+	To make this project, you need to have the linux tool "cmake
   Go to the root of the Project in your terminal .
 	In order to compile it you should first install *googletest* and *eigen*.
   You can run this line of code to place them in their respectif place.
@@ -52,7 +53,9 @@ these methods.
 	cd ..
 	cd projet
 	```
-To better understand this project, take a look on "data.csv" file. If you have "gopen" on linux you can use :
+To better understand this project, take a look on "data.csv" file. 
+(Important : the semicolon separator must be desactived, but the coma separator must be actived)
+If you have "gopen" on linux you can use :
   	```
 	gopen data.csv
 	```
@@ -62,7 +65,21 @@ If you are a looser on windows like Emilien, you can go to your file and open da
 	```
 	./main_louis
 	```
+	Look the Answer on the terminal : 
+	-First the warnings : They tell missing or incoherent element in the csv
+	-Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
 	
+## Test your function : how to fill the csv
+### first column : Choose your method 
+	empty -> All the method
+	n -> newton		
+	b -> Bisection
+	c -> Classic Chord
+	f -> Fixed Point mthod
+	Note that the letter must be separated by a semicolon ";"
+### 2nd column : Choose the function 
+	 #### First option :
+
 # Implementation (EMILIEN)
 ## Reader
 ## Solver
