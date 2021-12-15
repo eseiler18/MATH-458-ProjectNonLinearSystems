@@ -16,6 +16,7 @@
  */
 class ReaderData {
 private:
+    std::string folderCsv;
     std::string pathOfCsv;
     int currentLine;
     std::ifstream csv;

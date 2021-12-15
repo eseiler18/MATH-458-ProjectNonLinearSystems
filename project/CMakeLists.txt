@@ -31,6 +31,7 @@ target_link_libraries(main_louis ${CMAKE_DL_LIBS})
 add_subdirectory(readData)
 add_subdirectory(solverMethods)
 configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/../data.csv data.csv COPYONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/../functions.cpp functions.cpp COPYONLY)
 
 
 

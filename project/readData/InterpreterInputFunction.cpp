@@ -18,11 +18,11 @@ AbstractNode *InterpreterInputFunction::strToFun(std::string &expression) {
 
 AbstractNode *InterpreterInputFunction::functionExternalCFile(const std::string &nameFile, const std::string &nameFun){
     // path to external file cpp
-    std::string cppFile="../../" + nameFile;
+    std::string cppFile=nameFile;
     //path to library file
-    const char *libFile="../../project/readData/myLib/malib.so";
+    const char *libFile="/tmp/malib.so";
     //path to logfile
-    std::string logfile="../../project/readData/myLib/runtimecode.log";
+    std::string logfile="/tmp/runtimecode.log";
     // command to compile the cpp file
     std::string cmd = "g++ -Wall -Wextra " + cppFile + " -o " + libFile + " -O2 -shared -fPIC &> " + logfile;
     remove(libFile);

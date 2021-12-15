@@ -15,6 +15,14 @@
 ReaderData::ReaderData(const std::string& pathOfCsv):pathOfCsv(pathOfCsv) {
     // Open an existing and non-empty file
     csv.open(pathOfCsv, std::ios::in);
+    // fill folderCsv parameter
+    int lastSlashIndex = pathOfCsv.rfind('/');
+    if(std::string::npos != lastSlashIndex){
+        folderCsv = pathOfCsv.substr(0, lastSlashIndex+1);
+    }
+    else{
+        folderCsv = "./";
+    }
     // verify existence
     if (!csv.is_open()) {
         throw std::invalid_argument("Invalid path: " + pathOfCsv + ". File can't be open doesn't exit.");
