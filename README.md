@@ -73,13 +73,11 @@ Look the Answer on the terminal :<br/>
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
 empty -> All the method <br/>
-n -> newton <br/>
-b -> Bisection <br/>
-c -> Classic Chord <br/>
-f -> Fixed Point mthod <br/>
-Note that the letter must be separated by a semicolon ";" <br/>
+n -> newton 	b -> Bisection	c -> Classic Chord	f -> Fixed Point mthod <br/>
+Note that the letter must be separated by a semicolon ";"
 ### 2nd column : Choose the function 
  #### First option :
+ 	fff
 
 # Implementation (EMILIEN)
 ## Reader
