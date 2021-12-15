@@ -92,9 +92,9 @@ The simpliest way is to use the "function.cpp" file at disposition in "/build/pr
 
 ### 3th column : Fill the derivative function 
 If you want to use the Newton method, you need to fill the explicit derivative of the function. You can choose the two way explained just before. 
-Note that for the 2nd way, the function and derivatife function have to be in the same cpp file.
+Note that for the 2nd way, the function and derivative function have to be in the same cpp file.
 You can let this column empty if you doen't want to use de Newton method. <br/>
-### 4th and 5th : Column Bound   
+### 4th and 5th column : Bounds   
 It's the lower and upped bound for the Bisection. You can let this empty if you doesn't want to use this method.
 ### 6th Column : Initial Value
 The initial value for Chord, Newton and fixed point. You can let this empty if you doesn't want to use this methods.
@@ -104,6 +104,10 @@ The exactness you want to reach with the method. If you let this empty, the tole
 The max number of step you will allow before stop the method. If you let this empty, the Max iteration will be set by default at 10000. A warning message will also be print in the terminal.
 ### 9th Column : External file name
 see 2th column for another cpp file
+
+## Your turn to test 
+You can now use this csv file to put our own function. If you want to use your own csv, put it in the folder /build/project and launch the main_louis with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test.
+Note that the lauch the main_louis will always read all the lignes and resolve for all the function in the CSV.
 
 # Implementation (EMILIEN)
 ## Reader
