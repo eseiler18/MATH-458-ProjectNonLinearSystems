@@ -64,21 +64,20 @@ If you have "gopen" on linux you can use :
 	
 If you are a looser on windows like Emilien, you can go to your file and open data.csv in "MATH-458-ProjectNonLinearSystems/build/project" folder. You will see the different exemple of function our project can handle, and the parameters you can input. Now lauch the main with no argument : it will take the "data.csv" file in input by default :
 	
-	```
 	./main_louis
-	```
-Look the Answer on the terminal : 
--First the warnings : They tell missing or incoherent element in the csv
+
+Look the Answer on the terminal :<br/>
+-First the warnings : They tell missing or incoherent element in the csv <br/>
 -Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
 	
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
-empty -> All the method
-n -> newton
-b -> Bisection
-c -> Classic Chord
-f -> Fixed Point mthod
-Note that the letter must be separated by a semicolon ";"
+empty -> All the method <br/>
+n -> newton <br/>
+b -> Bisection <br/>
+c -> Classic Chord <br/>
+f -> Fixed Point mthod <br/>
+Note that the letter must be separated by a semicolon ";" <br/>
 ### 2nd column : Choose the function 
  #### First option :
 
