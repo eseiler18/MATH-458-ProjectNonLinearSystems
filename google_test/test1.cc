@@ -40,22 +40,22 @@ TEST_F(Fixture_Interpreter,priorityTest){
 ///---------------- Expected Error Parser Exception--------------------------
 TEST_F(Fixture_Interpreter,error_parser_expected){
     std::cout << "Testing expected error parseur exception ... " << std::endl;
-
-    Fixture_Interpreter::SetUp("3*x  + 5 *x *x 4 - 5",4, true);
+    // begin with *
+    Fixture_Interpreter::SetUp("*3*x  + 5 *x *x 4 - 5",4, true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 3*x  + 5 *x *x 4 - 5  -> error expected";
-
+    // double "/"
     Fixture_Interpreter::SetUp(" 3// 5",4, true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 3// 5  -> error expected";
-
+    // no operator
     Fixture_Interpreter::SetUp(" x 3",4, true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 2 3  -> error expected";
-
+    // ) dont open
     Fixture_Interpreter::SetUp("(5*2) + 5)",4, true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for 3*x  + 5 *x *x 4 /- 5  -> error expected";
-
+    // 5 in lettre
     Fixture_Interpreter::SetUp("x + cinq",4, true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x + cinq  -> error expected";
-
+    // divide nothing
     Fixture_Interpreter::SetUp("/ x",4, true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for / x  -> error expected";
 }
@@ -111,9 +111,10 @@ TEST_F(Fixture_Interpreter,multiVariables_Exception) {
     std::cout << "Testing Expected multiVariable Exception .. " << std::endl;
     double variable[2];
 
-    Fixture_Interpreter::SetUp("x1+ x3",variable,2,true);
+    // x0 and x2 but no x1 ( x must follow and begin by x0 )
+    Fixture_Interpreter::SetUp("x0+ x2",variable,2,true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x1 + x3 -> error expected";
-
+    // use of y ( parser only understand x0 x1 etc ... )
     Fixture_Interpreter::SetUp("x+ y",variable,2,true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x+ y -> error expected";
 }
@@ -164,12 +165,14 @@ TEST_F(Fixture_Solve,Test_Chord){
 TEST_F(Fixture_Solve,Test_Chord_Exception) {
     std::cout << "Testing Chord exception ... " << std::endl;
 
-    try { // Test exception when the method doen't reach a good solution
+    // Test exception when the method doen't reach a good solution
+    try {
         Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.0001, 1000, 0,
                              0, "Chord");
         FAIL()<<"should throw an exception ";
     } catch (ExceptionIterate(&e)) {} // Test Passed
-    catch (...){ //If Catch Any other exception --> Test failed
+    //If Catch Any other exception --> Test failed
+    catch (...){
         FAIL() <<"<--Wrong exception throw" ;
     }
 }
