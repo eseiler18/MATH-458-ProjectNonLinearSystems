@@ -81,7 +81,14 @@ Note that the letter must be separated by a semicolon ";"
  	
 	exp(..) log(..) sqrt(..) cos(..) sin(..) tan(..) atan(..)
 
-Voila
+ #### Use another cpp file  :
+ Put the name of the function as it appears in the cpp file. You should also fill the 9th column by adding the Name of the cpp file.<br/>
+ Be carreful that the different function have to be inclueded in a extern "C" {}
+ 
+ 	extern "C" {
+		double nameFuncion(double x){return 2*x;}
+	}
+Voila		
 # Implementation (EMILIEN)
 ## Reader
 ## Solver
