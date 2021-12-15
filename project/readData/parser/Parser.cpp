@@ -77,7 +77,7 @@ std::list<AbstractToken *> Parser::manageImplicitOperator(const std::list<Abstra
                 AbstractToken* nextToken = *it;
                 it--;
                 if(not((Token*)nextToken)->isSpaceBefore() && nextToken->getTokenType() == TokenType::NUMBER ||
-                   nextToken->getTokenType() == TokenType::VAR){
+                   nextToken->getTokenType() == TokenType::VAR || nextToken->getTokenType() == TokenType::FUNCTION){
                     resultTokens.push_back(new Token(TokenType::NUMBER, '0'));
                 }
             }
