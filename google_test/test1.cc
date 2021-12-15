@@ -137,6 +137,7 @@ TEST(ReadingOutputFile2,Exeption_Test) {
     ASSERT_THROW(InterpreterInputFunction::functionExternalCFile("google_test/functionTest.cpp","wrong")
                  ,std::invalid_argument);
 
+    // Wrong path --->> EMILIEN FAIT QUELQUE CHOSE CA RETOURNE RIEN POUR L'INSTANT
     ASSERT_THROW(InterpreterInputFunction::functionExternalCFile("google_test/wrong_path.cpp","funa")
                  ,std::invalid_argument);
 }
