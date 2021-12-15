@@ -30,29 +30,27 @@ these methods.
 	In order to compile it you should first install *googletest* and *eigen*.
   You can run this line of code to place them in their respectif place.
 	
-	```
 	git submodule update --init 
-	```
+	
   Then, building is done as usual, in the terminal:
 	
-	```
 	mkdir build
 	cd build
 	cmake ..
 	make
-	```
+	
  The Build is complee ! You can in a first time Run the Test to tcheck if everything is ok !
- 	```
+ 	
 	cd google_test
 	./Google_Tests_run
-	```
+	
  Normally, you should pass the 17 Test. They tcheck all the functionnality of your project. We will detay more about them below.
  We can know test the default main, to compute some function. We just need to go to the project repository :
 
-  	```
+  	
 	cd ..
 	cd projet
-	```
+	
 To better understand this project, take a look on "data.csv" file. 
 (Important : the semicolon separator must be desactived, but the coma separator must be actived)
 If you have "gopen" on linux you can use :
@@ -65,20 +63,20 @@ If you are a looser on windows like Emilien, you can go to your file and open da
 	```
 	./main_louis
 	```
-	Look the Answer on the terminal : 
-	-First the warnings : They tell missing or incoherent element in the csv
-	-Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
+Look the Answer on the terminal : 
+-First the warnings : They tell missing or incoherent element in the csv
+-Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
 	
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
-	empty -> All the method
-	n -> newton		
-	b -> Bisection
-	c -> Classic Chord
-	f -> Fixed Point mthod
-	Note that the letter must be separated by a semicolon ";"
+empty -> All the method
+n -> newton		
+b -> Bisection
+c -> Classic Chord
+f -> Fixed Point mthod
+Note that the letter must be separated by a semicolon ";"
 ### 2nd column : Choose the function 
-	 #### First option :
+ #### First option :
 
 # Implementation (EMILIEN)
 ## Reader
