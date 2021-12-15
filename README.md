@@ -77,10 +77,11 @@ n for newton; b for Bisection; c for Classic Chord; f for Fixed Point method <br
 Note that the letter must be separated by a semicolon ";"
 ### 2nd column : Choose the function 
  #### First option (simple function)  :
- Write the function in the column. Use x as variable. You can use ^ for power. You can use external function
- 	exp(..) log(..) sqrt(..) cos(..) sin(..) tan(..) atan(..)
+ Write the function in the column. Use x as variable. You can use ^ for power. You can use external function :  
+ 	
+	exp(..) log(..) sqrt(..) cos(..) sin(..) tan(..) atan(..)
 
-
+Voila
 # Implementation (EMILIEN)
 ## Reader
 ## Solver
