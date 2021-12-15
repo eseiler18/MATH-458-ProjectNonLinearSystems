@@ -83,12 +83,28 @@ Note that the letter must be separated by a semicolon ";"
 
  #### Use another cpp file  :
  Put the name of the function as it appears in the cpp file. You should also fill the 9th column by adding the Name of the cpp file.<br/>
- Be carreful that the different function have to be inclueded in a extern "C" {}
+ The function file have to be in the same folder than the CSV File. Be carreful that the different function have to be inclueded in a extern "C" {}
  
  	extern "C" {
 		double nameFuncion(double x){return 2*x;}
 	}
-Voila		
+The simpliest way is to use the "function.cpp" file at disposition in "/build/project/" and copy/paste the function you want to test. 
+
+### 3th column : Fill the derivative function 
+If you want to use the Newton method, you need to fill the explicit derivative of the function. You can choose the two way explained just before. 
+Note that for the 2nd way, the function and derivatife function have to be in the same cpp file.
+You can let this column empty if you doen't want to use de Newton method. <br/>
+### 4th and 5th : Column Bound   
+It's the lower and upped bound for the Bisection. You can let this empty if you doesn't want to use this method.
+### 6th Column : Initial Value
+The initial value for Chord, Newton and fixed point. You can let this empty if you doesn't want to use this methods.
+### 7th Column : tolerance
+The exactness you want to reach with the method. If you let this empty, the tolerance will be set by default at 0.000001. A warning message will also be print in the terminal.
+### 8th Column : Max iteration
+The max number of step you will allow before stop the method. If you let this empty, the Max iteration will be set by default at 10000. A warning message will also be print in the terminal.
+### 9th Column : External file name
+see 2th column for another cpp file
+
 # Implementation (EMILIEN)
 ## Reader
 ## Solver
