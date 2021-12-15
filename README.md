@@ -115,9 +115,10 @@ You have maybe already see the other excecutable code, It represent our extensio
 This branch is actually in working and we have only implement the method with a quick exemple directly in the cpp file. 
 We have the way to represent the function and jacobien matrice but we only lack a interface (like the csv file) to run fifferent exemple without remake the project.
 You can therefore run 
+
 	./main
-and it will resolve the systeme 
-f1 = x0^2+x0*x1-10
+and it will resolve the systeme :<br/>
+f1 = x0^2+x0*x1-10<br/>
 f2 = x1+3*x0*x1^2-57
 
 
