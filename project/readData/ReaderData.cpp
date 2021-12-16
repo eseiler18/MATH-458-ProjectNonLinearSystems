@@ -2,15 +2,13 @@
 // Created by eseiler@INTRANET.EPFL.CH on 06.12.21.
 //
 
-#include <sstream>
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
-#include <dlfcn.h>      // dynamic library loading, dlopen() etc
 #include "ReaderData.h"
-//#include "../parser/ExtrernalFunctionNode.h"
-#include "InterpreterInputFunction.h"
 #include "parser/ParserException.h"
+#include "InterpreterCodeC.h"
+#include "InterpreterMathExpression.h"
 
 ReaderData::ReaderData(const std::string& pathOfCsv):pathOfCsv(pathOfCsv) {
     // Open an existing and non-empty file
@@ -119,11 +117,14 @@ Data* ReaderData::createDataRow(std::vector<std::string>& row) {
         const char* externalFunctionCppFile=nullptr;
         if (row.size()!=9){
             // case when the function is given with string expression (no external file)
-            data->fun = InterpreterInputFunction::strToFun(row[1]);
+            InterpreterMathExpression interpreter(row[1]);
+            data->fun = interpreter.createExecutableFunction();
         }
         else{
             // case when the function is given with c++ code in an external file
-            data->fun = InterpreterInputFunction::functionExternalCFile(folderCsv+row[8], row[1]);
+            std::string pathExternalFile(folderCsv+row[8]);
+            InterpreterCodeC interpreterFun(pathExternalFile, row[1]);
+            data->fun = interpreterFun.createExecutableFunction();
         }
         // derivative
         if (data->method["Newton"]) {
@@ -134,11 +135,14 @@ Data* ReaderData::createDataRow(std::vector<std::string>& row) {
             } else {
                 if (row.size()!=9){
                     // case when the function is given with string expression (no external file)
-                    data->dFun = InterpreterInputFunction::strToFun(row[2]);
+                    InterpreterMathExpression interpreterDFun(row[2]);
+                    data->dFun = interpreterDFun.createExecutableFunction();
                 }
                 else{
                     // case when the function is given with c++ code in an external file
-                    data->dFun = InterpreterInputFunction::functionExternalCFile(folderCsv+row[8], row[2]);
+                    std::string pathExternalFile(folderCsv+row[8]);
+                    InterpreterCodeC interpreter(pathExternalFile, row[2]);
+                    data->dFun = interpreter.createExecutableFunction();
                 }
             }
         }

@@ -15,7 +15,7 @@
 
 #include "FixtureMethod.h"
 #include "FixtureInterpreter.h"
-#include "../project/readData/InterpreterInputFunction.h"
+#include "../project/readData/InterpreterCodeC.h"
 
 
 
@@ -119,20 +119,32 @@ TEST_F(Fixture_Interpreter,multiVariables_Exception) {
 TEST(ReadingOutputFile,fun_Test){
     std::cout << "Testing Read function from extern file .." << std::endl;
 
-    AbstractNode *f= InterpreterInputFunction::functionExternalCFile("../../google_test/functionTest.cpp","funa");
+    std::string path="../../google_test/functionTest.cpp";
+    std::string functionName="funa";
+    InterpreterCodeC interpreter1(path, functionName);
+    AbstractNode* f = interpreter1.createExecutableFunction();
     ASSERT_NEAR(f->solve(4), exp(4)-12, 0.0001)<<"<-- Problem Reading the extern file : exp(x) - 12 ";
 
-    AbstractNode *g= InterpreterInputFunction::functionExternalCFile("../../google_test/functionTest.cpp","funb");
+    path="../../google_test/functionTest.cpp";
+    functionName="funb";
+    InterpreterCodeC interpreter2(path, functionName);
+    AbstractNode* g = interpreter2.createExecutableFunction();
     ASSERT_NEAR(g->solve(4),5*4 +log(sqrt(4*4*4)), 0.0001)<<"<-- Problem Reading the extern file: 5*x + log(sqrt(x*x*x))";
 
-    AbstractNode *h= InterpreterInputFunction::functionExternalCFile("../../google_test/functionTest.cpp","func");
+    path="../../google_test/functionTest.cpp";
+    functionName="func";
+    InterpreterCodeC interpreter3(path, functionName);
+    AbstractNode* h = interpreter3.createExecutableFunction();
     ASSERT_NEAR(h->solve(4), cos(4) + 4*2 ,0.0001)<<"<-- Problem Reading the extern file : cos(x) + x*2; ";
 }
 
 TEST(ReadingOutputFile2,Exeption_Test) {
     std::cout << "Testing Read function from extern file Exception error" << std::endl;
     // Wrong Name of function Test
-    ASSERT_THROW(InterpreterInputFunction::functionExternalCFile("../../google_test/functionTest.cpp","wrong")
+    std::string path="../../google_test/functionTest.cpp";
+    std::string functionName="wrong";
+    InterpreterCodeC interpreter1(path, functionName);
+    ASSERT_THROW(interpreter1.createExecutableFunction()
                  ,std::invalid_argument);
 }
 

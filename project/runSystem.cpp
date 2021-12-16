@@ -1,6 +1,5 @@
 #include <iostream>
 #include "solverMethods/NewtonSystem.h"
-#include "readData/InterpreterInputFunction.h"
 #include "readData/parser/Solver.h"
 #include "solverMethods/ExceptionIterate.h"
 

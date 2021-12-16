@@ -1,24 +1,12 @@
 //
-// Created by eseiler@INTRANET.EPFL.CH on 13.12.21.
+// Created by eseiler@INTRANET.EPFL.CH on 16.12.21.
 //
 
-#include "InterpreterInputFunction.h"
-#include <chrono>
-#include <thread>
+#include "InterpreterCodeC.h"
 
-AbstractNode *InterpreterInputFunction::strToFun(std::string &expression) {
-    Parser parser(expression);
-    // create the token container which contain tokens corresponding to characters of the expression
-    TokenContainer *tokenExpression = parser.readTokens();
-    Builder builder(*tokenExpression);
-    // build the executable tree and return the root
-    AbstractNode *executableFunction = builder.build();
-    return executableFunction;
-}
-
-AbstractNode *InterpreterInputFunction::functionExternalCFile(const std::string &nameFile, const std::string &nameFun){
+AbstractNode *InterpreterCodeC::createExecutableFunction() {
     // path to external file cpp
-    std::string cppFile=nameFile;
+    std::string cppFile=externalFile;
     //path to library file
     const char *libFile="/tmp/malib.so";
     //path to logfile
@@ -42,16 +30,17 @@ AbstractNode *InterpreterInputFunction::functionExternalCFile(const std::string 
     }
     if(lib) {
         // create the pointer on the function in the file
-        myP fn = (myP)(dlsym(lib, nameFun.c_str()));
+        myP fn = (myP)(dlsym(lib, functionName.c_str()));
         if(fn) {
             return new ExternalFunctionNode(fn);
         }
         else {
-            throw std::invalid_argument("The function " + nameFun + " isn't in the file " + nameFile);
+            throw std::invalid_argument("The function " + functionName + " isn't in the file " + externalFile);
         }
     }
     else{
         std::string libraryFile(libFile);
         throw std::invalid_argument("The library " + libraryFile + " doesn't exist");
     }
+
 }

@@ -1,11 +1,11 @@
-#include <utility>
-
 //
 // Created by lleguill on 14.12.21.
 //
 
 #ifndef PCSC_PROJECT_FIXTUREINTERPRETER_H
 #define PCSC_PROJECT_FIXTUREINTERPRETER_H
+
+#include <utility>
 
 /**
  * Fixture class for interpreter Test
