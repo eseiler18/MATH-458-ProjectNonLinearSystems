@@ -128,14 +128,28 @@ f2 = x1+3*x0*x1^2-57
 # Validating Test ... (LOUIS)
 ## What we Testing
 All the test are on the test1.cpp file you can found on google_test folder.
+Two fixture are implement, and each one correspond to a different part of the project. SetUp is implement in each one to facilitate the Test.
 ### Testing the Parseur (=decodeur)
 This correspond to the fixture Fixture_Interpreter. The goal is to tcheck all the corner case of our parseur and verify if it can reconstruct the desired fonction.
-For this case, we compare the constructed function with the reel one, and assert if ou parser actually :<br/>
+For this case, we compare the constructed function with the reel one, and assert if our parser can actually :<br/>
 - can make simple operation ( + ; - ; * ; / )
 - respect the priority of operation
 - respect the ( ) priority
 - recognise the externed function we have implemented like cos, exp etc ...
 - handle with the multi-variable function ( x0, x1 etc ...)
 
+We also assert than our parseur throw the desired error when it detect a incoherence :
+- begin with a operator + ; * or /
+- operator follow by another operator : ( 5 + * 4), same with number ( 2 3 +4)
+- non recognise external function : ( skz(x) )
+- a coma not open or not close : 3*4x )
+
+### Testing the Method (=decodeur)
+This correspond to the fixture Fixture_Solve.<br/>
+We actually test if the method work correctly.
+---> parlez des test simple qui converge.  
+---> parlez des Test exeption qui diverge
+---> parlez des differntes erreurs qui sont trhow, par exemple les erreur liée au parseur sont differentes des erreurs liées a la divergence du method
+--->> Bisection : std:: invalid argument pour f(a)*f(b) >0 mais differnts pour iterate
 
 # Limitation Perspective (EMILIEN)
