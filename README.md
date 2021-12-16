@@ -104,7 +104,7 @@ The exactness you want to reach with the method. If you let this empty, the tole
 ### 8th Column : Max iteration
 The max number of step you will allow before stop the method. If you let this empty, the Max iteration will be set by default at 10000. A warning message will also be print in the terminal.
 ### 9th Column : External file name
-see 2th column for another cpp file
+Only when we use a external cpp for the function.
 
 ## Your turn to test 
 You can now use this csv file to put your own function. If you want to use your own csv, put it in the folder /build/project and launch the main_louis with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test as the main_louis will use this file by default if it has any argument.
