@@ -114,16 +114,28 @@ Note that lauch the main_louis will always read all the lignes and resolve for a
 You have maybe already see the other excecutable code, It represent our extension of our project : Solving system with newton Method. <br/>
 This branch is actually in working and we have only implement the method with a quick exemple directly in the cpp file. 
 We have the way to represent the function and jacobien matrice but we only lack a interface (like the csv file) to run fifferent exemple without remake the project.
-You can therefore run 
-
+You can therefore run:
+  	```
 	./main
+	```
 and it will resolve the systeme :<br/>
 f1 = x0^2+x0*x1-10<br/>
 f2 = x1+3*x0*x1^2-57
-
 
 # Implementation (EMILIEN)
 ## Reader
 ## Solver
 # Validating Test ... (LOUIS)
+## What we Testing
+All the test are on the test1.cpp file you can found on google_test folder.
+### Testing the Parseur (=decodeur)
+This correspond to the fixture Fixture_Interpreter. The goal is to tcheck all the corner case of our parseur and verify if it can reconstruct the desired fonction.
+For this case, we compare the constructed function with the reel one, and assert if ou parser actually :<br/>
+- can make simple operation ( + ; - ; * ; / )
+- respect the priority of operation
+- respect the ( ) priority
+- recognise the externed function we have implemented like cos, exp etc ...
+- handle with the multi-variable function ( x0, x1 etc ...)
+
+
 # Limitation Perspective (EMILIEN)
