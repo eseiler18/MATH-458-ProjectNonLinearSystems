@@ -153,3 +153,8 @@ We actually test if the method work correctly.
 --->> Bisection : std:: invalid argument pour f(a)*f(b) >0 mais differnts pour iterate
 
 # Limitation Perspective (EMILIEN)
+## More way to input functions:
+For the moment our project allows the user to input functions with a mathematical expression or a c++ code. But we have good reason to think that the user wants to input other type for example tabular functions. Then to implement we must create a class InterpreterTablular which inherit of AbstractInterpreterFunction with the file in parameter. Then the createExecutableFunction method of this class must analyse the content of the file and return an AbstractNode which is the executable function. 
+
+## Finish System Implementation:
+The extension to system solver isn’t finish yet. As you can see in the main.cpp file the solving part is implemented and work with mathematical expression (thanks to the eigen library). But the reading part isn’t implemented yet the user can’t give his own system (if you want to test you can change the example in main.cpp but you need to recompile). However, the parser work with several variable (x0, x1, x2…) and the solve method of AbstractNode is polymorphize with several variable input to access value of multi variable functions.
