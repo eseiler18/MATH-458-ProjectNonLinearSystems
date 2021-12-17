@@ -122,9 +122,25 @@ and it will resolve the systeme :<br/>
 f1 = x0^2+x0*x1-10<br/>
 f2 = x1+3*x0*x1^2-57
 
-# Implementation (EMILIEN)
+# Implementation
+The resolution of the equation is done with two main steps, the reading phase, and the solving phase.
 ## Reader
+Classes used to read the csv are in the Project/ReadData folder, the main class is ReaderData. The role of this object is to read each row of the csv file to create Data structures (see data.h) which contain parameters of the numerical methods input by the user.
+The interesting aspects of the implementation concern the reading of functions (the equation and its derivative column 2 and 3 of the csvfile). The AbstractInterpreterFunction is a common interface which contain a pure virtual method createExecutableFunction. There are two way inputting the desire functions, from its mathematical expression or with C++ code in an external file. Each have a class which inherit from AbstractInterpreterFunction and the createExecutbaleFunction method return an AbstractNode object (explain later) which is the executable function
+### From mathematical expression
+Classes used to interpret function from expression are in the folder Project/ReadData/Parser.
+The following diagram explain the process passing from an expression to an executable function for the mathematic expression “x+3x^2*5”.
+First there is the reading phase of the expression done by the readTokens method of the Parser class which attribute to each character a token. A token is the representation of a character or a group of character with a certain token type (see TokenType.h) there are create from an AbstractToken class.
+Then the normalizeAndVerifyTokens method of the Parser class manage implicit operation, verify the validity of each token, and manage operation priorities by adding implicit parentheses.
+Finally, there is the building phase of the executable function from tokens done by the build method of the Builder class. The executable function is built in the form of a binary tree with operator as node and number, variables, and function as leaf. 
+Nodes are created from the AbstractNode class which contain a pure virtual method solve. Operator, variable, number, and functions node have a class that inherit from AbstractNode. In each class the solve method access the value of the node for a certain double x. Then we can access the value of the function for all x calling the solve method on the root AbstractNode of the tree and it recursively calls solve method of each node to compute the result (note that the tree is built only one time at reading step).  
+### From c++ code
+Accessing the function from c ++ code is much easier since the function is already built and can be interpreted by the program. To recover the function from an extern cpp file we dynamically compile it with the system command and create a library in the /tmp folder. The library is load and a function pointer is created from the name of the function in the cppfile. Then an ExternalFunctionNode which derived of AbstractNode is created to fit with the common interface AbstractInterpreterFunction (a tree is built with just one vertex and value of the function can be access with the solve method of AbstractNode).
 ## Solver
+All classes concerning solving step can be found in the folder project/solverMethods.
+After the reading step, information about the equation and the numerical methods are stored in a structure data (see data.h).
+The equation is solved from an AbstractSolveur class which contain common element of all numerical methods (equation, tolerance, number of maximum iterations) and a pure virtual method call SolveEquation. Then the four methods implemented have an associated class which inherits from AbstractSolver.  Numerical methods are implemented in the SolveEquation method of each child class and return the result or an exception (ExceptionIterate.h) if the method didn’t converge.
+A little word on the NewtonSystem class which is implemented to solve system with several variable (does not inherit from AbstractSolveur). The eigen library is used to create a vector and a matrix of AbstractNode which correspond to equations and the Jacobian of the system.
 # Validating Test ... (LOUIS)
 ## What we Testing
 All the test are on the test1.cpp file you can found on google_test folder.
