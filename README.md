@@ -92,16 +92,16 @@ Look the Answer on the terminal :<br/>
  #### First option: mathematic expression:
  Write the function in the column.
  Use
- * x as variable
- * ^ for power  
+ * ```x``` as variable
+ * ```^``` for power  
  * You can use external function 
-   *  exp(..) 
-   * log(..) 
-   * sqrt(..) 
-   * cos(..) 
-   * sin(..) 
-   * tan(..) 
-   * atan(..)
+   * ```exp(..)```
+   * ```log(..)```
+   * ```sqrt(..)```
+   * ```cos(..)```
+   * ```sin(..)```
+   * ```tan(..)```
+   * ```atan(..)```
 
  #### 2nd option: with c++ code on an external file:
  Put the name of the function as it appears in the cpp file. You should also fill the 9th column by adding the Name of the cpp file.<br/>
@@ -177,11 +177,11 @@ Two fixture are implement, _SetUp_ is implement in each one to facilitate the Te
 ### Testing the Parseur
 This correspond to the fixture **Fixture_Interpreter**. The goal is to check all the corner case of our parseur and verify if it can reconstruct the desired fonction.
 For this case, we compare the constructed function with the reel one, and assert if our parser can actually :<br/>
-- can make simple operation ( + ; - ; * ; / )
+- can make simple operation ```+``` ```-``` ```*``` and ```/```
 - respect the priority of operation
 - respect the ```(..)``` priority
 - recognise the function we have implemented like cos, exp etc ...
-- handle with the multi-variable function ( x0, x1 etc ...)
+- handle with the multi-variable function ( ```x0```, ```x1``` etc ...)
 
 We also assert than our parseur throw the desired error when it detect a incoherence :
 - begin with a operator``` + ```, ``` * ``` or ```/```
@@ -194,7 +194,7 @@ This correspond to the fixture **Fixture_Solve**.<br/>
 We actually test if numerical methods work correctly. The _SetUp_ take in argument features of a function and return the output.
 * Test working case for the four different methods
 * Assert that the method throw a exception when it diverge to infinity ( > #throw **ExceptionIterate** ).
-* Assert that the method trow a exception when it converge to a wrong solution ( > x^2 +1   #throw **ExceptionIterate**).
+* Assert that the method trow a exception when it converge to a wrong solution ( > ```x^2 +1```   #throw **ExceptionIterate**).
 * Assert that some corner case throw the desired error (> For Bisection if f(a) * f(b) >0 , #trow **std::invalid_argument** ).
 
 # Limitation and perspective
