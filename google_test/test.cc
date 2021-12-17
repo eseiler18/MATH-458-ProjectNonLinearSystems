@@ -21,8 +21,9 @@
 
 
 
-///---------------- Priority operator test--------------------------
+//---------------- Priority operator test--------------------------
 TEST_F(Fixture_Interpreter,priorityTest){
+    // Test Some valid input, compare the result given by the reconstructed function with the reel one.
     std::cout << "\nTesting Priority operator ... " << std::endl;
 
     Fixture_Interpreter::SetUp("3*x  + 5 *x *x* 4 - 5",4);
@@ -37,8 +38,10 @@ TEST_F(Fixture_Interpreter,priorityTest){
     Fixture_Interpreter::SetUp(" x / x^3*3 +18- 5*x",4);
     ASSERT_NEAR(Fixture_Interpreter::calculated_value,4.0/(4*4*4)*3+18-5*4,0.0001)<< "Problem for :  x / x^3*3 +18- 5*x";
 }
-///---------------- Expected Error Parser Exception--------------------------
+//---------------- Expected Error Parser Exception--------------------------
 TEST_F(Fixture_Interpreter,error_parser_expected){
+    //Test error with wrong input. If a error is in fact detected, the error_valid variavle is set to 1
+    
     std::cout << "Testing expected error parseur exception ... " << std::endl;
     // begin with *
     Fixture_Interpreter::SetUp("*3*x  + 5 *x *x 4 - 5",4, true);
@@ -61,6 +64,8 @@ TEST_F(Fixture_Interpreter,error_parser_expected){
 }
 ///---------------- operator test-------------------------
 TEST_F(Fixture_Interpreter,testoperator) {
+    // Test Some operator. Compare the result given by the reconstructed function with the reel one.
+    
     std::cout << "Testing operator ... " << std::endl;
 
     Fixture_Interpreter::SetUp("x*x", 5);
@@ -75,6 +80,8 @@ TEST_F(Fixture_Interpreter,testoperator) {
 
 ///---------------- External function Test ------------------------
 TEST_F(Fixture_Interpreter,testexternalfunction) {
+    // Test Some valid input with specific function, compare the result given by the reconstructed function with the reel one.
+    
     std::cout << "Testing external function ... " << std::endl;
 
     Fixture_Interpreter::SetUp("sin(12*x)", 5);
@@ -91,6 +98,7 @@ TEST_F(Fixture_Interpreter,testexternalfunction) {
 
 ///---------------- Multi Variable TEST------------------------
 TEST_F(Fixture_Interpreter,multiVariables) {
+    // Test multi-variable function. Compare the result given by the reconstructed function with the reel one.
     std::cout << "Testing multiVariable Parser  .. " << std::endl;
 
     double variables[2]{2.0,5.0};
@@ -105,18 +113,24 @@ TEST_F(Fixture_Interpreter,multiVariables) {
 }
 
 TEST_F(Fixture_Interpreter,multiVariables_Exception) {
+    //Test error with wrong input. If a error is in fact detected, the error_valid variavle is set to 1
+    
     std::cout << "Testing Expected multiVariable Exception .. " << std::endl;
     double variable[2];
 
     // x0 and x2 but no x1 ( x must follow and begin by x0 )
     Fixture_Interpreter::SetUp("x0+ x2",variable,2,true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x1 + x3 -> error expected";
+    
     // use of y ( parser only understand x0 x1 etc ... )
     Fixture_Interpreter::SetUp("x+ y",variable,2,true);
     ASSERT_EQ(Fixture_Interpreter::error_valid,1)<< "Problem for x+ y -> error expected";
 }
 
+///---------------- Extern File TEST------------------------
 TEST(ReadingOutputFile,fun_Test){
+    //Test the function in the extern functionTest.cpp file given. Assert the reader can return the pointer to the desired function
+    
     std::cout << "Testing Read function from extern file .." << std::endl;
 
     std::string path="../../google_test/functionTest.cpp";
@@ -124,14 +138,12 @@ TEST(ReadingOutputFile,fun_Test){
     InterpreterCodeC interpreter1(path, functionName);
     AbstractNode* f = interpreter1.createExecutableFunction();
     ASSERT_NEAR(f->solve(4), exp(4)-12, 0.0001)<<"<-- Problem Reading the extern file : exp(x) - 12 ";
-
-    path="../../google_test/functionTest.cpp";
+    
     functionName="funb";
     InterpreterCodeC interpreter2(path, functionName);
     AbstractNode* g = interpreter2.createExecutableFunction();
     ASSERT_NEAR(g->solve(4),5*4 +log(sqrt(4*4*4)), 0.0001)<<"<-- Problem Reading the extern file: 5*x + log(sqrt(x*x*x))";
 
-    path="../../google_test/functionTest.cpp";
     functionName="func";
     InterpreterCodeC interpreter3(path, functionName);
     AbstractNode* h = interpreter3.createExecutableFunction();
@@ -139,8 +151,10 @@ TEST(ReadingOutputFile,fun_Test){
 }
 
 TEST(ReadingOutputFile2,Exeption_Test) {
+    // Test if given a wrong function name throw the desired error
+    
     std::cout << "Testing Read function from extern file Exception error" << std::endl;
-    // Wrong Name of function Test
+    
     std::string path="../../google_test/functionTest.cpp";
     std::string functionName="wrong";
     InterpreterCodeC interpreter1(path, functionName);
@@ -150,6 +164,8 @@ TEST(ReadingOutputFile2,Exeption_Test) {
 
 /// ----------------Divide by 0 exception -------------------------
 TEST(StrToFunTest1,divide_by_0){
+    // Testing if the dividing by 0 throw an error
+    
     std::cout << "Testing divide by 0 exception... " << std::endl;
     AbstractNode* f = Solver::strToFun("1/x");
     ASSERT_THROW(f->solve(0),std::invalid_argument)<< "Problem when dividing by 0 : invalid argument expected ..";
@@ -158,6 +174,8 @@ TEST(StrToFunTest1,divide_by_0){
 
 /// ----------------Classic Chord TEST --------------------------------
 TEST_F(Fixture_Solve,Test_Chord){
+    // Test working case valid result
+    
     std::cout<<"Testing Chord resolution  ... "<<std::endl;
     Fixture_Solve::SetUp("x","0",10,0.0001,1000,-100,1000,
                          "Chord");
@@ -167,10 +185,11 @@ TEST_F(Fixture_Solve,Test_Chord){
                          1000,"Chord");
     ASSERT_NEAR(Fixture_Solve::getResult(),0,0000.1)<< "<--Classic Chord resolution Problem";
 }
-TEST_F(Fixture_Solve,Test_Chord_Exception) {
-    std::cout << "Testing Chord exception ... " << std::endl;
 
+TEST_F(Fixture_Solve,Test_Chord_Exception) {
     // Test exception when the method doen't reach a good solution
+    
+    std::cout << "Testing Chord exception ... " << std::endl;
     try {
         Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.0001, 1000, 0,
                              0, "Chord");
@@ -184,6 +203,8 @@ TEST_F(Fixture_Solve,Test_Chord_Exception) {
 
 /// ------------Bisection TEST --------------------------------
 TEST_F(Fixture_Solve,Test_Bisection){
+    // Test working case valid result
+    
     std::cout<<"Testing Bisection Resolution ... "<<std::endl;
     Fixture_Solve::SetUp("2*x/(x^2+1)","0",7,0.0001,1000,-100,6000,
                          "Bisection");
@@ -195,8 +216,9 @@ TEST_F(Fixture_Solve,Test_Bisection){
 }
 TEST_F(Fixture_Solve,Test_Bisection_Exception) {
     std::cout << "Testing Bisection exception ... " << std::endl;
-
-    try { // Test error when f(a) * f(b) >0
+    
+    // Test error when f(a) * f(b) >0
+    try { 
         Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.01, 1000, -100,
                              1000, "Bisection");
         FAIL()<<"should throw an exception ";
@@ -204,7 +226,9 @@ TEST_F(Fixture_Solve,Test_Bisection_Exception) {
     catch (...){ //If Catch Any other exception --> Test failed
         FAIL() <<"<--Wrong exception throw" ;
     }
-    try { // Test exception when the method doen't reach a good solution
+    
+    // Test exception when the method doen't reach a good solution
+    try { 
         Fixture_Solve::SetUp("x^3", "0", 0, 0.0001, 10, -10000,
                              1, "Bisection");
         FAIL()<<"should throw an exception ";
@@ -216,6 +240,8 @@ TEST_F(Fixture_Solve,Test_Bisection_Exception) {
 
 /// ----------------NEWTON TEST ----------------------------------
 TEST_F(Fixture_Solve,Test_Newton){
+    // Test working case valid result
+    
     std::cout<<"Testing  Newton resolution  ... "<<std::endl;
     Fixture_Solve::SetUp("3*x^2 + 2*x","6*x +2",10,0.0001,1000,-100,
                          1000,"Newton");
@@ -226,8 +252,9 @@ TEST_F(Fixture_Solve,Test_Newton){
     ASSERT_NEAR(Fixture_Solve::getResult(),0,000.1)<< "<--Newton resolution Problem..";
 }
 TEST_F(Fixture_Solve,Test_Newton_Exception){
+    // Test exception when the method doen't reach a good solution
+    
     std::cout<<"Testing Newton exception ... "<<std::endl;
-
     try { // Test exception when the method doen't reach a good solution
         Fixture_Solve::SetUp("x^2+2", "2*x", 10, 0.0001, 1000, 0,
                              0, "Newton");
@@ -241,6 +268,8 @@ TEST_F(Fixture_Solve,Test_Newton_Exception){
 
 /// ----------------Fixed Point  TEST --------------------------------
 TEST_F(Fixture_Solve,Test_Fixed_point){
+    // Test working case valid result
+    
     std::cout<<"Testing fixed point resolution  ... "<<std::endl;
     Fixture_Solve::SetUp("3*x^2 + 2*x","6*x +2",10,0.0001,1000,-100,
                          1000,"FixedPoint");
@@ -253,6 +282,8 @@ TEST_F(Fixture_Solve,Test_Fixed_point){
 
 
 TEST_F(Fixture_Solve,Test_FP_Exception) {
+    // Test exception when the method doen't reach a good solution
+    
     std::cout << "Testing Fixed_point  exception ... " << std::endl;
 
     try { // Test exception when the method doen't reach a good solution
