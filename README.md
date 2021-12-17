@@ -24,7 +24,7 @@ Sources: [here](https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781118673515.ap
 the fixed point method. [Here](https://en.wikipedia.org/wiki/Aitken%27s_delta-squared_process) for the Aitken acceleration to be applied to
 these methods.
 
-# How to use ... (LOUIS)
+# How to use
 ## Make & run 
 To make this project, you need to have the linux tool "cmake".
 Go to the root of the git after cloning :
