@@ -39,7 +39,7 @@ After cloning go to the root of the git:
 To generate doxygen documentation:
 
 	doxygen Doxyfile
-If doesn't work you can create the Doxyfile with ```doxywizard``` and select the folder project to scan with scan recursively.
+If doesn't work you can create the Doxyfile with ```doxywizard``` and select the folder project to scan with scan recursively.<br>
 To open the html web page:
 
 	cd html
