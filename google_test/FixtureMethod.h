@@ -35,9 +35,12 @@ private:
 
 void Fixture_Solve::SetUp(std::string sfun, std::string sdfun, double initialVal, double tol, int maxit,
                           double lowerbound, double upperbound,const std::string& met) {
+    
+    // Construct the Abstract node with the mathematical expression
     AbstractNode* f =Solver::strToFun(std::move(sfun));
     AbstractNode* df =Solver::strToFun(std::move(sdfun));
-
+    
+    // Construct the desired solver, and compute the result
     if ("Newton"==met){
         Newton aux(f,df,initialVal,tol,maxit);
         ret_method=aux.SolveEquation();
