@@ -159,7 +159,7 @@ Data* ReaderData::createDataRow(std::vector<std::string>& row) {
             std::cout << "Warning line " + std::to_string(currentLine) + ": tolerance is empty"
                          + ". Set value by default at " + std::to_string(data->tolerance) << std::endl;
         } else if (isNumber(row[6])) {
-            data->initialValue = atof(row[6].c_str());
+            data->tolerance = atof(row[6].c_str());
         } else{
             throw std::invalid_argument("Invalid cell in csv file at line " + std::to_string(currentLine)
                                             + ": " + row[6] + " should be a number.");
@@ -171,7 +171,7 @@ Data* ReaderData::createDataRow(std::vector<std::string>& row) {
             std::cout << "Warning line " + std::to_string(currentLine) + ": number of max iterations is empty"
                          + ". Set value by default at " + std::to_string(data->maxIter) << std::endl;
         } else if (isNumber(row[7])){
-            data->initialValue = atof(row[7].c_str());
+            data->maxIter = atoi(row[7].c_str());
         } else{
             throw std::invalid_argument("Invalid cell in csv file at line " + std::to_string(currentLine)
                                             + ": " + row[7] + " should be a number.");
