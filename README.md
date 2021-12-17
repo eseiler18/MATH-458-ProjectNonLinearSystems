@@ -1,7 +1,7 @@
 # MATH-458 - Programming Concepts in Scientific Computing
 
 Project of the PSCS course at EPFL given at EPFL Fall 2021. 
-
+Some Markdown text with <span style="color:blue">some *blue* text</span>.
 ## Team members
 
 - Emilien Seiler
