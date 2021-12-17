@@ -79,11 +79,6 @@ Look the Answer on the terminal :<br/>
 * f for Fixed Point method
 sample: 
 > n;b;c  # newton, Chord and Bisection will be computed
-## Test your function : how to fill the csv
-### first column : Choose your method 
-empty -> All the method <br/>
-n for newton; b for Bisection; c for Classic Chord; f for Fixed Point method <br/>
-Note that the letter must be separated by a semicolon ";"
 ### 2nd column : Choose the function 
  #### First option (simple function)  :
  Write the function in the column.
