@@ -179,13 +179,13 @@ This correspond to the fixture **Fixture_Interpreter**. The goal is to check all
 For this case, we compare the constructed function with the reel one, and assert if our parser can actually :<br/>
 - can make simple operation ( + ; - ; * ; / )
 - respect the priority of operation
-- respect the ( ) priority
+- respect the ```(..)``` priority
 - recognise the function we have implemented like cos, exp etc ...
 - handle with the multi-variable function ( x0, x1 etc ...)
 
 We also assert than our parseur throw the desired error when it detect a incoherence :
-- begin with a operator + ; * or /
-- operator follow by another operator : ( 5 + * 4), same with number ( 2 3 +4)
+- begin with a operator``` + ```, ``` * ``` or ```/```
+- operator follow by another operator : ``` ( 5 + * 4) ``` , same with number ``` ( 2 3 +4) ```
 - non recognise function : ``` skz(x) ```
 - a parenthesis not open or not close : ``` 3*4x ) ```
 
