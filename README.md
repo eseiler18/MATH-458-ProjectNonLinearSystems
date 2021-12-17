@@ -73,16 +73,6 @@ Look the answer on the terminal :<br/>
 * First the warnings : They enhance missing or incoherent element in the csv. <br/>
 * Next, the solutions find by numerical methods.
 
-#### Generate documentation
-Come back in the root floder git MATH-458-ProjectNonLinearSystems
-To generate doxygen documentation:
-
-	doxygen Doxyfile
-If doesn't work you can create the Doxyfile with ```doxywizard``` and select the folder project to scan with scan recursively.<br>
-To open the html web page:
-
-	cd html
-	firfox index.html
 	
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
@@ -152,6 +142,18 @@ f2 = x1+3*x0*x1^2-57
 
 # Implementation
 The resolution of the equation is done with two main steps, the reading phase and the solving phase.
+#### Generate documentation
+Come back in the root floder git MATH-458-ProjectNonLinearSystems
+To generate doxygen documentation:
+
+	doxygen Doxyfile
+If doesn't work you can create the Doxyfile with ```doxywizard``` and select the folder project to scan with scan recursively.<br>
+To open the html web page:
+
+	cd html
+	firfox index.html
+
+
 ## Reader
 Classes used to read the csv are in the [Project/ReadData](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData) folder, the main class is **ReaderData**. The role of this object is to read each row of the csv file to create **Data** structures (see [data.h](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/Data.h)) which contain parameters of numerical methods input by the user.<br>
 The interesting aspects of the implementation concern the reading of functions (the equation and its derivative column 2 and 3 of the csvfile). <br>
