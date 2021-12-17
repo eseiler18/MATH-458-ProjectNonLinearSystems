@@ -14,12 +14,17 @@
 #include "AbstractInterpreterFunction.h"
 #include "parser/ExtrernalFunctionNode.h"
 
+/**
+ * Child of AbstractInterpreterFunction for the c++ code of the function as input.
+ * The externalFile parameter is the path of the external cpp file where there is the function.
+ * The functionName parameter is the name of the function in the external file
+ */
 class InterpreterCodeC : public AbstractInterpreterFunction{
 private:
     std::string externalFile;
 public:
     InterpreterCodeC(std::string &file, std::string &nameFun):AbstractInterpreterFunction(nameFun),externalFile(file){}
-
+    /// create the executable function with a pointer on functionName in externalFile by dynamic compilation
     AbstractNode* createExecutableFunction() override;
 };
 

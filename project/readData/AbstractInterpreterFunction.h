@@ -9,11 +9,16 @@
 #include <utility>
 #include "parser/AbstractNode.h"
 
+/**
+ * Common interface of input function interpreter.
+ * Actually to type of input math expression and c++ code
+ */
 class AbstractInterpreterFunction{
 protected:
     std::string functionName;
 public:
     AbstractInterpreterFunction(std::string &fun):functionName(fun){}
+    /// virtual pure method which create the executable function
     virtual AbstractNode* createExecutableFunction()=0;
 };
 #endif //PCSC_PROJECT_ABSTRACTINTERPRETERFUNCTION_H
