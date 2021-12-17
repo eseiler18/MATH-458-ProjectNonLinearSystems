@@ -66,8 +66,8 @@ If you are a looser on windows like Emilien, you can go to your file and open da
 	./main_louis
 
 Look the Answer on the terminal :<br/>
--First the warnings : They tell missing or incoherent element in the csv <br/>
--Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
+* First the warnings : They tell missing or incoherent element in the csv <br/>
+* Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
 	
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
@@ -78,7 +78,7 @@ Look the Answer on the terminal :<br/>
 * f for Fixed Point method
 
 sample: 
-> n;b;c  newton and Bisection will be computed
+> n;b;c  # newton and Bisection will be computed
 ### 2nd column : Choose the function 
  #### First option (simple function)  :
  Write the function in the column. 
