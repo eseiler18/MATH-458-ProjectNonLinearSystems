@@ -63,7 +63,7 @@ If you have "gopen" on linux you can use :
 	
 If you are a looser on windows like Emilien, you can go to your file and open data.csv in "MATH-458-ProjectNonLinearSystems/build/project" folder. You will see the different exemple of function our project can handle, and the parameters you can input. Now lauch the main with no argument : it will take the "data.csv" file in input by default :
 	
-	./main_louis
+	./run
 
 Look the Answer on the terminal :<br/>
 * First the warnings : They tell missing or incoherent element in the csv <br/>
@@ -76,12 +76,11 @@ Look the Answer on the terminal :<br/>
 * b for Bisection;
 * c for Classic Chord;
 * f for Fixed Point method
-
 sample: 
-> n;b;c  # newton and Bisection will be computed
+> n;b;c  # newton, Chord and Bisection will be computed
 ### 2nd column : Choose the function 
  #### First option (simple function)  :
- Write the function in the column. 
+ Write the function in the column.
  Use
  * x as variable
  * ^ for power  
@@ -119,8 +118,8 @@ The max number of step you will allow before stop the method. If you let this em
 Only when we use a external cpp for the function.
 
 ## Your turn to test 
-You can now use this csv file to put your own function. If you want to use your own csv, put it in the folder /build/project and launch the main_louis with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test as the main_louis will use this file by default if it has any argument.
-Note that lauch the main_louis will always read all the lignes and resolve for all the function in the CSV.
+You can now use this csv file to put your own function. If you want to use your own csv, put it in the folder /build/project and launch the main (	-> ./run) with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test as the main will use this file by default if it has any argument.
+Note that lauch the main will always read all the lignes and resolve for all the function in the CSV.
 
 ## A note on the other main and Linear system
 You have maybe already see the other excecutable code, It represent our extension of our project : Solving system with newton Method. <br/>
@@ -128,7 +127,7 @@ This branch is actually in working and we have only implement the method with a 
 We have the way to represent the function and jacobien matrice but we only lack a interface (like the csv file) to run fifferent exemple without remake the project.
 You can therefore run:
   	```
-	./main
+	./runSystem
 	```
 and it will resolve the systeme :<br/>
 f1 = x0^2+x0*x1-10<br/>
