@@ -130,6 +130,7 @@ The interesting aspects of the implementation concern the reading of functions (
 ### From mathematical expression
 Classes used to interpret function from expression are in the folder Project/ReadData/Parser.
 The following diagram explain the process passing from an expression to an executable function for the mathematic expression “x+3x^2*5”.
+![Parser](/figure/Parser.png "Parser")
 First there is the reading phase of the expression done by the readTokens method of the Parser class which attribute to each character a token. A token is the representation of a character or a group of character with a certain token type (see TokenType.h) there are create from an AbstractToken class.
 Then the normalizeAndVerifyTokens method of the Parser class manage implicit operation, verify the validity of each token, and manage operation priorities by adding implicit parentheses.
 Finally, there is the building phase of the executable function from tokens done by the build method of the Builder class. The executable function is built in the form of a binary tree with operator as node and number, variables, and function as leaf. 
