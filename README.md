@@ -157,26 +157,30 @@ Nodes are created from the **AbstractNode** class which contain a pure virtual m
 Accessing the function from c ++ code is much easier since the function is already built and can be interpreted by the program. To recover the function from an extern cpp file we dynamically compile it with the _system_ command and create a library in the /tmp folder. The library is load and a function pointer is created from the name of the function in the cppfile. Then an **ExternalFunctionNode** which inherit of **AbstractNode** is created to fit with the common interface **AbstractInterpreterFunction** (a tree is built with just one vertex and value of the function can be access with the _solve_ method of **AbstractNode**).
 ## Solver
 All classes concerning solving step can be found in the folder project/solverMethods.
-After the reading step, information about the equation and the numerical methods are stored in a structure **Data** (see data.h).
-The equation is solved from an **AbstractSolveur** class which contain common element of all numerical methods (equation, tolerance, number of maximum iterations) and a pure virtual method call _SolveEquation_. Then the four methods implemented have an associated class which inherits from **AbstractSolver**.  Numerical methods are implemented in the _SolveEquation_ method of each child class and return the result or an exception if the method didn’t converge.
+After the reading step, information about the equation and the numerical methods are stored in a structure **Data** (see [data.h](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/Data.h)).
+The equation is solved from an **AbstractSolveur** class which contain common element of all numerical methods (equation, tolerance, number of maximum iterations) and a pure virtual method call _SolveEquation_.<br>
+Then the four methods implemented have an associated class which inherits from **AbstractSolver**.  With polymorizm _SolveEquation_ method return the result of the equation or an exception if the method don't converge.<br>
 A little word on the **NewtonSystem** class which is implemented to solve system with several variable (does not inherit from **AbstractSolveur**). The eigen library is used to create a vector and a matrix of **AbstractNode** which correspond to equations and the Jacobian of the system.
 # Validating Test
 ## What we Testing
-All the test are on the test1.cpp file you can found on google_test folder.
-Two fixture are implement, and each one correspond to a different part of the project. SetUp is implement in each one to facilitate the Test.
+All the test are on the test.cc file you can found on [google_test folder](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/google_test)
+Two fixture are implement, _SetUp_ is implement in each one to facilitate the Test.
 ### Testing the Parseur
-This correspond to the fixture **Fixture_Interpreter**. The goal is to tcheck all the corner case of our parseur and verify if it can reconstruct the desired fonction.
+This correspond to the fixture **Fixture_Interpreter**. The goal is to check all the corner case of our parseur and verify if it can reconstruct the desired fonction.
 For this case, we compare the constructed function with the reel one, and assert if our parser can actually :<br/>
 - can make simple operation ( + ; - ; * ; / )
 - respect the priority of operation
 - respect the ( ) priority
-- recognise the externed function we have implemented like cos, exp etc ...
+- recognise the function we have implemented like cos, exp etc ...
 - handle with the multi-variable function ( x0, x1 etc ...)
 
 We also assert than our parseur throw the desired error when it detect a incoherence :
 - begin with a operator + ; * or /
 - operator follow by another operator : ( 5 + * 4), same with number ( 2 3 +4)
-- non recognise external function : ( skz(x) )
+- non recognise function :  
+	```
+	skz(x)
+	```
 - a coma not open or not close : 3*4x )
 
 ### Testing the Method
