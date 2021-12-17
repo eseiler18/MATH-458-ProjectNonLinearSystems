@@ -62,13 +62,14 @@ If you have "gopen" on linux you can use :
   	```
 	gopen data.csv
 	```
-Otherwise open data.csv in "MATH-458-ProjectNonLinearSystems/build/project" folder.(Important : the semicolon separator must be desactived, but the coma separator must be actived). You will see differents exemples of equations our project solved, and the parameters you can input. Now lauch the main with no argument : it will take the "data.csv" file in input by default :
+.Otherwise open **data.csv** in _MATH-458-ProjectNonLinearSystems/build/project_ folder (the semicolon separator must be desactived, but the coma separator must be actived).<br/> 
+You will see differents exemples of equations our project solved, and the parameters you can input. Now lauch the main with no argument : it will take the **data.csv** file in input by default :
 	
 	./run
 
 Look the Answer on the terminal :<br/>
-* First the warnings : They tell missing or incoherent element in the csv <br/>
-* Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
+* First the warnings : They tell missing or incoherent element in the csv. <br/>
+* Next, the solutions find by numerical methods.
 	
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
@@ -77,10 +78,9 @@ Look the Answer on the terminal :<br/>
 * b for Bisection;
 * c for Classic Chord;
 * f for Fixed Point method
-sample: 
 > n;b;c  # newton, Chord and Bisection will be computed
-### 2nd column : Choose the function 
- #### First option (simple function)  :
+### 2nd column : The equation 
+ #### First option: mathematic expression:
  Write the function in the column.
  Use
  * x as variable
@@ -94,27 +94,27 @@ sample:
    * tan(..) 
    * atan(..)
 
- #### 2nd option : Use another cpp file  :
+ #### 2nd option: with c++ code on an external file:
  Put the name of the function as it appears in the cpp file. You should also fill the 9th column by adding the Name of the cpp file.<br/>
- The function file have to be in the same folder than the CSV File. Be carreful that the different function have to be inclueded in a extern "C" {}
+ The cpp file have to be in the same folder than the CSV File. Be carreful that functions have to be inclueded in a _extern "C"_ 
  
  	extern "C" {
 		double nameFuncion(double x){return 2*x;}
 	}
-The simpliest way is to use the "function.cpp" file at disposition in "/build/project/" and copy/paste the function you want to test. 
+The simpliest way is to use the **function.cpp** file at disposition in _/build/project/_ and copy/paste the function you want to test. 
 
-### 3th column : Fill the derivative function 
-If you want to use the Newton method, you need to fill the explicit derivative of the function. You can choose the two way explained just before. 
+### 3th column : The derivative 
+If you want to use the Newton method, you need to fill the derivative of the equation. You can choose the two way explained just before. 
 Note that for the 2nd way, the function and derivative function have to be in the same cpp file.
 You can let this column empty if you doen't want to use de Newton method. <br/>
 ### 4th and 5th column : Bounds   
-It's the lower and upped bound for the Bisection. You can let this empty if you doesn't want to use this method.
+It's the lower and upped bound for the Bisection. You can let this empty if you don't want to use this method.
 ### 6th Column : Initial Value
-The initial value for Chord, Newton and fixed point. You can let this empty if you doesn't want to use this methods.
+The initial value for Chord, Newton and fixed point. You can let this empty if you don't want to use these methods.
 ### 7th Column : tolerance
-The exactness you want to reach with the method. If you let this empty, the tolerance will be set by default at 0.000001. A warning message will also be print in the terminal.
+The exactness you want to reach with the method. If you let this empty, the tolerance will be set by default at 0.000001.
 ### 8th Column : Max iteration
-The max number of step you will allow before stop the method. If you let this empty, the Max iteration will be set by default at 10000. A warning message will also be print in the terminal.
+The maximum number of iteration you will allow before stoping the method. If you let this empty, the maximum iterations will be set by default at 10000.
 ### 9th Column : External file name
 Only when we use a external cpp for the function.
 
