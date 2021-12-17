@@ -35,6 +35,7 @@ After cloning go to the root of the git:
   	```
 	cd  MATH-458-ProjectNonLinearSystems
 	```
+#### Generate documentation
 To generate doxygen documentation:
 
 	doxygen Doxyfile
@@ -43,7 +44,8 @@ To open the html web page:
 
 	cd html
 	firfox index.html
-	
+
+#### Make the project	
 In order to compile you should first install **googletest** and **eigen**.
 	
 	git submodule update --init 
