@@ -63,7 +63,7 @@ If you have "gopen" on linux you can use :
 	gopen data.csv
 	```
 .Otherwise open **data.csv** in _MATH-458-ProjectNonLinearSystems/build/project_ folder (the semicolon separator must be desactived, but the coma separator must be actived).<br/> 
-You will see differents exemples of equations our project solved, and the parameters you can input. Now lauch the main with no argument : it will take the **data.csv** file in input by default :
+You will see differents exemples of equations our project can solve, and the parameters you can input. Now lauch the main with no argument : it will take the **data.csv** file in input by default :
 	
 	./run
 
@@ -119,16 +119,16 @@ The maximum number of iteration you will allow before stoping the method. If you
 Only when we use a external cpp for the function.
 
 ## Your turn to test 
-You can now use this csv file to put your own function. If you want to use your own csv, put it in the folder /build/project and launch the main (  	```
+You can now use this csv file to put your own function. If you want to use your own csv and launch the main (  	```
 	./run
 	``` 
-)with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test as the main will use this file by default if it has any argument.
-Note that lauch the main will always read all the lignes and resolve for all the function in the CSV.
+)with the csvfile path as argument. The simpliest way is to clear our exemple in the data.csv and use it for your test (_run_ will use this file by default if it has any argument).
+Note that _run_ will always read all the lignes of the CSV and resolve them.
 
-## A note on the other main and Linear system
-You have maybe already see the other excecutable code, It represent our extension of our project : Solving system with newton Method. <br/>
-This branch is actually in working and we have only implement the method with a quick exemple directly in the cpp file. 
-We have the way to represent the function and jacobien matrice but we only lack a interface (like the csv file) to run fifferent exemple without remake the project.
+## A note on the other main and non linear system
+The other exuctable file _runSystem_ is our extension of the project : Solving system with newton Method. <br/>
+This branch is actually in working and we have only implement the solver with a quick exemple. 
+We have the way to represent system and its jacobien matrice but we only lack a interface (like the csv file) to run different exemple without remake the project.
 You can therefore run:
   	```
 	./runSystem
@@ -140,18 +140,19 @@ f2 = x1+3*x0*x1^2-57
 # Implementation
 The resolution of the equation is done with two main steps, the reading phase, and the solving phase.
 ## Reader
-Classes used to read the csv are in the [Project/ReadData](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData) folder, the main class is **ReaderData**. The role of this object is to read each row of the csv file to create **Data** structures (see [data.h](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/Data.h) which contain parameters of the numerical methods input by the user.
-The interesting aspects of the implementation concern the reading of functions (the equation and its derivative column 2 and 3 of the csvfile). The **AbstractInterpreterFunction** is a common interface which contain a pure virtual method _createExecutableFunction_. There are two way inputting the desire functions, from its mathematical expression or with C++ code in an external file. Each have a class which inherit from **AbstractInterpreterFunction** and the _createExecutbaleFunction_ method return an **AbstractNode** object (explain later) which is the executable function
+Classes used to read the csv are in the [Project/ReadData](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData) folder, the main class is **ReaderData**. The role of this object is to read each row of the csv file to create **Data** structures (see [data.h](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/Data.h)) which contain parameters of numerical methods input by the user.<br>
+The interesting aspects of the implementation concern the reading of functions (the equation and its derivative column 2 and 3 of the csvfile). <br>
+The **AbstractInterpreterFunction** is a common interface which contain a pure virtual method _createExecutableFunction_. There are two way inputting the desire functions, from its mathematical expression or with C++ code in an external file. Each have a class which inherit from **AbstractInterpreterFunction** and the _createExecutbaleFunction_ method return an **AbstractNode** object which is the executable function
 
 ### From mathematical expression
-Classes used to interpret function from expression are in the folder Project/ReadData/Parser.
-The following diagram explain the process passing from an expression to an executable function for the mathematic expression “x+3x^2*5”.
+Classes used to interpret function from expression are in the folder [Project/ReadData/Parser](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/parser).
+The following diagram explain the process passing from an expression to an executable function for “x+3x^2*5”.
 ![Parser](/figure/figParser.png "Parser")
-First there is the reading phase of the expression done by the _readTokens_ method of the **Parser** class which attribute to each character a token. A token is the representation of a character or a group of character with a certain token type (see TokenType.h) there are create from an **AbstractToken** class.
+First there is the reading phase done by the _readTokens_ method of the **Parser** class which attribute to each character a token. A token is the representation of a character or a group of character with a certain token type (see [TokenType.h](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/parser/TokenType.h) there are create from an **AbstractToken** class. <br>
 Then the _normalizeAndVerifyTokens_ method of the **Parser** class manage implicit operation, verify the validity of each token, and manage operation priorities by adding implicit parentheses.
 ![Builder](/figure/figBuilder.png "Builder")
-Finally, there is the building phase of the executable function from tokens done by the _build_ method of the **Builder** class. The executable function is built in the form of a binary tree with operator as node and number, variables, and function as leaf. 
-Nodes are created from the **AbstractNode** class which contain a pure virtual method _solve_. Operator, variable, number, and functions node have a class that inherit from **AbstractNode**. In each class the _solve_ method access the value of the node for a certain double x. Then we can access the value of the function for all x calling the _solve_ method on the root **AbstractNode** of the tree and it recursively calls _solve_ method of each node to compute the result (note that the tree is built only one time at reading step).  
+Finally, there is the building phase of the executable function from tokens done by the _build_ method of the **Builder** class. The executable function is built as a binary tree with operator as node and number, variables, and function as leaf.<br> 
+Nodes are created from the **AbstractNode** class which contain a pure virtual method _solve_. **OperatorNode**, **VariableNode**, **NumberNode**, and **FunctionNode** inherit from **AbstractNode**. Then we can access the value of the function for all x calling the _solve_ method on the root **AbstractNode** of the tree and it recursively calls _solve_ method of each node to compute the result (note that the tree is built only one time at reading step).  
 ### From c++ code
 Accessing the function from c ++ code is much easier since the function is already built and can be interpreted by the program. To recover the function from an extern cpp file we dynamically compile it with the _system_ command and create a library in the /tmp folder. The library is load and a function pointer is created from the name of the function in the cppfile. Then an **ExternalFunctionNode** which inherit of **AbstractNode** is created to fit with the common interface **AbstractInterpreterFunction** (a tree is built with just one vertex and value of the function can be access with the _solve_ method of **AbstractNode**).
 ## Solver
