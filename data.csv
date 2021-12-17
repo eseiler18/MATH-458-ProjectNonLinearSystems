@@ -2,8 +2,6 @@
 ,X^2 +22,2x,-5,5,1,,,
 n;c;f,1/x -x^2+2x,-1/x^2-2x+2,,,2,,,
 b,x^3/(x^2 +2)-10x - 2,,-100,100,,,,
-n,(x+3)/(x-3),-6/(x-3)^2,,,-1,,,
-f;c,fun,,,,10,,,functions.cpp
-n,funb,dfunb,,,3,,,functions.cpp
+n;c;f,funb,dfunb,,,3,,,functions.cpp
 n;c;f,x*cos(x) -17,-sin(x)*x + cos(x),,,0,,,
 c;f,exp(log(x+1)),,,,0,,,
