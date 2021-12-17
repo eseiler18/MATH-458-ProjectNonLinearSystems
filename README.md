@@ -52,8 +52,7 @@ You can run this line of code to place them in their respectif place.
  We can know test the default main, to compute some function. We just need to go to the project repository :
 
   	
-	cd ..
-	cd projet
+	cd ../projet
 	
 To better understand this project, take a look on "data.csv" file. 
 (Important : the semicolon separator must be desactived, but the coma separator must be actived)
@@ -72,14 +71,38 @@ Look the Answer on the terminal :<br/>
 	
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
-empty -> All the method <br/>
-n for newton; b for Bisection; c for Classic Chord; f for Fixed Point method <br/>
-Note that the letter must be separated by a semicolon ";"
+* empty -> All the method
+* n for newton;
+* b for Bisection;
+* c for Classic Chord;
+* f for Fixed Point method
+
+sample: 
+> n;b;c  newton and Bisection will be computed
 ### 2nd column : Choose the function 
  #### First option (simple function)  :
- Write the function in the column. Use x as variable. You can use ^ for power. You can use external function :  
- 	
-	exp(..) log(..) sqrt(..) cos(..) sin(..) tan(..) atan(..)
+ Write the function in the column. 
+
+ Use
+ * x as variable
+
+ * ^ for power  
+
+ * You can use external function 
+
+   *  exp(..) 
+
+   * log(..) 
+
+   * sqrt(..) 
+
+   * cos(..) 
+
+   * sin(..) 
+
+   * tan(..) 
+
+   * atan(..)
 
  #### 2nd option : Use another cpp file  :
  Put the name of the function as it appears in the cpp file. You should also fill the 9th column by adding the Name of the cpp file.<br/>
