@@ -186,11 +186,8 @@ For this case, we compare the constructed function with the reel one, and assert
 We also assert than our parseur throw the desired error when it detect a incoherence :
 - begin with a operator + ; * or /
 - operator follow by another operator : ( 5 + * 4), same with number ( 2 3 +4)
-- non recognise function :  
-	```
-	skz(x)
-	```
-- a parenthesis not open or not close : 3*4x )
+- non recognise function : ``` skz(x) ```
+- a parenthesis not open or not close : ``` 3*4x ) ```
 
 ### Testing the Method
 This correspond to the fixture **Fixture_Solve**.<br/>
