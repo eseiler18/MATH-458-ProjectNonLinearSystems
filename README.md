@@ -181,19 +181,19 @@ We also assert than our parseur throw the desired error when it detect a incoher
 	```
 	skz(x)
 	```
-- a coma not open or not close : 3*4x )
+- a parenthesis not open or not close : 3*4x )
 
 ### Testing the Method
-This correspond to the **fixture Fixture_Solve**.<br/>
-We actually test if the method work correctly. The _SetUp_ take in argument the features of a function and return the output.
-* Test working case for the four differnt methods
-* Assert that the method throw a exception when it diverge ton infinite ( > #throw **ExceptionIterate** ).
-* Assert that the method trow a exception when it converge to a wrong solution ( > x^2 +1   #throw **ExceptionIterate** for Newton ).
-* Assert that some corner case throw the desired error (> For Bisection if f(a) * f(b) >0 , #trow **std::invalidadrgument** ).
+This correspond to the fixture **Fixture_Solve**.<br/>
+We actually test if numerical methods work correctly. The _SetUp_ take in argument features of a function and return the output.
+* Test working case for the four different methods
+* Assert that the method throw a exception when it diverge to infinity ( > #throw **ExceptionIterate** ).
+* Assert that the method trow a exception when it converge to a wrong solution ( > x^2 +1   #throw **ExceptionIterate**).
+* Assert that some corner case throw the desired error (> For Bisection if f(a) * f(b) >0 , #trow **std::invalid_argument** ).
 
 # Limitation and perspective
 ## More way to input functions:
-For the moment our project allows the user to input functions with a mathematical expression or a c++ code. But we have good reason to think that the user wants to input other type for example tabular functions. Then to implement we must create a class **InterpreterTablular** which inherit of **AbstractInterpreterFunction** with the file in parameter. Then the _createExecutableFunction_ method of this class must analyse the content of the file and return an **AbstractNode** which is the executable function. 
+For the moment our project allows the user to input functions with a mathematical expression or a c++ code. But we have good reason to think that the user wants to input other type for example tabular functions. Then to implement we just must create a class **InterpreterTablular** which inherit of **AbstractInterpreterFunction** with the file in parameter. Then the _createExecutableFunction_ method of this class must analyse the content of the file and return an **AbstractNode** which is the executable function. 
 
 ## Finish System Implementation:
-The extension to system solver isn’t finish yet. As you can see in the main.cpp file the solving part is implemented and work with mathematical expression (thanks to the eigen library). But the reading part isn’t implemented yet the user can’t give his own system (if you want to test you can change the example in main.cpp but you need to recompile). However, the parser work with several variable (x0, x1, x2…) and the _solve_ method of **AbstractNode** is polymorphize with several variable input to access value of multi variable functions.
+The extension to system solver isn’t finish yet. As you can see in the runSystem.cpp file the solving part is implemented and work with mathematical expression. But the reading part isn’t implemented yet, the user can’t give his own system (if you want to test you can change the example in main.cpp but you need to recompile). However, the parser work with several variable (x0, x1, x2…) and the _solve_ method of **AbstractNode** is polymorphize with several variable to access value of multi variable functions.
