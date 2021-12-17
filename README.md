@@ -52,8 +52,7 @@ You can run this line of code to place them in their respectif place.
  We can know test the default main, to compute some function. We just need to go to the project repository :
 
   	
-	cd ..
-	cd projet
+	cd ../projet
 	
 To better understand this project, take a look on "data.csv" file. 
 (Important : the semicolon separator must be desactived, but the coma separator must be actived)
@@ -72,14 +71,28 @@ Look the Answer on the terminal :<br/>
 	
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
-empty -> All the method <br/>
-n for newton; b for Bisection; c for Classic Chord; f for Fixed Point method <br/>
-Note that the letter must be separated by a semicolon ";"
+* empty -> All the method
+* n for newton;
+* b for Bisection;
+* c for Classic Chord;
+* f for Fixed Point method
+
+sample: 
+> n;b;c  newton and Bisection will be computed
 ### 2nd column : Choose the function 
  #### First option (simple function)  :
- Write the function in the column. Use x as variable. You can use ^ for power. You can use external function :  
- 	
-	exp(..) log(..) sqrt(..) cos(..) sin(..) tan(..) atan(..)
+ Write the function in the column. 
+ Use
+ * x as variable
+ * ^ for power  
+ * You can use external function 
+   *  exp(..) 
+   * log(..) 
+   * sqrt(..) 
+   * cos(..) 
+   * sin(..) 
+   * tan(..) 
+   * atan(..)
 
  #### 2nd option : Use another cpp file  :
  Put the name of the function as it appears in the cpp file. You should also fill the 9th column by adding the Name of the cpp file.<br/>
@@ -124,8 +137,8 @@ f2 = x1+3*x0*x1^2-57
 # Implementation
 The resolution of the equation is done with two main steps, the reading phase, and the solving phase.
 ## Reader
-Classes used to read the csv are in the Project/ReadData folder, the main class is **ReaderData**. The role of this object is to read each row of the csv file to create **Data** structures (see data.h) which contain parameters of the numerical methods input by the user.
-The interesting aspects of the implementation concern the reading of functions (the equation and its derivative column 2 and 3 of the csvfile). The **AbstractInterpreterFunction** is a common interface which contain a pure virtual method _createExecutableFunction_. There are two way inputting the desire functions, from its mathematical expression or with C++ code in an external file. Each have a class which inherit from **AbstractInterpreterFunction** and the _createExecutbaleFunction_ method return an **AbstractNode** object (explain later) which is the executable function
+Classes used to read the csv are in the Project/ReadData folder, the main class is ReaderData. The role of this object is to read each row of the csv file to create Data structures (see data.h) which contain parameters of the numerical methods input by the user.
+The interesting aspects of the implementation concern the reading of functions (the equation and its derivative column 2 and 3 of the csvfile). The AbstractInterpreterFunction is a common interface which contain a pure virtual method createExecutableFunction. There are two way inputting the desire functions, from its mathematical expression or with C++ code in an external file. Each have a class which inherit from AbstractInterpreterFunction and the createExecutbaleFunction method return an AbstractNode object (explain later) which is the executable function
 ### From mathematical expression
 Classes used to interpret function from expression are in the folder Project/ReadData/Parser.
 The following diagram explain the process passing from an expression to an executable function for the mathematic expression “x+3x^2*5”.
