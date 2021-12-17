@@ -34,16 +34,6 @@ After cloning go to the root of the git:
   	```
 	cd  MATH-458-ProjectNonLinearSystems
 	```
-	
-#### Generate documentation
-To generate doxygen documentation:
-
-	doxygen Doxyfile
-If doesn't work you can create the Doxyfile with ```doxywizard``` and select the folder project to scan with scan recursively.<br>
-To open the html web page:
-
-	cd html
-	firfox index.html
 
 ### Build the project
 
@@ -82,6 +72,17 @@ You will see differents exemples of equations our project can solve, and paramet
 Look the answer on the terminal :<br/>
 * First the warnings : They enhance missing or incoherent element in the csv. <br/>
 * Next, the solutions find by numerical methods.
+
+#### Generate documentation
+Come back in the root floder git MATH-458-ProjectNonLinearSystems
+To generate doxygen documentation:
+
+	doxygen Doxyfile
+If doesn't work you can create the Doxyfile with ```doxywizard``` and select the folder project to scan with scan recursively.<br>
+To open the html web page:
+
+	cd html
+	firfox index.html
 	
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
