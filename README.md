@@ -25,16 +25,16 @@ these methods.
 
 # How to use
 ## Make & run
-### Requierement
+#### Requierement
 * linux tool "cmake".
 * python3 (for eigen)
-* g++
-	
-### Build the project
+* g++ <br/>
+
 After cloning go to the root of the git:
   	```
 	cd  MATH-458-ProjectNonLinearSystems
 	```
+	
 #### Generate documentation
 To generate doxygen documentation:
 
@@ -45,7 +45,8 @@ To open the html web page:
 	cd html
 	firfox index.html
 
-#### Make the project	
+### Build the project
+
 In order to compile you should first install **googletest** and **eigen**.
 	
 	git submodule update --init 
