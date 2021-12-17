@@ -115,7 +115,7 @@ This branch is actually in working and we have only implement the method with a 
 We have the way to represent the function and jacobien matrice but we only lack a interface (like the csv file) to run fifferent exemple without remake the project.
 You can therefore run:
   	```
-	./main
+	./runSystem
 	```
 and it will resolve the systeme :<br/>
 f1 = x0^2+x0*x1-10<br/>
