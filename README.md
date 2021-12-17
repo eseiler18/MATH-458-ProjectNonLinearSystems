@@ -56,7 +56,7 @@ You can run this line of code to place them in their respectif place.
 	cd projet
 	
 To better understand this project, take a look on "data.csv" file. 
-(Important : the semicolon separator must be desactived, but the coma separator must be actived)
+(Important : the semicolon separator must be desactived, but the coma separator must be actived).
 If you have "gopen" on linux you can use :
   	```
 	gopen data.csv
@@ -164,7 +164,7 @@ A little word on the **NewtonSystem** class which is implemented to solve system
 All the test are on the test1.cpp file you can found on google_test folder.
 Two fixture are implement, and each one correspond to a different part of the project. SetUp is implement in each one to facilitate the Test.
 ### Testing the Parseur
-This correspond to the fixture Fixture_Interpreter. The goal is to tcheck all the corner case of our parseur and verify if it can reconstruct the desired fonction.
+This correspond to the fixture **Fixture_Interpreter**. The goal is to tcheck all the corner case of our parseur and verify if it can reconstruct the desired fonction.
 For this case, we compare the constructed function with the reel one, and assert if our parser can actually :<br/>
 - can make simple operation ( + ; - ; * ; / )
 - respect the priority of operation
@@ -179,12 +179,12 @@ We also assert than our parseur throw the desired error when it detect a incoher
 - a coma not open or not close : 3*4x )
 
 ### Testing the Method
-This correspond to the fixture Fixture_Solve.<br/>
-We actually test if the method work correctly.
----> parlez des test simple qui converge.  
----> parlez des Test exeption qui diverge
----> parlez des differntes erreurs qui sont trhow, par exemple les erreur liée au parseur sont differentes des erreurs liées a la divergence du method
---->> Bisection : std:: invalid argument pour f(a)*f(b) >0 mais differnts pour iterate
+This correspond to the **fixture Fixture_Solve**.<br/>
+We actually test if the method work correctly. The _SetUp_ take in argument the features of a function and return the output.
+* Test working case for the four differnt methods
+* Assert that the method throw a exception when it diverge ton infinite ( > #throw **ExceptionIterate** ).
+* Assert that the method trow a exception when it converge to a wrong solution ( > x^2 +1   #throw **ExceptionIterate** for Newton ).
+* Assert that some corner case throw the desired error (> For Bisection if f(a) * f(b) >0 , #trow **std::invalidadrgument** ).
 
 # Limitation and perspective
 ## More way to input functions:
