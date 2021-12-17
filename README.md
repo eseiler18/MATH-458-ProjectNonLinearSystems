@@ -155,7 +155,7 @@ The **AbstractInterpreterFunction** is a common interface which contain a pure v
 
 ### From mathematical expression
 Classes used to interpret function from expression are in the folder [Project/ReadData/Parser](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/parser).
-The following diagram explain the process passing from an expression to an executable function for “x+3x^2*5”.
+The following diagram explain the process passing from an expression to an executable function for ```x+3x^2*5```.
 ![Parser](/figure/figParser.png "Parser")
 First there is the reading phase done by the _readTokens_ method of the **Parser** class which attribute to each character a token. A token is the representation of a character or a group of character with a certain token type (see [TokenType.h](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/parser/TokenType.h) there are create from an **AbstractToken** class. <br>
 Then the _normalizeAndVerifyTokens_ method of the **Parser** class manage implicit operation, verify the validity of each token, and manage operation priorities by adding implicit parentheses.
