@@ -29,11 +29,20 @@ these methods.
 * linux tool "cmake".
 * python3 (for eigen)
 * g++
+	
 ### Build the project
 After cloning go to the root of the git:
   	```
 	cd  MATH-458-ProjectNonLinearSystems
 	```
+To generate doxygen documentation:
+
+	doxygen Doxyfile
+	
+To open the html web page:
+
+	cd html
+	firfox index.html
 	
 In order to compile you should first install **googletest** and **eigen**.
 	
