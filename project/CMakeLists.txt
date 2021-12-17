@@ -1,6 +1,6 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(readData)
-include_directories(eigen)
+include_directories(../eigen)
 
 add_executable(runSystem runSystem.cpp solverMethods/NewtonSystem.cpp solverMethods/NewtonSystem.h
         readData/parser/AbstractNode.h readData/parser/NumberNode.h readData/parser/VariableNode.h
