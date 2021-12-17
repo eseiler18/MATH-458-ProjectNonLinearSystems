@@ -64,12 +64,21 @@ If you have "gopen" on linux you can use :
 	
 If you are a looser on windows like Emilien, you can go to your file and open data.csv in "MATH-458-ProjectNonLinearSystems/build/project" folder. You will see the different exemple of function our project can handle, and the parameters you can input. Now lauch the main with no argument : it will take the "data.csv" file in input by default :
 	
-	./main_louis
+	./run
 
 Look the Answer on the terminal :<br/>
--First the warnings : They tell missing or incoherent element in the csv <br/>
--Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
+* First the warnings : They tell missing or incoherent element in the csv <br/>
+* Next the solutions find by the method. Note that the first column in the csv indicate the method you want to use, so it's normal that some function are resolved by only one method.
 	
+## Test your function : how to fill the csv
+### first column : Choose your method 
+* empty -> All the method
+* n for newton;
+* b for Bisection;
+* c for Classic Chord;
+* f for Fixed Point method
+sample: 
+> n;b;c  # newton, Chord and Bisection will be computed
 ## Test your function : how to fill the csv
 ### first column : Choose your method 
 empty -> All the method <br/>
@@ -77,9 +86,18 @@ n for newton; b for Bisection; c for Classic Chord; f for Fixed Point method <br
 Note that the letter must be separated by a semicolon ";"
 ### 2nd column : Choose the function 
  #### First option (simple function)  :
- Write the function in the column. Use x as variable. You can use ^ for power. You can use external function :  
- 	
-	exp(..) log(..) sqrt(..) cos(..) sin(..) tan(..) atan(..)
+ Write the function in the column.
+ Use
+ * x as variable
+ * ^ for power  
+ * You can use external function 
+   *  exp(..) 
+   * log(..) 
+   * sqrt(..) 
+   * cos(..) 
+   * sin(..) 
+   * tan(..) 
+   * atan(..)
 
  #### 2nd option : Use another cpp file  :
  Put the name of the function as it appears in the cpp file. You should also fill the 9th column by adding the Name of the cpp file.<br/>
@@ -106,8 +124,11 @@ The max number of step you will allow before stop the method. If you let this em
 Only when we use a external cpp for the function.
 
 ## Your turn to test 
-You can now use this csv file to put your own function. If you want to use your own csv, put it in the folder /build/project and launch the main_louis with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test as the main_louis will use this file by default if it has any argument.
-Note that lauch the main_louis will always read all the lignes and resolve for all the function in the CSV.
+You can now use this csv file to put your own function. If you want to use your own csv, put it in the folder /build/project and launch the main (  	```
+	./run
+	``` 
+)with the file name on argument. The simpliest way is to clear our exemple in the data.csv and use it for your test as the main will use this file by default if it has any argument.
+Note that lauch the main will always read all the lignes and resolve for all the function in the CSV.
 
 ## A note on the other main and Linear system
 You have maybe already see the other excecutable code, It represent our extension of our project : Solving system with newton Method. <br/>
@@ -126,6 +147,7 @@ The resolution of the equation is done with two main steps, the reading phase, a
 ## Reader
 Classes used to read the csv are in the [Project/ReadData](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData) folder, the main class is **ReaderData**. The role of this object is to read each row of the csv file to create **Data** structures (see [data.h](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/Data.h) which contain parameters of the numerical methods input by the user.
 The interesting aspects of the implementation concern the reading of functions (the equation and its derivative column 2 and 3 of the csvfile). The **AbstractInterpreterFunction** is a common interface which contain a pure virtual method _createExecutableFunction_. There are two way inputting the desire functions, from its mathematical expression or with C++ code in an external file. Each have a class which inherit from **AbstractInterpreterFunction** and the _createExecutbaleFunction_ method return an **AbstractNode** object (explain later) which is the executable function
+
 ### From mathematical expression
 Classes used to interpret function from expression are in the folder Project/ReadData/Parser.
 The following diagram explain the process passing from an expression to an executable function for the mathematic expression “x+3x^2*5”.
