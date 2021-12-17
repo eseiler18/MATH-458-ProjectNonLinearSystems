@@ -8,9 +8,14 @@
 #include "AbstractInterpreterFunction.h"
 #include "parser/Solver.h"
 
+/**
+ * Child of AbstractInterpreterFunction for the mathematics expression of the function as input.
+ * Here the functionName parameter is the expression of the function
+ */
 class InterpreterMathExpression: public AbstractInterpreterFunction{
 public:
     InterpreterMathExpression(std::string &expressionFunction):AbstractInterpreterFunction(expressionFunction){}
+    /// create the executable tree and return the root
     AbstractNode* createExecutableFunction() override{
         return Solver::strToFun(functionName);
     }
