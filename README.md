@@ -172,7 +172,7 @@ Nodes are created from the **AbstractNode** class which contains a pure virtual 
 ### From c++ code
 Accessing the function from c ++ code is much easier since the function is already built and can be interpreted by the program. To recover the function from an external cpp file we dynamically compile it with the _system_ command and create a library in the /tmp folder. The library is load and a function pointer is created from the name of the function in the cppfile. Then an **ExternalFunctionNode** which inherits of **AbstractNode** is created to fit with the common interface **AbstractInterpreterFunction** (a tree is built with just one vertex and value of the function can be access with the _solve_ method of **AbstractNode**).
 ## Solver
-All classes concerning solving step can be found in the folder project/solverMethods.
+All classes concerning solving step can be found in the folder [project/solverMethods](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/solverMethods).
 After the reading step, informations about the equation and the numerical methods are stored in a structure **Data** (see [data.h](https://github.com/eseiler18/MATH-458-ProjectNonLinearSystems/tree/main/project/readData/Data.h)).
 The equation is solved from an **AbstractSolveur** class which contains common element of all numerical methods (equation, tolerance, number of maximum iterations) and a pure virtual method call _SolveEquation_.<br>
 Then the four methods implemented have an associated class which inherits from **AbstractSolver**.  With polymorizm _SolveEquation_ method returns the result of the equation or an exception if the method doesn't converge.<br>
