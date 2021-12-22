@@ -112,13 +112,13 @@ Note that for the 2nd way, the function and its derivative have to be in the sam
 You can let this column empty if you don't want to use de Newton method. <br/>
 ### 4th and 5th column : Bounds   
 It's the lower and upper bound for the Bisection. You can let them empty if you don't want to use this method.
-### 6th Column : Initial Value
+### 6th column : Initial Value
 The initial value for Chord, Newton and fixed point. You can let it empty if you don't want to use these methods.
-### 7th Column : tolerance
+### 7th column : tolerance
 The exactness you want to reach with the method. If you let it empty, the tolerance will be set by default at 0.000001.
-### 8th Column : Max iteration
+### 8th column : Max iteration
 The maximum number of iteration you will allow before stoping the method. If you let it empty, the maximum iterations will be set by default at 10000.
-### 9th Column : External file name
+### 9th column : External file name
 Only when we use a external cpp for the function.
 
 ## Your turn to test 
