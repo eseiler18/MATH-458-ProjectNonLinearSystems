@@ -140,8 +140,7 @@ and it will solve the system :<br/>
 f1 = x0^2+x0*x1-10<br/>
 f2 = x1+3*x0*x1^2-57
 
-# Implementation
-#### Generate documentation
+## Generate documentation
 Come back in the root floder git MATH-458-ProjectNonLinearSystems
 To generate doxygen documentation:
 
@@ -151,6 +150,9 @@ To open the html web page:
 
 	cd html
 	firfox index.html
+	
+# Implementation
+
 
 The resolution of the equation is done with two main steps, the reading phase and the solving phase.
 ## Reader
